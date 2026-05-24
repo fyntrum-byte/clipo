@@ -1,0 +1,858 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+<title>Clipo</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#0a0c0f;--bg2:#111418;--bg3:#181d24;--bg4:#1e2530;
+  --acc:#00e5a0;--acc2:#00b87a;--acc3:rgba(0,229,160,.08);
+  --warn:#f5a623;--danger:#ff4757;--info:#4fc3f7;--pur:#a78bfa;
+  --txt:#f0f4f8;--txt2:#8899aa;--txt3:#4a5568;
+  --bd:rgba(255,255,255,.06);--bd2:rgba(0,229,160,.2);
+  --r:10px;--r2:16px;--fn:'Syne',sans-serif;--fb:'DM Sans',sans-serif;
+}
+html,body,#root{height:100%;background:var(--bg);color:var(--txt);font-family:var(--fb)}
+::-webkit-scrollbar{width:4px}::-webkit-scrollbar-thumb{background:var(--bg4);border-radius:4px}
+.app{display:flex;height:100vh;overflow:hidden}
+.sidebar{width:220px;min-width:220px;background:var(--bg2);border-right:1px solid var(--bd);display:flex;flex-direction:column;padding:20px 12px}
+.main{flex:1;overflow-y:auto;padding:28px 32px}
+.logo{display:flex;align-items:center;gap:10px;padding:0 8px;margin-bottom:28px}
+.lm{width:32px;height:32px;background:var(--acc);border-radius:8px;display:flex;align-items:center;justify-content:center}
+.ln{font-family:var(--fn);font-size:20px;font-weight:800;color:var(--txt);letter-spacing:-.5px}
+.ln span{color:var(--acc)}
+.ns{font-size:10px;font-weight:600;color:var(--txt3);letter-spacing:.12em;text-transform:uppercase;padding:0 8px;margin:16px 0 6px}
+.ni{display:flex;align-items:center;gap:10px;padding:9px 10px;border-radius:var(--r);cursor:pointer;transition:.15s;font-size:13px;color:var(--txt2);font-family:var(--fb);border:none;background:none;width:100%;text-align:left}
+.ni:hover{background:var(--bg3);color:var(--txt)}
+.ni.a{background:var(--acc3);color:var(--acc);font-weight:500}
+.nb{margin-left:auto;background:var(--acc);color:#000;font-size:10px;font-weight:700;padding:1px 6px;border-radius:20px}
+.sf{margin-top:auto;padding-top:16px;border-top:1px solid var(--bd)}
+.av{width:30px;height:30px;border-radius:50%;background:var(--acc);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:#000;flex-shrink:0}
+.card{background:var(--bg2);border:1px solid var(--bd);border-radius:var(--r2);padding:20px}
+.ca{background:var(--acc3);border:1px solid var(--bd2);border-radius:var(--r2);padding:20px}
+.cp{background:rgba(167,139,250,.06);border:1px solid rgba(167,139,250,.2);border-radius:var(--r2);padding:20px}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.g4{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+h1{font-family:var(--fn);font-size:22px;font-weight:700;color:var(--txt);letter-spacing:-.5px}
+h2{font-family:var(--fn);font-size:17px;font-weight:600;color:var(--txt)}
+h3{font-family:var(--fn);font-size:14px;font-weight:600;color:var(--txt)}
+.lbl{font-size:11px;font-weight:500;color:var(--txt3);letter-spacing:.06em;text-transform:uppercase}
+.mu{color:var(--txt2);font-size:13px}
+.at{color:var(--acc)}
+.btn{display:inline-flex;align-items:center;gap:7px;padding:9px 18px;border-radius:var(--r);border:none;cursor:pointer;font-family:var(--fb);font-size:13px;font-weight:500;transition:.15s}
+.ba{background:var(--acc);color:#000}.ba:hover{background:var(--acc2)}
+.bg{background:var(--bg3);color:var(--txt);border:1px solid var(--bd)}.bg:hover{border-color:var(--bd2);color:var(--acc)}
+.bp{background:rgba(167,139,250,.15);color:var(--pur);border:1px solid rgba(167,139,250,.25)}.bp:hover{background:rgba(167,139,250,.25)}
+.bdn{background:rgba(255,71,87,.1);color:var(--danger);border:1px solid rgba(255,71,87,.2)}
+.sm{padding:6px 12px;font-size:12px}
+.btn:disabled{opacity:.4;cursor:not-allowed}
+input,select,textarea{background:var(--bg3);border:1px solid var(--bd);border-radius:var(--r);color:var(--txt);font-family:var(--fb);font-size:13px;padding:9px 13px;width:100%;transition:.15s;outline:none}
+input:focus,select:focus,textarea:focus{border-color:var(--bd2)}
+input::placeholder,textarea::placeholder{color:var(--txt3)}
+select option{background:var(--bg3)}
+textarea{resize:vertical;min-height:80px}
+.fg{margin-bottom:14px}
+.fl{font-size:12px;font-weight:500;color:var(--txt2);margin-bottom:6px;display:block}
+.tw{display:flex;gap:4px;background:var(--bg3);border:1px solid var(--bd);border-radius:var(--r);padding:3px}
+.tb{padding:6px 14px;border-radius:7px;border:none;cursor:pointer;font-size:12px;font-weight:500;font-family:var(--fb);transition:.15s;background:none;color:var(--txt2)}
+.to{background:#1a3d2e;color:var(--acc)}.tp{background:#3d2a00;color:var(--warn)}
+.bdg{display:inline-flex;align-items:center;gap:4px;padding:3px 9px;border-radius:20px;font-size:11px;font-weight:500}
+.b1{background:rgba(0,229,160,.12);color:var(--acc)}.b2{background:rgba(245,166,35,.12);color:var(--warn)}
+.b3{background:rgba(79,195,247,.12);color:var(--info)}.b4{background:rgba(255,71,87,.12);color:var(--danger)}
+.b5{background:var(--bg4);color:var(--txt2)}.b6{background:rgba(167,139,250,.12);color:var(--pur)}
+.ph{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:24px}
+.dv{height:1px;background:var(--bd);margin:20px 0}
+.sb{background:var(--bg3);border:1px solid var(--bd);border-radius:var(--r2);padding:20px;white-space:pre-wrap;font-size:13px;line-height:1.8;color:var(--txt);max-height:400px;overflow-y:auto}
+.se{background:var(--bg4);border:1px solid var(--bd);border-radius:var(--r);padding:14px;font-size:12.5px;line-height:1.8;color:var(--txt2)}
+.hi{background:var(--bg3);border:1px solid var(--bd);border-radius:var(--r);padding:12px 14px;font-size:13px;display:flex;gap:10px;cursor:pointer;transition:.15s}
+.hi:hover{border-color:var(--bd2)}
+.hn{font-family:var(--fn);font-size:11px;font-weight:700;color:var(--acc);min-width:20px}
+@keyframes pu{0%,100%{opacity:.4}50%{opacity:1}}
+.lb{height:3px;background:var(--acc);animation:pu 1.5s infinite;border-radius:2px;margin-bottom:12px}
+.lp{height:3px;background:var(--pur);animation:pu 1.5s infinite;border-radius:2px;margin-bottom:12px}
+.ow{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:40px 20px}
+.oc{background:var(--bg2);border:1px solid var(--bd);border-radius:24px;padding:40px;max-width:560px;width:100%}
+.ct{width:100%;border-collapse:collapse;font-size:13px}
+.ct th{text-align:left;padding:8px 12px;color:var(--txt3);font-weight:500;font-size:11px;letter-spacing:.06em;text-transform:uppercase;border-bottom:1px solid var(--bd)}
+.ct td{padding:10px 12px;border-bottom:1px solid var(--bd);color:var(--txt)}
+.ct tr:last-child td{border-bottom:none}
+.di{background:rgba(255,71,87,.05);border:1px solid rgba(255,71,87,.15);border-radius:var(--r);padding:14px;font-size:12px;color:var(--txt2);line-height:1.7;margin-top:16px}
+.as{display:flex;gap:14px;padding:14px 0;border-bottom:1px solid var(--bd)}.as:last-child{border-bottom:none}
+.sn{width:26px;height:26px;border-radius:50%;background:var(--acc);color:#000;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;flex-shrink:0;margin-top:2px}
+.tabs{display:flex;gap:4px;background:var(--bg3);border:1px solid var(--bd);border-radius:var(--r);padding:3px;margin-bottom:16px}
+.tab{padding:7px 14px;border-radius:7px;border:none;cursor:pointer;font-size:12px;font-weight:500;font-family:var(--fb);transition:.15s;background:none;color:var(--txt2)}
+.tab.ac{background:var(--bg2);color:var(--acc);border:1px solid var(--bd2)}
+.tg{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:16px}
+.tgb{background:var(--bg3);border:1px solid var(--bd);border-radius:var(--r);padding:10px 8px;text-align:center;cursor:pointer;transition:.15s;font-size:11px;font-weight:500;color:var(--txt2);font-family:var(--fb)}
+.tgb:hover{border-color:var(--bd2);color:var(--acc)}.tgb.ac{background:var(--acc3);border-color:var(--bd2);color:var(--acc)}
+.tn{font-weight:700;font-size:12px;display:block;margin-bottom:2px}.td{font-size:9.5px;opacity:.7;display:block}
+.mb{display:flex;align-items:center;justify-content:space-between;background:var(--bg3);border:1px solid var(--bd);border-radius:var(--r);padding:10px 14px;margin-bottom:16px}
+.mb.py{background:rgba(245,166,35,.05);border-color:rgba(245,166,35,.2)}
+.cg{display:grid;grid-template-columns:repeat(7,1fr);gap:8px}
+.cd{background:var(--bg3);border:1px solid var(--bd);border-radius:var(--r);padding:10px;min-height:80px;cursor:pointer;transition:.15s}
+.cd:hover,.cd.td2{border-color:var(--acc)}
+.cdn{font-size:10px;font-weight:600;color:var(--txt3);text-transform:uppercase;letter-spacing:.06em}
+.cdt{font-size:11px;color:var(--acc);font-weight:500;line-height:1.4;margin-top:6px}
+.hd{display:flex;align-items:center;gap:8px;padding:8px 0;border-bottom:1px solid var(--bd)}.hd:last-child{border-bottom:none}
+.hdd{width:6px;height:6px;border-radius:50%;background:var(--acc);flex-shrink:0}
+.hdt{font-size:12px;color:var(--txt2);flex:1}.hdd2{font-size:10px;color:var(--txt3)}
+.li{background:var(--bg2);border:1px solid var(--bd);border-radius:var(--r2);padding:16px}
+.ch{padding:3px 9px;border-radius:20px;font-size:11px;background:var(--bg4);color:var(--txt2);border:1px solid var(--bd)}
+.mc{background:var(--bg2);border:1px solid var(--bd);border-radius:var(--r2);padding:18px}
+.mv{font-family:var(--fn);font-size:24px;font-weight:700;margin:4px 0}
+.up{color:var(--acc)}.dn{color:var(--danger)}
+@keyframes su{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+.nt{position:fixed;bottom:24px;right:24px;background:var(--bg2);border:1px solid var(--bd2);border-radius:var(--r);padding:12px 18px;font-size:13px;color:var(--acc);z-index:999;animation:su .25s ease}
+.adv{border-radius:var(--r);padding:14px 16px;margin-bottom:10px}
+.aw{background:rgba(0,229,160,.06);border:1px solid rgba(0,229,160,.15)}
+.ai2{background:rgba(245,166,35,.06);border:1px solid rgba(245,166,35,.15)}
+.ast{background:rgba(255,71,87,.06);border:1px solid rgba(255,71,87,.15)}
+.ak{background:rgba(167,139,250,.08);border:1px solid rgba(167,139,250,.2)}
+.at2{font-family:var(--fn);font-size:12px;font-weight:700;margin-bottom:6px}
+.ab{font-size:12.5px;line-height:1.8;white-space:pre-wrap}
+.aw .at2{color:var(--acc)}.aw .ab{color:rgba(0,229,160,.85)}
+.ai2 .at2{color:var(--warn)}.ai2 .ab{color:rgba(245,166,35,.85)}
+.ast .at2{color:var(--danger)}.ast .ab{color:rgba(255,71,87,.85)}
+.ak .at2{color:var(--pur)}.ak .ab{color:rgba(167,139,250,.9)}
+.bw{display:flex;align-items:flex-end;gap:6px;height:110px;padding-top:8px}
+.bc{display:flex;flex-direction:column;align-items:center;flex:1;gap:3px;height:100%}
+.bi2{width:100%;border-radius:4px 4px 0 0;min-height:3px;transition:.5s}
+.bl{font-size:9px;color:var(--txt3);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%;text-align:center}
+.bv{font-size:10px;color:var(--txt2);font-family:var(--fn)}
+</style>
+</head>
+<body>
+<div id="root"></div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.production.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js"></script>
+<script>
+var R=React,RD=ReactDOM;
+var useState=R.useState,useEffect=R.useEffect;
+var E=R.createElement;
+
+var INDS=["Trading & Finanzas","Fitness & Salud","Gastronomia & Food","Coaching personal","Moda & Lifestyle","Marketing Digital","Tecnologia & SaaS","Derecho & Consultoria","Bienes Raices","Educacion & Cursos","Belleza & Estetica","Fotografia & Diseno","Viajes & Turismo","Emprendimiento","Otro"];
+var PLATS=["Instagram","TikTok","Ambas"];
+var TECHS=[
+  {id:"PAS",n:"PAS",d:"Problema-Agitacion-Solucion"},
+  {id:"AIDA",n:"AIDA",d:"Atencion-Interes-Deseo-Accion"},
+  {id:"BAB",n:"Before/After",d:"Antes-Despues-Puente"},
+  {id:"4U",n:"4U",d:"Urgente Unico Util Especifico"},
+  {id:"STORY",n:"Story Selling",d:"Historia que vende"},
+  {id:"OBJ",n:"Objecion",d:"Rebate el mayor miedo"},
+  {id:"START",n:"S.T.A.R.T",d:"Setup-Tension-Action-Result"},
+  {id:"HOOK",n:"Hook Viral",d:"Gancho + CTA fulminante"},
+];
+var DAYS=["Lun","Mar","Mie","Jue","Vie","Sab","Dom"];
+var DTOP=["Macro & Mercados","Herramientas practicas","Dia de marca","Mentalidad & errores","Analisis tecnico","Dia de marca 2","Finanzas personales"];
+var NAV=[{id:"inicio",ic:"⚡",lb:"Inicio"},{id:"engine",ic:"✍️",lb:"Script Engine"},{id:"calendar",ic:"📅",lb:"Calendario"},{id:"client",ic:"👥",lb:"Client Mode"},{id:"library",ic:"📚",lb:"Biblioteca"},{id:"metrics",ic:"📊",lb:"Metricas"}];
+
+function ls(k,d){try{var v=localStorage.getItem(k);return v?JSON.parse(v):d}catch(e){return d}}
+function lss(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}
+
+async function claude(key,sys,msg,search){
+  var body={model:"claude-sonnet-4-20250514",max_tokens:3000,system:sys,messages:[{role:"user",content:msg}]};
+  if(search)body.tools=[{type:"web_search_20250305",name:"web_search"}];
+  var r=await fetch("https://api.anthropic.com/v1/messages",{
+    method:"POST",
+    headers:{"Content-Type":"application/json","x-api-key":key,"anthropic-version":"2023-06-01","anthropic-dangerous-direct-browser-access":"true"},
+    body:JSON.stringify(body)
+  });
+  if(!r.ok){var e=await r.json();throw new Error(e.error&&e.error.message||"Error de API")}
+  var d=await r.json();
+  return d.content.filter(function(b){return b.type==="text"}).map(function(b){return b.text}).join("\n");
+}
+
+function parseS(txt){
+  function get(tag){var m=txt.match(new RegExp("\\["+tag+"\\]([\\s\\S]*?)\\[/"+tag+"\\]"));return m?m[1].trim():""}
+  return{script:get("SCRIPT")||txt,ig:get("SEO_IG"),tt:get("SEO_TT")};
+}
+
+function BarChart(props){
+  var data=props.data,key=props.dk,color=props.color,lk=props.lk;
+  if(!data||data.length===0)return E("p",{className:"mu",style:{fontSize:12,padding:"16px 0"}},"Sin datos aun");
+  var max=Math.max.apply(null,data.map(function(d){return d[key]||0}))||1;
+  return E("div",{className:"bw"},data.map(function(d,i){
+    var pct=((d[key]||0)/max*100);
+    return E("div",{key:i,className:"bc"},
+      E("span",{className:"bv"},d[key]?d[key].toLocaleString():"0"),
+      E("div",{style:{flex:1,display:"flex",alignItems:"flex-end",width:"100%"}},
+        E("div",{className:"bi2",style:{height:Math.max(pct,3)+"%",background:color,opacity:.85}})
+      ),
+      E("span",{className:"bl"},d[lk]||"")
+    );
+  }));
+}
+
+function LineChart(props){
+  var data=props.data,key=props.dk,color=props.color,lk=props.lk;
+  if(!data||data.length<2)return E("p",{className:"mu",style:{fontSize:12,padding:"16px 0"}},"Necesitas al menos 2 semanas de datos.");
+  var vals=data.map(function(d){return d[key]||0});
+  var max=Math.max.apply(null,vals)||1,min=Math.min.apply(null,vals);
+  var W=400,H=100,pad=8;
+  var pts=vals.map(function(v,i){
+    return[pad+(i/(vals.length-1))*(W-pad*2),H-pad-((v-min)/(max-min||1))*(H-pad*2)];
+  });
+  var path="M"+pts.map(function(p){return p.join(",")}).join(" L");
+  var area=path+" L"+pts[pts.length-1][0]+","+(H-pad)+" L"+pts[0][0]+","+(H-pad)+" Z";
+  return E("svg",{viewBox:"0 0 "+W+" "+H,style:{width:"100%",height:120}},
+    E("defs",null,E("linearGradient",{id:"g"+key,x1:"0",y1:"0",x2:"0",y2:"1"},
+      E("stop",{offset:"0%",stopColor:color,stopOpacity:.3}),
+      E("stop",{offset:"100%",stopColor:color,stopOpacity:0})
+    )),
+    E("path",{d:area,fill:"url(#g"+key+")"}),
+    E("path",{d:path,fill:"none",stroke:color,strokeWidth:2,strokeLinejoin:"round"}),
+    pts.map(function(pt,i){
+      return E(R.Fragment,{key:i},
+        E("circle",{cx:pt[0],cy:pt[1],r:3,fill:color}),
+        E("text",{x:pt[0],y:H-1,textAnchor:"middle",fill:"#4a5568",fontSize:8},data[i][lk]?data[i][lk].toString().slice(0,6):"")
+      );
+    })
+  );
+}
+
+// APP
+function App(){
+  var _k=useState(function(){return ls("clipo_key","")});
+  var apiKey=_k[0],setApiKey=_k[1];
+  var _p=useState(function(){return ls("clipo_profile",null)});
+  var profile=_p[0],setProfile=_p[1];
+  var _st=useState(function(){
+    if(ls("clipo_key","")&&ls("clipo_profile",null))return 2;
+    if(ls("clipo_key",""))return 1;
+    return 0;
+  });
+  var step=_st[0],setStep=_st[1];
+  var _n=useState("inicio");var nav=_n[0],setNav=_n[1];
+  var _lb=useState(function(){return ls("clipo_lib",[])});var lib=_lb[0],setLib=_lb[1];
+  var _h=useState(function(){return ls("clipo_hist",[])});var hist=_h[0],setHist=_h[1];
+  var _ct=useState(function(){return ls("clipo_cal",DTOP.slice())});var cal=_ct[0],setCal=_ct[1];
+  var _m=useState(function(){return ls("clipo_met",{ig:[],tt:[]})});var met=_m[0],setMet=_m[1];
+  var _cl=useState(function(){return ls("clipo_cli",[])});var clients=_cl[0],setClients=_cl[1];
+  var _nt=useState(null);var notif=_nt[0],setNotif=_nt[1];
+
+  useEffect(function(){lss("clipo_lib",lib)},[lib]);
+  useEffect(function(){lss("clipo_hist",hist)},[hist]);
+  useEffect(function(){lss("clipo_cal",cal)},[cal]);
+  useEffect(function(){lss("clipo_met",met)},[met]);
+  useEffect(function(){lss("clipo_cli",clients)},[clients]);
+
+  function toast(msg){setNotif(msg);setTimeout(function(){setNotif(null)},3000)}
+  function saveLib(item){setLib(function(p){return [{...item,id:Date.now(),savedAt:new Date().toLocaleDateString()}].concat(p)});toast("Guardado en biblioteca")}
+  function addHist(topic){setHist(function(p){return [{topic:topic,date:new Date().toLocaleDateString()}].concat(p.filter(function(t){return t.topic!==topic})).slice(0,30)})}
+
+  if(step<2)return E(Onboard,{apiKey:apiKey,setApiKey:setApiKey,step:step,setStep:setStep,setProfile:setProfile});
+
+  return E("div",{className:"app"},
+    E("aside",{className:"sidebar"},
+      E("div",{className:"logo"},
+        E("div",{className:"lm"},E("svg",{viewBox:"0 0 24 24",fill:"#000",width:18,height:18},E("path",{d:"M13 2L3 14h9l-1 8 10-12h-9l1-8z"}))),
+        E("span",{className:"ln"},"Cli",E("span",null,"po"))
+      ),
+      E("span",{className:"ns"},"Principal"),
+      NAV.slice(0,3).map(function(n){
+        return E("button",{key:n.id,className:"ni"+(nav===n.id?" a":""),onClick:function(){setNav(n.id)}},
+          E("span",{style:{fontSize:15}},n.ic),n.lb,
+          n.id==="library"&&lib.length>0?E("span",{className:"nb"},lib.length):null
+        );
+      }),
+      E("span",{className:"ns"},"Herramientas"),
+      NAV.slice(3).map(function(n){
+        return E("button",{key:n.id,className:"ni"+(nav===n.id?" a":""),onClick:function(){setNav(n.id)}},
+          E("span",{style:{fontSize:15}},n.ic),n.lb,
+          n.id==="library"&&lib.length>0?E("span",{className:"nb"},lib.length):null
+        );
+      }),
+      E("div",{className:"sf"},
+        E("div",{style:{display:"flex",alignItems:"center",gap:8}},
+          E("div",{className:"av"},profile&&profile.name?profile.name[0].toUpperCase():"U"),
+          E("div",null,
+            E("div",{style:{fontSize:12,fontWeight:500,color:"var(--txt)"}},profile&&profile.name||"Mi perfil"),
+            E("div",{style:{fontSize:10,color:"var(--txt3)"}},profile&&profile.industry||"Creador")
+          )
+        )
+      )
+    ),
+    E("main",{className:"main"},
+      nav==="inicio"?E(PInicio,{profile:profile,apiKey:apiKey,cal:cal,hist:hist,addHist:addHist,saveLib:saveLib,toast:toast}):null,
+      nav==="engine"?E(PEngine,{profile:profile,apiKey:apiKey,hist:hist,addHist:addHist,saveLib:saveLib,toast:toast}):null,
+      nav==="calendar"?E(PCal,{cal:cal,setCal:setCal}):null,
+      nav==="client"?E(PClient,{clients:clients,setClients:setClients,apiKey:apiKey,saveLib:saveLib,toast:toast}):null,
+      nav==="library"?E(PLib,{lib:lib,setLib:setLib,toast:toast}):null,
+      nav==="metrics"?E(PMet,{met:met,setMet:setMet,profile:profile,apiKey:apiKey,toast:toast}):null
+    ),
+    notif?E("div",{className:"nt"},notif):null
+  );
+}
+
+// ONBOARD
+function Onboard(props){
+  var apiKey=props.apiKey,setApiKey=props.setApiKey,step=props.step,setStep=props.setStep,setProfile=props.setProfile;
+  var _k=useState(apiKey||"");var key=_k[0],setKey=_k[1];
+  var _t=useState(false);var testing=_t[0],setTesting=_t[1];
+  var _e=useState("");var err=_e[0],setErr=_e[1];
+  var _pr=useState({name:"",industry:"Trading & Finanzas",product:"",audience:"",platform:"Ambas"});
+  var prof=_pr[0],setProf=_pr[1];
+
+  async function testKey(){
+    if(!key.trim()){setErr("Ingresa tu API key");return}
+    setTesting(true);setErr("");
+    try{
+      await claude(key,"You are helpful.","Say OK");
+      lss("clipo_key",key);setApiKey(key);setStep(1);
+    }catch(e){setErr("API key invalida. Verifica en console.anthropic.com")}
+    setTesting(false);
+  }
+  function saveP(){
+    if(!prof.name.trim()||!prof.product.trim()||!prof.audience.trim()){setErr("Completa todos los campos");return}
+    lss("clipo_profile",prof);setProfile(prof);setStep(2);
+  }
+
+  return E("div",{className:"ow"},
+    E("div",{className:"oc"},
+      E("div",{style:{display:"flex",alignItems:"center",gap:10,marginBottom:28}},
+        E("div",{className:"lm",style:{width:38,height:38}},E("svg",{viewBox:"0 0 24 24",fill:"#000",width:20,height:20},E("path",{d:"M13 2L3 14h9l-1 8 10-12h-9l1-8z"}))),
+        E("span",{className:"ln",style:{fontSize:24}},"Cli",E("span",null,"po")),
+        E("span",{style:{fontSize:11,background:"var(--acc3)",color:"var(--acc)",padding:"3px 9px",borderRadius:20,border:"1px solid var(--bd2)"}},"AI Content OS")
+      ),
+      E("div",{style:{display:"flex",gap:8,marginBottom:28}},
+        [0,1].map(function(i){return E("div",{key:i,style:{height:3,flex:step>=i?2:1,borderRadius:2,background:step>i?"var(--acc2)":step===i?"var(--acc)":"var(--bg4)",transition:".3s"}})})
+      ),
+      step===0?E(R.Fragment,null,
+        E("h2",{style:{marginBottom:4}},"Conecta tu API de Claude"),
+        E("p",{className:"mu",style:{marginBottom:24,lineHeight:1.6}},"Clipo usa tu propia cuenta de Anthropic. Tu pagas tu consumo directamente."),
+        E("div",{style:{marginBottom:20}},
+          [{t:"Crea tu cuenta",d:E("span",null,E("a",{href:"https://console.anthropic.com",target:"_blank",style:{color:"var(--acc)"}},"console.anthropic.com")," - Sign up - Verifica tu email")},
+           {t:"Agrega credito minimo",d:"Billing - Add credits - minimo $5 USD (te dura meses)"},
+           {t:"Copia tu API key",d:"API Keys - Create key - copia y pega abajo"}
+          ].map(function(s,i){return E("div",{key:i,className:"as"},E("div",{className:"sn"},i+1),E("div",null,E("h3",{style:{marginBottom:3}},s.t),E("p",{className:"mu",style:{fontSize:12}},s.d)))})
+        ),
+        E("div",{className:"fg"},E("label",{className:"fl"},"Tu API Key de Anthropic"),E("input",{type:"password",placeholder:"sk-ant-api...",value:key,onChange:function(e){setKey(e.target.value)}})),
+        err?E("p",{style:{color:"var(--danger)",fontSize:12,marginBottom:10}},err):null,
+        E("button",{className:"btn ba",style:{width:"100%",justifyContent:"center",padding:12},onClick:testKey,disabled:testing},testing?"Verificando...":"Verificar y continuar"),
+        E("div",{className:"dv"}),
+        E("p",{style:{fontSize:12,fontWeight:600,color:"var(--warn)",marginBottom:10}},"Costo estimado por tu uso"),
+        E("table",{className:"ct"},
+          E("thead",null,E("tr",null,E("th",null,"Guiones / mes"),E("th",null,"Tipo"),E("th",{style:{textAlign:"right"}},"Costo API aprox."))),
+          E("tbody",null,[["30 guiones","Uso ligero","~$0.60"],["60 guiones","Uso normal","~$1.20"],["100 guiones","Uso intenso","~$2.00"],["200+ guiones","Agencia","~$4.00"]].map(function(r){
+            return E("tr",{key:r[0]},E("td",null,r[0]),E("td",{style:{color:"var(--txt2)"}},r[1]),E("td",{style:{color:"var(--acc)",textAlign:"right"}},r[2]));
+          }))
+        ),
+        E("div",{className:"di"},E("strong",{style:{color:"var(--danger)"}},"Disclaimer: "),"El costo de la API de Anthropic es responsabilidad exclusiva del usuario. Clipo no tiene acceso a tu cuenta de Anthropic ni a los cargos que generes. Consulta precios en anthropic.com/pricing.")
+      ):E(R.Fragment,null,
+        E("h2",{style:{marginBottom:4}},"Crea tu perfil de marca"),
+        E("p",{className:"mu",style:{marginBottom:24,lineHeight:1.6}},"Esto personaliza TODO el contenido. Sin perfil = contenido generico para cualquier persona."),
+        E("div",{className:"fg"},E("label",{className:"fl"},"Tu nombre o marca"),E("input",{placeholder:"Ej: Kevin / Fyntrum",value:prof.name,onChange:function(e){setProf({...prof,name:e.target.value})}})),
+        E("div",{className:"fg"},E("label",{className:"fl"},"A que te dedicas?"),E("select",{value:prof.industry,onChange:function(e){setProf({...prof,industry:e.target.value})}},INDS.map(function(i){return E("option",{key:i,value:i},i)}))),
+        E("div",{className:"fg"},E("label",{className:"fl"},"Que vendes o ofreces?"),E("input",{placeholder:"Ej: Membresias de trading, indicador FT01",value:prof.product,onChange:function(e){setProf({...prof,product:e.target.value})}})),
+        E("div",{className:"fg"},E("label",{className:"fl"},"A quien le hablas? (audiencia)"),E("input",{placeholder:"Ej: Traders latinos 25-40 que quieren independencia",value:prof.audience,onChange:function(e){setProf({...prof,audience:e.target.value})}})),
+        E("div",{className:"fg"},E("label",{className:"fl"},"Plataforma principal"),E("select",{value:prof.platform,onChange:function(e){setProf({...prof,platform:e.target.value})}},PLATS.map(function(p){return E("option",{key:p,value:p},p)}))),
+        err?E("p",{style:{color:"var(--danger)",fontSize:12,marginBottom:10}},err):null,
+        E("button",{className:"btn ba",style:{width:"100%",justifyContent:"center",padding:12},onClick:saveP},"Entrar a Clipo")
+      )
+    )
+  );
+}
+
+// PAGE INICIO
+function PInicio(props){
+  var profile=props.profile,apiKey=props.apiKey,cal=props.cal,hist=props.hist,addHist=props.addHist,saveLib=props.saveLib,toast=props.toast;
+  var ti=new Date().getDay()===0?6:new Date().getDay()-1;
+  var todayTopic=cal[ti]||"Contenido del dia";
+  var _ov=useState("");var ov=_ov[0],setOv=_ov[1];
+  var _bf=useState("");var bf=_bf[0],setBf=_bf[1];
+  var _bl=useState(false);var bl=_bl[0],setBl=_bl[1];
+  var _sc=useState("");var sc=_sc[0],setSc=_sc[1];
+  var _sl=useState(false);var sl=_sl[0],setSl=_sl[1];
+  var act=ov.trim()||todayTopic;
+
+  async function getBrief(){
+    setBl(true);setBf("");
+    try{
+      var sys="Eres el radar de tendencias de Clipo para "+profile.industry+". Marca: "+profile.name+". Producto: "+profile.product+". Audiencia: "+profile.audience+".\nGenera briefing del dia. Formato:\nTENDENCIA 1: [tendencia viral hoy]\nTENDENCIA 2: [segunda tendencia]\nTENDENCIA 3: [tercera]\nANGULO HOY: [angulo mas poderoso para "+profile.name+"]\nOPORTUNIDAD: [por que publicar ahora]\nEVITAR: [que evitar hoy]";
+      var txt=await claude(apiKey,sys,"Briefing para "+profile.industry+". Tema del dia: "+act,true);
+      setBf(txt);
+    }catch(e){setBf("Error: "+e.message)}
+    setBl(false);
+  }
+
+  async function quickGen(){
+    setSl(true);setSc("");
+    var recent=hist.slice(0,10).map(function(h){return h.topic}).join(", ");
+    try{
+      var sys="Eres el generador de Clipo.\nMARCA: "+profile.name+" | "+profile.industry+" | Producto: "+profile.product+" | Audiencia: "+profile.audience+" | "+profile.platform+"\nANTI-REDUNDANCIA: NO repitas estos temas: ["+( recent||"ninguno")+"].\nANTI-GENERICO: Cada frase ultra-especifica para "+profile.audience+". Sin motivacion vacia.\nUsa tecnica PAS. Responde:\n[SCRIPT]\nHOOK (0-3 seg): [hook]\nGUION PAS: [guion max 60 seg]\n[/SCRIPT]\n[SEO_IG][150-200 palabras, emojis, CTA, 20 hashtags][/SEO_IG]\n[SEO_TT][80-100 palabras, 15 hashtags][/SEO_TT]";
+      var txt=await claude(apiKey,sys,"Tema: "+act);
+      setSc(txt);addHist(act);
+    }catch(e){setSc("Error: "+e.message)}
+    setSl(false);
+  }
+
+  var p=parseS(sc);
+  return E("div",null,
+    E("div",{className:"ph"},
+      E("div",null,E("h1",null,"Buenos dias"),E("p",{className:"mu"},"Tema: ",E("span",{className:"at"},act))),
+      E("div",{style:{display:"flex",gap:8}},
+        E("button",{className:"btn bg sm",onClick:getBrief,disabled:bl},bl?"Cargando...":"Briefing del dia"),
+        E("button",{className:"btn ba sm",onClick:quickGen,disabled:sl},sl?"Generando...":"Guion rapido")
+      )
+    ),
+    E("div",{className:"ca",style:{marginBottom:20}},
+      E("h3",{style:{marginBottom:8,color:"var(--acc)"}},"Override urgente - Cambia el tema de hoy"),
+      E("p",{className:"mu",style:{fontSize:12,marginBottom:10}},"Paso algo importante hoy? Reemplaza el tema asignado:"),
+      E("div",{style:{display:"flex",gap:8}},
+        E("input",{placeholder:"Ej: El oro rompio maximo historico...",value:ov,onChange:function(e){setOv(e.target.value)},style:{flex:1}}),
+        ov?E("button",{className:"btn bg sm",onClick:function(){setOv("")}},"X"):null
+      )
+    ),
+    E("div",{className:"g2",style:{marginBottom:20}},
+      E("div",{className:"card"},
+        E("h3",{style:{marginBottom:12}},"Tendencias del dia"),
+        bl?E("div",null,E("div",{className:"lb"}),E("p",{className:"mu",style:{fontSize:12}},"Buscando en tiempo real...")):null,
+        !bl&&!bf?E("p",{className:"mu",style:{fontSize:12,lineHeight:1.7}},"Haz clic en Briefing del dia para ver tendencias actuales de "+profile.industry+"."):null,
+        bf?E("div",{style:{fontSize:12.5,lineHeight:1.9,color:"var(--txt2)",whiteSpace:"pre-wrap"}},bf):null
+      ),
+      E("div",{className:"card"},
+        E("h3",{style:{marginBottom:12}},"Anti-redundancia - Temas recientes"),
+        hist.length===0?E("p",{className:"mu",style:{fontSize:12,lineHeight:1.7}},"El sistema recuerda tus ultimos 30 temas para que nunca repitas contenido."):null,
+        hist.slice(0,8).map(function(h,i){return E("div",{key:i,className:"hd"},E("div",{className:"hdd"}),E("span",{className:"hdt"},h.topic),E("span",{className:"hdd2"},h.date))})
+      )
+    ),
+    sc?E("div",{className:"card"},
+      E("div",{style:{display:"flex",justifyContent:"space-between",alignItems:"center",marginBottom:14}},
+        E("h3",null,"Guion rapido - "+act),
+        E("div",{style:{display:"flex",gap:8}},
+          E("button",{className:"btn bg sm",onClick:function(){navigator.clipboard.writeText(p.script).then(function(){toast("Copiado")})}},"Copiar"),
+          E("button",{className:"btn ba sm",onClick:function(){saveLib({content:sc,technique:"PAS",mode:"organic",topic:act})}},"Guardar")
+        )
+      ),
+      sl?E("div",{className:"lb"}):null,
+      E("div",{className:"sb"},p.script||sc),
+      p.ig?E(R.Fragment,null,E("div",{style:{margin:"12px 0 6px"}},E("span",{className:"bdg b4"},"SEO Instagram")),E("div",{className:"se"},p.ig)):null,
+      p.tt?E(R.Fragment,null,E("div",{style:{margin:"10px 0 6px"}},E("span",{className:"bdg b3"},"SEO TikTok")),E("div",{className:"se"},p.tt)):null
+    ):null
+  );
+}
+
+// PAGE ENGINE
+function PEngine(props){
+  var profile=props.profile,apiKey=props.apiKey,hist=props.hist,addHist=props.addHist,saveLib=props.saveLib,toast=props.toast;
+  var _m=useState("organic");var mode=_m[0],setMode=_m[1];
+  var _t=useState("PAS");var tech=_t[0],setTech=_t[1];
+  var _tp=useState("");var topic=_tp[0],setTopic=_tp[1];
+  var _ex=useState("");var extra=_ex[0],setExtra=_ex[1];
+  var _r=useState(null);var result=_r[0],setResult=_r[1];
+  var _l=useState(false);var loading=_l[0],setLoading=_l[1];
+  var _tb=useState("script");var tab=_tb[0],setTab=_tb[1];
+  var _hk=useState(null);var hooks=_hk[0],setHooks=_hk[1];
+  var _hl=useState(false);var hload=_hl[0],setHload=_hl[1];
+
+  var TP={
+    PAS:"PAS: Problema (dolor exacto de "+profile.audience+") -> Agitacion (consecuencias de no resolver) -> Solucion ("+profile.product+" como salida especifica)",
+    AIDA:"AIDA: Atencion (hook 2 seg) -> Interes (dato o historia) -> Deseo (transformacion que quieren) -> Accion (CTA claro)",
+    BAB:"Before/After/Bridge: Antes (realidad dolorosa actual) -> Despues (vida transformada especifica) -> Puente (como llegar con "+profile.product+")",
+    "4U":"4U: Urgente (por que AHORA) -> Unico (solo "+profile.name+" lo ofrece) -> Util (beneficio tangible) -> Ultra-especifico (datos concretos, no vaguedades)",
+    STORY:"Story Selling estilo Hormozi: Historia personal -> Momento de quiebre -> Leccion -> Oferta como consecuencia natural",
+    OBJ:"Objecion directa: Nombra la objecion mas grande -> Validala con empatia -> Destruyela con evidencia -> Redirige a "+profile.product,
+    START:"S.T.A.R.T: Setup -> Tension -> Action -> Result (con datos) -> Transformation (cambio de vida)",
+    HOOK:"Hook Viral: Gancho devastador 3-5 seg + 15 seg de valor + CTA fulminante. El hook ES el contenido."
+  };
+  var MP=mode==="pauta"?"MODO PAUTA - POLITICAS META ADS & TIKTOK ADS:\nPROHIBIDO: garantias, % retorno, 'ganarás dinero', superlativos no verificables, urgencia falsa.\nCTAs PERMITIDOS: Conoce mas, Aprende como, Descubrelo, Solicita informacion.\nESTRUCTURA: Hook 0-3s - Valor 3-12s - CTA 12-15s. Marca con: APTO PARA PAUTA":"MODO ORGANICO.";
+
+  async function gen(){
+    if(!topic.trim()){toast("Escribe un tema");return}
+    setLoading(true);setResult(null);setHooks(null);setTab("script");
+    var recent=hist.slice(0,15).map(function(h){return h.topic}).join(", ");
+    var sys="Eres el generador de guiones de Clipo.\nPERFIL: "+profile.name+" | "+profile.industry+" | "+profile.product+" | Audiencia: "+profile.audience+" | "+profile.platform+"\nANTI-REDUNDANCIA: NO repitas angulo de: ["+(recent||"ninguno")+"].\nANTI-GENERICO: Cada frase ultra-especifica para "+profile.audience+". Prohibido motivacion vacia.\nTECNICA: "+TP[tech]+"\n"+MP+"\nFORMATO OBLIGATORIO:\n[SCRIPT]\nHOOK (0-3 seg): [hook]\nGUION ("+tech+"): [guion max 60 seg]"+(mode==="pauta"?"\nAPTO PARA PAUTA":"")+"\n[/SCRIPT]\n[SEO_IG][150-200 palabras, emojis, CTA, 20 hashtags][/SEO_IG]\n[SEO_TT][80-100 palabras directas, 15 hashtags][/SEO_TT]";
+    try{
+      var txt=await claude(apiKey,sys,"Tema: "+topic+(extra?"\nContexto: "+extra:""));
+      setResult(txt);addHist(topic);
+    }catch(e){setResult("Error: "+e.message)}
+    setLoading(false);
+  }
+
+  async function genHooks(){
+    if(!result)return;
+    setHload(true);setHooks(null);
+    try{
+      var p=parseS(result);
+      var txt=await claude(apiKey,"Eres el Hook Lab de Clipo. Genera 10 hooks completamente distintos (estructura, emocion, angulo diferente). Audiencia: "+profile.audience+". "+(mode==="pauta"?"MODO PAUTA: cumple politicas Meta y TikTok Ads.":"")+" Numera del 1 al 10.","Guion:\n"+p.script+"\nTema: "+topic);
+      setHooks(txt.split("\n").filter(function(l){return /^\d+[.)]\s/.test(l)}).map(function(l){return l.replace(/^\d+[.)]\s*/,"")}));
+    }catch(e){toast("Error en Hook Lab")}
+    setHload(false);
+  }
+
+  var p=result?parseS(result):{script:"",ig:"",tt:""};
+  return E("div",null,
+    E("div",{className:"ph"},E("div",null,E("h1",null,"Script Engine"),E("p",{className:"mu"},"Guiones con tecnicas de copy que convierten"))),
+    E("div",{className:"mb"+(mode==="pauta"?" py":"")},
+      E("div",null,
+        E("span",{style:{fontSize:13,fontWeight:600,color:mode==="pauta"?"var(--warn)":"var(--acc)"}},mode==="organic"?"Modo Organico":"Modo Pauta"),
+        E("p",{style:{fontSize:11,color:"var(--txt2)",marginTop:2}},mode==="organic"?"Contenido libre para publicacion organica":"Compatible con politicas Meta Ads y TikTok Ads")
+      ),
+      E("div",{className:"tw"},
+        E("button",{className:"tb"+(mode==="organic"?" to":""),onClick:function(){setMode("organic")}},"Organico"),
+        E("button",{className:"tb"+(mode==="pauta"?" tp":""),onClick:function(){setMode("pauta")}},"Pauta")
+      )
+    ),
+    E("div",{style:{marginBottom:16}},
+      E("p",{className:"lbl",style:{marginBottom:10}},"Tecnica de copy"),
+      E("div",{className:"tg"},TECHS.map(function(t){
+        return E("button",{key:t.id,className:"tgb"+(tech===t.id?" ac":""),onClick:function(){setTech(t.id)}},
+          E("span",{className:"tn"},t.n),E("span",{className:"td"},t.d)
+        );
+      }))
+    ),
+    E("div",{className:"card",style:{marginBottom:16}},
+      E("div",{className:"fg"},E("label",{className:"fl"},"Tema del contenido"),E("input",{placeholder:"Ej: Por que el 90% de "+profile.audience.split(" ").slice(0,3).join(" ")+" nunca logra resultados",value:topic,onChange:function(e){setTopic(e.target.value)}})),
+      E("div",{className:"fg",style:{marginBottom:0}},E("label",{className:"fl"},"Contexto adicional (opcional)"),E("textarea",{placeholder:"Ej: Quiero mencionar el FT01, que hubo noticias de la FED hoy...",value:extra,onChange:function(e){setExtra(e.target.value)},style:{minHeight:60}}))
+    ),
+    E("button",{className:"btn ba",style:{width:"100%",justifyContent:"center",padding:12,marginBottom:24},onClick:gen,disabled:loading},loading?"Generando con "+tech+"...":"Generar guion con "+tech),
+    result?E("div",{className:"card"},
+      E("div",{style:{display:"flex",justifyContent:"space-between",alignItems:"center",marginBottom:14}},
+        E("div",{className:"tabs",style:{margin:0}},
+          [{id:"script",l:"Guion"},{id:"ig",l:"SEO Instagram"},{id:"tt",l:"SEO TikTok"}].map(function(t){
+            return E("button",{key:t.id,className:"tab"+(tab===t.id?" ac":""),onClick:function(){setTab(t.id)}},t.l);
+          })
+        ),
+        E("div",{style:{display:"flex",gap:8}},
+          E("button",{className:"btn bg sm",onClick:genHooks,disabled:hload},hload?"...":"Hook Lab (10)"),
+          E("button",{className:"btn bg sm",onClick:function(){navigator.clipboard.writeText(tab==="script"?p.script:tab==="ig"?p.ig:p.tt).then(function(){toast("Copiado")})}},"Copiar"),
+          E("button",{className:"btn ba sm",onClick:function(){saveLib({content:result,technique:tech,mode:mode,topic:topic})}},"Guardar")
+        )
+      ),
+      loading?E("div",{className:"lb"}):null,
+      tab==="script"?E("div",{className:"sb"},p.script||result):null,
+      tab==="ig"?E("div",{className:"se"},p.ig||"Generando SEO..."):null,
+      tab==="tt"?E("div",{className:"se"},p.tt||"Generando SEO..."):null,
+      hooks&&hooks.length>0?E("div",{style:{marginTop:20}},
+        E("h3",{style:{marginBottom:10}},"Hook Lab - 10 variaciones (clic para copiar)"),
+        E("div",{style:{display:"flex",flexDirection:"column",gap:8}},
+          hooks.map(function(h,i){
+            return E("div",{key:i,className:"hi",onClick:function(){navigator.clipboard.writeText(h).then(function(){toast("Hook "+(i+1)+" copiado")})}},
+              E("span",{className:"hn"},i+1),E("span",{style:{fontSize:13,color:"var(--txt)"}},h)
+            );
+          })
+        )
+      ):null
+    ):null
+  );
+}
+
+// PAGE CALENDAR
+function PCal(props){
+  var cal=props.cal,setCal=props.setCal;
+  var ti=new Date().getDay()===0?6:new Date().getDay()-1;
+  var _ei=useState(null);var ei=_ei[0],setEi=_ei[1];
+  var _ev=useState("");var ev=_ev[0],setEv=_ev[1];
+  function save(){var n=cal.slice();n[ei]=ev;setCal(n);setEi(null)}
+  return E("div",null,
+    E("div",{className:"ph"},E("div",null,E("h1",null,"Calendario Editorial"),E("p",{className:"mu"},"Haz clic en cualquier dia para editar su tema"))),
+    E("div",{className:"card",style:{marginBottom:16}},
+      E("div",{className:"cg"},DAYS.map(function(d,i){
+        return E("div",{key:d,className:"cd"+(i===ti?" td2":""),onClick:function(){setEi(i);setEv(cal[i]||"")}},
+          E("div",{className:"cdn"},d),
+          i===ti?E("span",{style:{fontSize:9,background:"rgba(0,229,160,.15)",color:"var(--acc)",padding:"1px 6px",borderRadius:10,display:"inline-block",marginTop:4}},"HOY"):null,
+          E("div",{className:"cdt"},cal[i]||"Sin tema")
+        );
+      }))
+    ),
+    ei!==null?E("div",{className:"ca",style:{marginBottom:16}},
+      E("h3",{style:{marginBottom:10}},"Editando: "+DAYS[ei]),
+      E("div",{style:{display:"flex",gap:8}},
+        E("input",{value:ev,onChange:function(e){setEv(e.target.value)},placeholder:"Nuevo tema..."}),
+        E("button",{className:"btn ba",onClick:save},"Guardar"),
+        E("button",{className:"btn bg",onClick:function(){setEi(null)}},"Cancelar")
+      )
+    ):null,
+    E("div",{className:"card"},
+      E("h3",{style:{marginBottom:14}},"Vista completa de la semana"),
+      DAYS.map(function(d,i){
+        return E("div",{key:d,style:{display:"flex",alignItems:"center",justifyContent:"space-between",padding:"10px 0",borderBottom:i<6?"1px solid var(--bd)":"none"}},
+          E("span",{style:{fontSize:13,color:"var(--txt3)",width:36,flexShrink:0}},d),
+          E("span",{style:{fontSize:13,flex:1,color:i===ti?"var(--acc)":"var(--txt)"}},cal[i]||"Sin tema"),
+          i===ti?E("span",{className:"bdg b1",style:{marginRight:8}},"Hoy"):null,
+          E("button",{className:"btn bg sm",onClick:function(){setEi(i);setEv(cal[i]||"")}},"Editar")
+        );
+      })
+    )
+  );
+}
+
+// PAGE CLIENT
+function PClient(props){
+  var clients=props.clients,setClients=props.setClients,apiKey=props.apiKey,saveLib=props.saveLib,toast=props.toast;
+  var _v=useState("list");var view=_v[0],setView=_v[1];
+  var _s=useState(null);var sel=_s[0],setSel=_s[1];
+  var _f=useState({name:"",industry:"Trading & Finanzas",product:"",audience:"",tone:"Profesional y directo"});
+  var form=_f[0],setForm=_f[1];
+  var _tp=useState("");var topic=_tp[0],setTopic=_tp[1];
+  var _tc=useState("PAS");var tech=_tc[0],setTech=_tc[1];
+  var _md=useState("organic");var mode=_md[0],setMode=_md[1];
+  var _r=useState(null);var result=_r[0],setResult=_r[1];
+  var _l=useState(false);var loading=_l[0],setLoading=_l[1];
+
+  function add(){
+    if(!form.name.trim()){toast("Ingresa el nombre");return}
+    setClients(function(p){return p.concat([{...form,id:Date.now()}])});
+    setForm({name:"",industry:"Trading & Finanzas",product:"",audience:"",tone:"Profesional y directo"});
+    setView("list");toast("Cliente creado");
+  }
+  async function gen(){
+    if(!sel||!topic.trim()){toast("Selecciona cliente y escribe un tema");return}
+    setLoading(true);setResult(null);
+    var sys="Generador Clipo MODO CLIENTE.\nCLIENTE: "+sel.name+" | "+sel.industry+" | "+sel.product+" | Audiencia: "+sel.audience+" | Tono: "+sel.tone+"\nTECNICA: "+tech+". "+(mode==="pauta"?"MODO PAUTA: cumple politicas Meta y TikTok Ads.":"MODO ORGANICO.")+"\nEl contenido debe sonar como la voz exacta de "+sel.name+". Genera: Hook + Guion + SEO Instagram + SEO TikTok";
+    try{var txt=await claude(apiKey,sys,"Tema: "+topic);setResult(txt)}
+    catch(e){setResult("Error: "+e.message)}
+    setLoading(false);
+  }
+  return E("div",null,
+    E("div",{className:"ph"},
+      E("div",null,E("h1",null,"Client Mode"),E("p",{className:"mu"},"Contenido personalizado para cada cliente que manejes")),
+      E("div",{style:{display:"flex",gap:8}},
+        E("button",{className:"btn bg sm",onClick:function(){setView("list")}},"Mis clientes"),
+        E("button",{className:"btn ba sm",onClick:function(){setView("new")}},"+ Nuevo cliente")
+      )
+    ),
+    view==="new"?E("div",{className:"card",style:{marginBottom:20}},
+      E("h3",{style:{marginBottom:16}},"Nuevo cliente"),
+      E("div",{className:"g2"},
+        E("div",{className:"fg"},E("label",{className:"fl"},"Nombre / marca"),E("input",{placeholder:"Ej: Clinica DermaSkin",value:form.name,onChange:function(e){setForm({...form,name:e.target.value})}})),
+        E("div",{className:"fg"},E("label",{className:"fl"},"Industria"),E("select",{value:form.industry,onChange:function(e){setForm({...form,industry:e.target.value})}},INDS.map(function(i){return E("option",{key:i,value:i},i)})))
+      ),
+      E("div",{className:"fg"},E("label",{className:"fl"},"Producto o servicio"),E("input",{placeholder:"Que vende?",value:form.product,onChange:function(e){setForm({...form,product:e.target.value})}})),
+      E("div",{className:"fg"},E("label",{className:"fl"},"Audiencia objetivo"),E("input",{placeholder:"A quien le habla?",value:form.audience,onChange:function(e){setForm({...form,audience:e.target.value})}})),
+      E("div",{className:"fg"},E("label",{className:"fl"},"Tono de marca"),E("input",{placeholder:"Ej: Cercano y empatico / Autoritario",value:form.tone,onChange:function(e){setForm({...form,tone:e.target.value})}})),
+      E("div",{style:{display:"flex",gap:8}},E("button",{className:"btn ba",onClick:add},"Guardar"),E("button",{className:"btn bg",onClick:function(){setView("list")}},"Cancelar"))
+    ):null,
+    E("div",{className:"g2",style:{marginBottom:16}},
+      clients.map(function(c){
+        return E("div",{key:c.id,className:"card",style:{cursor:"pointer",borderColor:sel&&sel.id===c.id?"var(--acc)":"var(--bd)"},onClick:function(){setSel(sel&&sel.id===c.id?null:c)}},
+          E("div",{style:{display:"flex",justifyContent:"space-between",alignItems:"flex-start"}},
+            E("h3",null,c.name),
+            E("button",{className:"btn bdn sm",onClick:function(e){e.stopPropagation();setClients(function(p){return p.filter(function(x){return x.id!==c.id})});if(sel&&sel.id===c.id)setSel(null)}},"X")
+          ),
+          E("p",{className:"mu",style:{fontSize:12,marginTop:4}},c.industry),
+          E("div",{style:{display:"flex",gap:6,marginTop:8,flexWrap:"wrap"}},
+            E("span",{className:"ch"},c.product.slice(0,25)),E("span",{className:"ch"},c.tone.slice(0,20))
+          )
+        );
+      })
+    ),
+    clients.length===0&&view==="list"?E("div",{className:"card",style:{textAlign:"center",padding:40}},E("p",{style:{fontSize:28,marginBottom:8}},"👥"),E("p",{className:"mu"},"Agrega clientes para generar contenido personalizado.")):null,
+    sel?E("div",{className:"ca",style:{marginBottom:16}},
+      E("h3",{style:{marginBottom:12,color:"var(--acc)"}},"Generando para: "+sel.name),
+      E("div",{style:{display:"flex",gap:8,marginBottom:12,flexWrap:"wrap"}},
+        E("div",{className:"tw"},E("button",{className:"tb"+(mode==="organic"?" to":""),onClick:function(){setMode("organic")}},"Organico"),E("button",{className:"tb"+(mode==="pauta"?" tp":""),onClick:function(){setMode("pauta")}},"Pauta")),
+        E("select",{value:tech,onChange:function(e){setTech(e.target.value)},style:{flex:1,minWidth:140}},TECHS.map(function(t){return E("option",{key:t.id,value:t.id},t.n+" - "+t.d)}))
+      ),
+      E("div",{style:{display:"flex",gap:8}},
+        E("input",{placeholder:"Tema del contenido...",value:topic,onChange:function(e){setTopic(e.target.value)},style:{flex:1}}),
+        E("button",{className:"btn ba",onClick:gen,disabled:loading},loading?"Generando...":"Generar")
+      )
+    ):null,
+    result?E("div",{className:"card"},
+      E("div",{style:{display:"flex",justifyContent:"space-between",alignItems:"center",marginBottom:12}},
+        E("h3",null,"Contenido para "+(sel&&sel.name)),
+        E("div",{style:{display:"flex",gap:8}},
+          E("button",{className:"btn bg sm",onClick:function(){navigator.clipboard.writeText(result).then(function(){toast("Copiado")})}},"Copiar"),
+          E("button",{className:"btn ba sm",onClick:function(){saveLib({content:result,technique:tech,mode:mode,topic:topic,client:sel&&sel.name})}},"Guardar")
+        )
+      ),
+      loading?E("div",{className:"lb"}):null,
+      E("div",{className:"sb"},result)
+    ):null
+  );
+}
+
+// PAGE LIBRARY
+function PLib(props){
+  var lib=props.lib,setLib=props.setLib,toast=props.toast;
+  var _tf=useState("all");var tf=_tf[0],setTf=_tf[1];
+  var _mf=useState("all");var mf=_mf[0],setMf=_mf[1];
+  var _q=useState("");var q=_q[0],setQ=_q[1];
+  var filtered=lib.filter(function(i){
+    if(tf!=="all"&&i.technique!==tf)return false;
+    if(mf!=="all"&&i.mode!==mf)return false;
+    if(q&&!((i.topic||"").toLowerCase().includes(q.toLowerCase()))&&!((i.content||"").toLowerCase().includes(q.toLowerCase())))return false;
+    return true;
+  });
+  return E("div",null,
+    E("div",{className:"ph"},E("div",null,E("h1",null,"Biblioteca"),E("p",{className:"mu"},lib.length+" guiones guardados"))),
+    E("div",{style:{display:"flex",gap:8,marginBottom:16,flexWrap:"wrap"}},
+      E("input",{placeholder:"Buscar...",value:q,onChange:function(e){setQ(e.target.value)},style:{flex:1,minWidth:140}}),
+      E("select",{value:tf,onChange:function(e){setTf(e.target.value)},style:{width:"auto"}},E("option",{value:"all"},"Todas las tecnicas"),TECHS.map(function(t){return E("option",{key:t.id,value:t.id},t.n)})),
+      E("select",{value:mf,onChange:function(e){setMf(e.target.value)},style:{width:"auto"}},E("option",{value:"all"},"Todos los modos"),E("option",{value:"organic"},"Organico"),E("option",{value:"pauta"},"Pauta"))
+    ),
+    lib.length===0?E("div",{className:"card",style:{textAlign:"center",padding:40}},E("p",{style:{fontSize:28,marginBottom:8}},"📚"),E("p",{className:"mu"},"Genera guiones y guardalos aqui.")):null,
+    E("div",{style:{display:"flex",flexDirection:"column",gap:12}},
+      filtered.map(function(item){
+        return E("div",{key:item.id,className:"li"},
+          E("div",{style:{display:"flex",justifyContent:"space-between",alignItems:"flex-start",gap:12}},
+            E("div",{style:{flex:1}},
+              E("h3",{style:{marginBottom:4}},item.topic||"Sin titulo"),
+              E("p",{style:{fontSize:12,color:"var(--txt2)",lineHeight:1.6}},(item.content||"").replace(/\[.*?\]/g,"").trim().slice(0,130)+"...")
+            ),
+            E("div",{style:{display:"flex",gap:6,flexShrink:0}},
+              E("button",{className:"btn bg sm",style:{color:item.viral?"var(--warn)":""},onClick:function(){setLib(function(p){return p.map(function(i){return i.id===item.id?{...i,viral:!i.viral}:i})})}},(item.viral?"⭐":"☆")),
+              E("button",{className:"btn bg sm",onClick:function(){navigator.clipboard.writeText(item.content).then(function(){toast("Copiado")})}},"Copiar"),
+              E("button",{className:"btn bdn sm",onClick:function(){setLib(function(p){return p.filter(function(i){return i.id!==item.id})})}},"X")
+            )
+          ),
+          E("div",{style:{display:"flex",flexWrap:"wrap",gap:6,marginTop:10}},
+            item.technique?E("span",{className:"bdg b1"},item.technique):null,
+            item.mode==="pauta"?E("span",{className:"bdg b2"},"Pauta"):null,
+            item.client?E("span",{className:"bdg b3"},item.client):null,
+            item.viral?E("span",{className:"bdg b2"},"Viral"):null,
+            item.savedAt?E("span",{className:"bdg b5"},item.savedAt):null
+          )
+        );
+      })
+    )
+  );
+}
+
+// PAGE METRICS + AI ADVISOR
+function PMet(props){
+  var met=props.met,setMet=props.setMet,profile=props.profile,apiKey=props.apiKey,toast=props.toast;
+  var _a=useState(false);var adding=_a[0],setAdding=_a[1];
+  var _f=useState({week:"",igF:"",igR:"",igS:"",igE:"",ttF:"",ttV:"",ttE:""});
+  var form=_f[0],setForm=_f[1];
+  var _adv=useState(null);var adv=_adv[0],setAdv=_adv[1];
+  var _al=useState(false);var aload=_al[0],setAload=_al[1];
+
+  function fu(k){return function(e){setForm(function(p){var n={...p};n[k]=e.target.value;return n})}}
+
+  function addWeek(){
+    if(!form.week){toast("Ingresa el periodo");return}
+    setMet(function(p){return{
+      ig:p.ig.concat([{week:form.week,followers:+form.igF||0,reach:+form.igR||0,saves:+form.igS||0,er:+form.igE||0}]),
+      tt:p.tt.concat([{week:form.week,followers:+form.ttF||0,views:+form.ttV||0,er:+form.ttE||0}])
+    }});
+    setForm({week:"",igF:"",igR:"",igS:"",igE:"",ttF:"",ttV:"",ttE:""});
+    setAdding(false);toast("Semana registrada");
+  }
+
+  async function getAdv(){
+    if(met.ig.length<2){toast("Necesitas al menos 2 semanas de datos");return}
+    setAload(true);setAdv(null);
+    var igStr=met.ig.map(function(w){return "Semana "+w.week+": "+w.followers+" seguidores, "+w.reach+" alcance, "+w.saves+" saves, "+w.er+"% ER"}).join("\n");
+    var ttStr=met.tt.map(function(w){return "Semana "+w.week+": "+w.followers+" seguidores, "+w.views+" vistas, "+w.er+"% ER"}).join("\n");
+    var sys="Eres el AI Growth Advisor de Clipo, analista experto en crecimiento de redes sociales.\nCREADOR: "+profile.name+" | "+profile.industry+" | Producto: "+profile.product+" | Audiencia: "+profile.audience+"\nAnaliza los datos con criterio de experto. Identifica tendencias, correlaciones y puntos de inflexion.\nFormato EXACTO (sin asteriscos ni markdown):\n[WORKS]\nQUE ESTA FUNCIONANDO:\n[3-4 puntos especificos con datos que lo respaldan]\n[/WORKS]\n[IMPROVE]\nQUE MEJORAR - ACCIONES CONCRETAS:\n[3-4 puntos con recomendacion accionable]\n[/IMPROVE]\n[STOP]\nQUE DEJAR DE HACER:\n[2-3 puntos basados en los datos]\n[/STOP]\n[KEY]\nRECOMENDACION CLAVE ESTA SEMANA:\n[UNA accion concreta y especifica basada en los datos]\n[/KEY]";
+    try{
+      var txt=await claude(apiKey,sys,"DATOS INSTAGRAM:\n"+igStr+"\n\nDATOS TIKTOK:\n"+ttStr);
+      setAdv(txt);
+    }catch(e){setAdv("[WORKS]Error al analizar[/WORKS][IMPROVE]"+e.message+"[/IMPROVE][STOP]Intenta de nuevo[/STOP][KEY]Verifica tu API key[/KEY]")}
+    setAload(false);
+  }
+
+  function parseAdv(txt){
+    if(!txt)return{};
+    function get(tag){var m=txt.match(new RegExp("\\["+tag+"\\]([\\s\\S]*?)\\[/"+tag+"\\]"));return m?m[1].trim():""}
+    return{works:get("WORKS"),improve:get("IMPROVE"),stop:get("STOP"),key:get("KEY")};
+  }
+
+  var ig=met.ig.slice(-8),tt=met.tt.slice(-8);
+  var li=ig[ig.length-1],pi=ig[ig.length-2],lt=tt[tt.length-1],pt=tt[tt.length-2];
+  function chg(c,p){return p&&c?((c-p)/p*100).toFixed(1):null}
+  var pa=parseAdv(adv);
+
+  return E("div",null,
+    E("div",{className:"ph"},
+      E("div",null,E("h1",null,"Metricas & AI Advisor"),E("p",{className:"mu"},"Registra datos semanales - la IA analiza y te dice que hacer")),
+      E("div",{style:{display:"flex",gap:8}},
+        met.ig.length>=2?E("button",{className:"btn bp sm",onClick:getAdv,disabled:aload},aload?"Analizando...":"Analizar con IA"):null,
+        E("button",{className:"btn ba sm",onClick:function(){setAdding(function(p){return !p})}},"+ Registrar semana")
+      )
+    ),
+
+    adding?E("div",{className:"card",style:{marginBottom:20}},
+      E("h3",{style:{marginBottom:16}},"Nueva semana"),
+      E("div",{className:"fg"},E("label",{className:"fl"},"Periodo (ej: 19-25 May)"),E("input",{value:form.week,onChange:fu("week"),placeholder:"Ej: 19-25 Mayo"})),
+      E("div",{className:"g2"},
+        E("div",null,
+          E("p",{style:{fontSize:12,fontWeight:600,color:"#E1306C",marginBottom:10}},"Instagram"),
+          E("div",{className:"fg"},E("label",{className:"fl"},"Seguidores totales"),E("input",{type:"number",value:form.igF,onChange:fu("igF")})),
+          E("div",{className:"fg"},E("label",{className:"fl"},"Alcance semanal"),E("input",{type:"number",value:form.igR,onChange:fu("igR")})),
+          E("div",{className:"fg"},E("label",{className:"fl"},"Saves de la semana"),E("input",{type:"number",value:form.igS,onChange:fu("igS")})),
+          E("div",{className:"fg"},E("label",{className:"fl"},"Engagement Rate (%)"),E("input",{type:"number",step:"0.1",value:form.igE,onChange:fu("igE")}))
+        ),
+        E("div",null,
+          E("p",{style:{fontSize:12,fontWeight:600,color:"var(--info)",marginBottom:10}},"TikTok"),
+          E("div",{className:"fg"},E("label",{className:"fl"},"Seguidores totales"),E("input",{type:"number",value:form.ttF,onChange:fu("ttF")})),
+          E("div",{className:"fg"},E("label",{className:"fl"},"Vistas semanales"),E("input",{type:"number",value:form.ttV,onChange:fu("ttV")})),
+          E("div",{className:"fg"},E("label",{className:"fl"},"Engagement Rate (%)"),E("input",{type:"number",step:"0.1",value:form.ttE,onChange:fu("ttE")}))
+        )
+      ),
+      E("div",{style:{display:"flex",gap:8}},E("button",{className:"btn ba",onClick:addWeek},"Guardar semana"),E("button",{className:"btn bg",onClick:function(){setAdding(false)}},"Cancelar"))
+    ):null,
+
+    met.ig.length===0&&!adding?E("div",{className:"card",style:{textAlign:"center",padding:40}},
+      E("p",{style:{fontSize:28,marginBottom:8}},"📊"),
+      E("p",{className:"mu"},"Registra tu primera semana para empezar."),
+      E("p",{className:"mu",style:{fontSize:12,marginTop:8}},"Con 2+ semanas activas el AI Advisor para recibir recomendaciones.")
+    ):null,
+
+    (aload||adv)?E("div",{className:"cp",style:{marginBottom:20}},
+      E("div",{style:{display:"flex",alignItems:"center",justifyContent:"space-between",marginBottom:16}},
+        E("div",null,
+          E("h3",{style:{color:"var(--pur)",marginBottom:2}},"AI Growth Advisor"),
+          E("p",{className:"mu",style:{fontSize:12}},"Analisis basado en "+met.ig.length+" semanas de datos de "+profile.name)
+        ),
+        adv?E("button",{className:"btn bp sm",onClick:getAdv},"Actualizar"):null
+      ),
+      aload?E(R.Fragment,null,E("div",{className:"lp"}),E("p",{className:"mu",style:{fontSize:12}},"Analizando tus metricas con IA...")):null,
+      adv?E("div",{style:{display:"flex",flexDirection:"column",gap:10}},
+        pa.works?E("div",{className:"adv aw"},E("div",{className:"at2"},"QUE ESTA FUNCIONANDO - SIGUE HACIENDOLO"),E("div",{className:"ab"},pa.works)):null,
+        pa.improve?E("div",{className:"adv ai2"},E("div",{className:"at2"},"QUE MEJORAR - ACCIONES CONCRETAS"),E("div",{className:"ab"},pa.improve)):null,
+        pa.stop?E("div",{className:"adv ast"},E("div",{className:"at2"},"QUE DEJAR DE HACER"),E("div",{className:"ab"},pa.stop)):null,
+        pa.key?E("div",{className:"adv ak"},E("div",{className:"at2"},"TU RECOMENDACION CLAVE ESTA SEMANA"),E("div",{className:"ab",style:{fontSize:13.5,fontWeight:500}},pa.key)):null
+      ):null
+    ):null,
+
+    met.ig.length>0?E(R.Fragment,null,
+      E("div",{className:"g4",style:{marginBottom:20}},
+        [{l:"Seguidores IG",v:li&&li.followers?li.followers.toLocaleString():"0",c:chg(li&&li.followers,pi&&pi.followers)},
+         {l:"Seguidores TT",v:lt&&lt.followers?lt.followers.toLocaleString():"0",c:chg(lt&&lt.followers,pt&&pt.followers)},
+         {l:"ER Instagram",v:(li&&li.er||0)+"%",c:chg(li&&li.er,pi&&pi.er)},
+         {l:"Alcance IG",v:li&&li.reach?li.reach.toLocaleString():"0",c:chg(li&&li.reach,pi&&pi.reach)}
+        ].map(function(m,i){
+          return E("div",{key:i,className:"mc"},
+            E("p",{className:"lbl"},m.l),
+            E("div",{className:"mv"},m.v),
+            m.c?E("p",{className:+m.c>=0?"up":"dn"},(+m.c>=0?"+":"")+m.c+"% vs anterior"):null
+          );
+        })
+      ),
+      E("div",{className:"g2"},
+        E("div",{className:"card"},E("h3",{style:{marginBottom:14}},"Instagram - Seguidores"),E(LineChart,{data:ig,dk:"followers",color:"#E1306C",lk:"week"})),
+        E("div",{className:"card"},E("h3",{style:{marginBottom:14}},"TikTok - Seguidores"),E(LineChart,{data:tt,dk:"followers",color:"#4fc3f7",lk:"week"})),
+        E("div",{className:"card"},E("h3",{style:{marginBottom:14}},"Instagram - Alcance semanal"),E(BarChart,{data:ig,dk:"reach",color:"#E1306C",lk:"week"})),
+        E("div",{className:"card"},E("h3",{style:{marginBottom:14}},"TikTok - Vistas semanales"),E(BarChart,{data:tt,dk:"views",color:"#4fc3f7",lk:"week"})),
+        E("div",{className:"card"},E("h3",{style:{marginBottom:14}},"Instagram - Saves por semana"),E(BarChart,{data:ig,dk:"saves",color:"#00e5a0",lk:"week"})),
+        E("div",{className:"card"},
+          E("h3",{style:{marginBottom:14}},"Engagement Rate - Ultimas 4 semanas"),
+          E("div",{style:{display:"flex",flexDirection:"column",gap:10,marginTop:8}},
+            ig.slice(-4).map(function(w,i){
+              return E("div",{key:i},
+                E("div",{style:{display:"flex",justifyContent:"space-between",marginBottom:4}},
+                  E("span",{style:{fontSize:12,color:"var(--txt2)"}},w.week),
+                  E("span",{style:{fontSize:12,color:"var(--acc)",fontFamily:"var(--fn)",fontWeight:600}},w.er+"%")
+                ),
+                E("div",{style:{height:6,background:"var(--bg4)",borderRadius:3}},
+                  E("div",{style:{height:"100%",width:Math.min(w.er*10,100)+"%",background:"var(--acc)",borderRadius:3,opacity:.8}})
+                )
+              );
+            })
+          )
+        )
+      )
+    ):null
+  );
+}
+
+RD.render(R.createElement(App,null),document.getElementById("root"));
+</script>
+</body>
+</html>
