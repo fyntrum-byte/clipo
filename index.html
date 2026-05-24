@@ -165,6 +165,23 @@ async function claude(key,sys,msg,search){
   return d.content.filter(function(b){return b.type==="text"}).map(function(b){return b.text}).join("\n");
 }
 
+
+function getDateUTC5(){
+  var now=new Date();
+  var utc5=new Date(now.getTime()-5*60*60*1000);
+  var dias=["domingo","lunes","martes","miercoles","jueves","viernes","sabado"];
+  var meses=["enero","febrero","marzo","abril","mayo","junio","julio","agosto","septiembre","octubre","noviembre","diciembre"];
+  return {
+    full: dias[utc5.getUTCDay()]+" "+utc5.getUTCDate()+" de "+meses[utc5.getUTCMonth()]+" de "+utc5.getUTCFullYear(),
+    short: utc5.getUTCDate()+"/"+(utc5.getUTCMonth()+1)+"/"+utc5.getUTCFullYear(),
+    year: utc5.getUTCFullYear(),
+    month: meses[utc5.getUTCMonth()],
+    day: utc5.getUTCDate(),
+    hour: utc5.getUTCHours()+":"+String(utc5.getUTCMinutes()).padStart(2,"0"),
+    iso: utc5.getUTCFullYear()+"-"+String(utc5.getUTCMonth()+1).padStart(2,"0")+"-"+String(utc5.getUTCDate()).padStart(2,"0")
+  };
+}
+
 function parseS(txt){
   function get(tag){var m=txt.match(new RegExp("\\["+tag+"\\]([\\s\\S]*?)\\[/"+tag+"\\]"));return m?m[1].trim():""}
   return{script:get("SCRIPT")||txt,ig:get("SEO_IG"),tt:get("SEO_TT")};
@@ -371,8 +388,9 @@ function PInicio(props){
   async function getBrief(){
     setBl(true);setBf("");
     try{
-      var sys="Eres el radar de tendencias de Clipo para "+profile.industry+". Marca: "+profile.name+". Producto: "+profile.product+". Audiencia: "+profile.audience+".\nGenera briefing del dia. Formato:\nTENDENCIA 1: [tendencia viral hoy]\nTENDENCIA 2: [segunda tendencia]\nTENDENCIA 3: [tercera]\nANGULO HOY: [angulo mas poderoso para "+profile.name+"]\nOPORTUNIDAD: [por que publicar ahora]\nEVITAR: [que evitar hoy]";
-      var txt=await claude(apiKey,sys,"Briefing para "+profile.industry+". Tema del dia: "+act,true);
+      var dt=getDateUTC5();
+      var sys="FECHA Y HORA ACTUAL: "+dt.full+", "+dt.hour+" (UTC-5, Ecuador). Ano actual: "+dt.year+".\nEres el radar de tendencias de Clipo para "+profile.industry+". Marca: "+profile.name+". Producto: "+profile.product+". Audiencia: "+profile.audience+".\nBusca tendencias EXCLUSIVAMENTE del dia de hoy "+dt.full+". NO uses informacion de 2025 ni de fechas anteriores. Solo tendencias ocurridas en las ultimas horas del "+dt.short+".\nGenera briefing del dia. Formato:\nTENDENCIA 1: [tendencia viral HOY "+dt.short+"]\nTENDENCIA 2: [segunda tendencia de HOY]\nTENDENCIA 3: [tercera de HOY]\nANGULO HOY: [angulo mas poderoso para "+profile.name+" el "+dt.full+"]\nOPORTUNIDAD: [por que publicar ahora el "+dt.short+"]\nEVITAR: [que evitar hoy]";
+      var txt=await claude(apiKey,sys,"Briefing de tendencias para "+profile.industry+" HOY "+dt.full+". Hora actual: "+dt.hour+" UTC-5. Tema del dia: "+act,true);
       setBf(txt);
     }catch(e){setBf("Error: "+e.message)}
     setBl(false);
@@ -382,8 +400,9 @@ function PInicio(props){
     setSl(true);setSc("");
     var recent=hist.slice(0,10).map(function(h){return h.topic}).join(", ");
     try{
-      var sys="Eres el generador de Clipo.\nMARCA: "+profile.name+" | "+profile.industry+" | Producto: "+profile.product+" | Audiencia: "+profile.audience+" | "+profile.platform+"\nANTI-REDUNDANCIA: NO repitas estos temas: ["+( recent||"ninguno")+"].\nANTI-GENERICO: Cada frase ultra-especifica para "+profile.audience+". Sin motivacion vacia.\nUsa tecnica PAS. Responde:\n[SCRIPT]\nHOOK (0-3 seg): [hook]\nGUION PAS: [guion max 60 seg]\n[/SCRIPT]\n[SEO_IG][150-200 palabras, emojis, CTA, 20 hashtags][/SEO_IG]\n[SEO_TT][80-100 palabras, 15 hashtags][/SEO_TT]";
-      var txt=await claude(apiKey,sys,"Tema: "+act);
+      var dt=getDateUTC5();
+      var sys="FECHA ACTUAL: "+dt.full+" ("+dt.iso+"), "+dt.hour+" UTC-5. ANO ACTUAL: "+dt.year+". Cualquier referencia a fechas, eventos o noticias debe ser de "+dt.year+", NO de 2025.\nEres el generador de Clipo.\nMARCA: "+profile.name+" | "+profile.industry+" | Producto: "+profile.product+" | Audiencia: "+profile.audience+" | "+profile.platform+"\nANTI-REDUNDANCIA: NO repitas estos temas: ["+(recent||"ninguno")+"].\nANTI-GENERICO: Cada frase ultra-especifica para "+profile.audience+". Sin motivacion vacia.\nUsa tecnica PAS. Responde:\n[SCRIPT]\nHOOK (0-3 seg): [hook]\nGUION PAS: [guion max 60 seg]\n[/SCRIPT]\n[SEO_IG][150-200 palabras, emojis, CTA, 20 hashtags][/SEO_IG]\n[SEO_TT][80-100 palabras, 15 hashtags][/SEO_TT]";
+      var txt=await claude(apiKey,sys,"Fecha actual: "+dt.full+". Tema: "+act);
       setSc(txt);addHist(act);
     }catch(e){setSc("Error: "+e.message)}
     setSl(false);
@@ -464,9 +483,10 @@ function PEngine(props){
     if(!topic.trim()){toast("Escribe un tema");return}
     setLoading(true);setResult(null);setHooks(null);setTab("script");
     var recent=hist.slice(0,15).map(function(h){return h.topic}).join(", ");
-    var sys="Eres el generador de guiones de Clipo.\nPERFIL: "+profile.name+" | "+profile.industry+" | "+profile.product+" | Audiencia: "+profile.audience+" | "+profile.platform+"\nANTI-REDUNDANCIA: NO repitas angulo de: ["+(recent||"ninguno")+"].\nANTI-GENERICO: Cada frase ultra-especifica para "+profile.audience+". Prohibido motivacion vacia.\nTECNICA: "+TP[tech]+"\n"+MP+"\nFORMATO OBLIGATORIO:\n[SCRIPT]\nHOOK (0-3 seg): [hook]\nGUION ("+tech+"): [guion max 60 seg]"+(mode==="pauta"?"\nAPTO PARA PAUTA":"")+"\n[/SCRIPT]\n[SEO_IG][150-200 palabras, emojis, CTA, 20 hashtags][/SEO_IG]\n[SEO_TT][80-100 palabras directas, 15 hashtags][/SEO_TT]";
+    var dt=getDateUTC5();
+    var sys="FECHA ACTUAL: "+dt.full+" ("+dt.iso+"), "+dt.hour+" UTC-5. ANO: "+dt.year+". Si mencionas fechas, eventos o contexto de mercado, usa referencias de "+dt.year+" unicamente. NO uses datos de 2025.\nEres el generador de guiones de Clipo.\nPERFIL: "+profile.name+" | "+profile.industry+" | "+profile.product+" | Audiencia: "+profile.audience+" | "+profile.platform+"\nANTI-REDUNDANCIA: NO repitas angulo de: ["+(recent||"ninguno")+"].\nANTI-GENERICO: Cada frase ultra-especifica para "+profile.audience+". Prohibido motivacion vacia.\nTECNICA: "+TP[tech]+"\n"+MP+"\nFORMATO OBLIGATORIO:\n[SCRIPT]\nHOOK (0-3 seg): [hook]\nGUION ("+tech+"): [guion max 60 seg]"+(mode==="pauta"?"\nAPTO PARA PAUTA":"")+"\n[/SCRIPT]\n[SEO_IG][150-200 palabras, emojis, CTA, 20 hashtags][/SEO_IG]\n[SEO_TT][80-100 palabras directas, 15 hashtags][/SEO_TT]";
     try{
-      var txt=await claude(apiKey,sys,"Tema: "+topic+(extra?"\nContexto: "+extra:""));
+      var txt=await claude(apiKey,sys,"Fecha actual: "+dt.full+". Tema: "+topic+(extra?"\nContexto: "+extra:""));
       setResult(txt);addHist(topic);
     }catch(e){setResult("Error: "+e.message)}
     setLoading(false);
@@ -602,8 +622,9 @@ function PClient(props){
   async function gen(){
     if(!sel||!topic.trim()){toast("Selecciona cliente y escribe un tema");return}
     setLoading(true);setResult(null);
-    var sys="Generador Clipo MODO CLIENTE.\nCLIENTE: "+sel.name+" | "+sel.industry+" | "+sel.product+" | Audiencia: "+sel.audience+" | Tono: "+sel.tone+"\nTECNICA: "+tech+". "+(mode==="pauta"?"MODO PAUTA: cumple politicas Meta y TikTok Ads.":"MODO ORGANICO.")+"\nEl contenido debe sonar como la voz exacta de "+sel.name+". Genera: Hook + Guion + SEO Instagram + SEO TikTok";
-    try{var txt=await claude(apiKey,sys,"Tema: "+topic);setResult(txt)}
+    var dt=getDateUTC5();
+    var sys="FECHA ACTUAL: "+dt.full+" ("+dt.iso+"), "+dt.hour+" UTC-5. ANO: "+dt.year+". Usa referencias temporales de "+dt.year+" unicamente.\nGenerador Clipo MODO CLIENTE.\nCLIENTE: "+sel.name+" | "+sel.industry+" | "+sel.product+" | Audiencia: "+sel.audience+" | Tono: "+sel.tone+"\nTECNICA: "+tech+". "+(mode==="pauta"?"MODO PAUTA: cumple politicas Meta y TikTok Ads.":"MODO ORGANICO.")+"\nEl contenido debe sonar como la voz exacta de "+sel.name+". Genera: Hook + Guion + SEO Instagram + SEO TikTok";
+    try{var txt=await claude(apiKey,sys,"Fecha actual: "+dt.full+". Tema: "+topic);setResult(txt)}
     catch(e){setResult("Error: "+e.message)}
     setLoading(false);
   }
@@ -737,9 +758,10 @@ function PMet(props){
   async function getAdv(){
     if(met.ig.length<2){toast("Necesitas al menos 2 semanas de datos");return}
     setAload(true);setAdv(null);
+    var dt=getDateUTC5();
     var igStr=met.ig.map(function(w){return "Semana "+w.week+": "+w.followers+" seguidores, "+w.reach+" alcance, "+w.saves+" saves, "+w.er+"% ER"}).join("\n");
     var ttStr=met.tt.map(function(w){return "Semana "+w.week+": "+w.followers+" seguidores, "+w.views+" vistas, "+w.er+"% ER"}).join("\n");
-    var sys="Eres el AI Growth Advisor de Clipo, analista experto en crecimiento de redes sociales.\nCREADOR: "+profile.name+" | "+profile.industry+" | Producto: "+profile.product+" | Audiencia: "+profile.audience+"\nAnaliza los datos con criterio de experto. Identifica tendencias, correlaciones y puntos de inflexion.\nFormato EXACTO (sin asteriscos ni markdown):\n[WORKS]\nQUE ESTA FUNCIONANDO:\n[3-4 puntos especificos con datos que lo respaldan]\n[/WORKS]\n[IMPROVE]\nQUE MEJORAR - ACCIONES CONCRETAS:\n[3-4 puntos con recomendacion accionable]\n[/IMPROVE]\n[STOP]\nQUE DEJAR DE HACER:\n[2-3 puntos basados en los datos]\n[/STOP]\n[KEY]\nRECOMENDACION CLAVE ESTA SEMANA:\n[UNA accion concreta y especifica basada en los datos]\n[/KEY]";
+    var sys="FECHA ACTUAL: "+dt.full+" ("+dt.iso+"). Todas las recomendaciones deben ser relevantes para "+dt.month+" "+dt.year+".\nEres el AI Growth Advisor de Clipo, analista experto en crecimiento de redes sociales.\nCREADOR: "+profile.name+" | "+profile.industry+" | Producto: "+profile.product+" | Audiencia: "+profile.audience+"\nAnaliza los datos con criterio de experto. Identifica tendencias, correlaciones y puntos de inflexion.\nFormato EXACTO (sin asteriscos ni markdown):\n[WORKS]\nQUE ESTA FUNCIONANDO:\n[3-4 puntos especificos con datos que lo respaldan]\n[/WORKS]\n[IMPROVE]\nQUE MEJORAR - ACCIONES CONCRETAS:\n[3-4 puntos con recomendacion accionable]\n[/IMPROVE]\n[STOP]\nQUE DEJAR DE HACER:\n[2-3 puntos basados en los datos]\n[/STOP]\n[KEY]\nRECOMENDACION CLAVE ESTA SEMANA:\n[UNA accion concreta y especifica basada en los datos]\n[/KEY]";
     try{
       var txt=await claude(apiKey,sys,"DATOS INSTAGRAM:\n"+igStr+"\n\nDATOS TIKTOK:\n"+ttStr);
       setAdv(txt);
