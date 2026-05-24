@@ -4,8 +4,9 @@
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1"/>
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
-<title>Clipo</title>
+<title>Clipo — AI Content OS</title>
 <style>
+
 *{box-sizing:border-box;margin:0;padding:0}
 :root{
   --bg:#0a0c0f;--bg2:#111418;--bg3:#181d24;--bg4:#1e2530;
@@ -35,6 +36,7 @@ html,body,#root{height:100%;background:var(--bg);color:var(--txt);font-family:va
 .ca{background:var(--acc3);border:1px solid var(--bd2);border-radius:var(--r2);padding:20px}
 .cp{background:rgba(167,139,250,.06);border:1px solid rgba(167,139,250,.2);border-radius:var(--r2);padding:20px}
 .g2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px}
 .g4{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
 h1{font-family:var(--fn);font-size:22px;font-weight:700;color:var(--txt);letter-spacing:-.5px}
 h2{font-family:var(--fn);font-size:17px;font-weight:600;color:var(--txt)}
@@ -44,9 +46,10 @@ h3{font-family:var(--fn);font-size:14px;font-weight:600;color:var(--txt)}
 .at{color:var(--acc)}
 .btn{display:inline-flex;align-items:center;gap:7px;padding:9px 18px;border-radius:var(--r);border:none;cursor:pointer;font-family:var(--fb);font-size:13px;font-weight:500;transition:.15s}
 .ba{background:var(--acc);color:#000}.ba:hover{background:var(--acc2)}
-.bg{background:var(--bg3);color:var(--txt);border:1px solid var(--bd)}.bg:hover{border-color:var(--bd2);color:var(--acc)}
+.bg_{background:var(--bg3);color:var(--txt);border:1px solid var(--bd)}.bg_:hover{border-color:var(--bd2);color:var(--acc)}
 .bp{background:rgba(167,139,250,.15);color:var(--pur);border:1px solid rgba(167,139,250,.25)}.bp:hover{background:rgba(167,139,250,.25)}
 .bdn{background:rgba(255,71,87,.1);color:var(--danger);border:1px solid rgba(255,71,87,.2)}
+.bwn{background:rgba(245,166,35,.1);color:var(--warn);border:1px solid rgba(245,166,35,.2)}
 .sm{padding:6px 12px;font-size:12px}
 .btn:disabled{opacity:.4;cursor:not-allowed}
 input,select,textarea{background:var(--bg3);border:1px solid var(--bd);border-radius:var(--r);color:var(--txt);font-family:var(--fb);font-size:13px;padding:9px 13px;width:100%;transition:.15s;outline:none}
@@ -65,7 +68,7 @@ textarea{resize:vertical;min-height:80px}
 .b5{background:var(--bg4);color:var(--txt2)}.b6{background:rgba(167,139,250,.12);color:var(--pur)}
 .ph{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:24px}
 .dv{height:1px;background:var(--bd);margin:20px 0}
-.sb{background:var(--bg3);border:1px solid var(--bd);border-radius:var(--r2);padding:20px;white-space:pre-wrap;font-size:13px;line-height:1.8;color:var(--txt);max-height:400px;overflow-y:auto}
+.sb{background:var(--bg3);border:1px solid var(--bd);border-radius:var(--r2);padding:20px;white-space:pre-wrap;font-size:13px;line-height:1.8;color:var(--txt);max-height:380px;overflow-y:auto}
 .se{background:var(--bg4);border:1px solid var(--bd);border-radius:var(--r);padding:14px;font-size:12.5px;line-height:1.8;color:var(--txt2)}
 .hi{background:var(--bg3);border:1px solid var(--bd);border-radius:var(--r);padding:12px 14px;font-size:13px;display:flex;gap:10px;cursor:pointer;transition:.15s}
 .hi:hover{border-color:var(--bd2)}
@@ -80,16 +83,19 @@ textarea{resize:vertical;min-height:80px}
 .ct td{padding:10px 12px;border-bottom:1px solid var(--bd);color:var(--txt)}
 .ct tr:last-child td{border-bottom:none}
 .di{background:rgba(255,71,87,.05);border:1px solid rgba(255,71,87,.15);border-radius:var(--r);padding:14px;font-size:12px;color:var(--txt2);line-height:1.7;margin-top:16px}
-.as{display:flex;gap:14px;padding:14px 0;border-bottom:1px solid var(--bd)}.as:last-child{border-bottom:none}
+.as_{display:flex;gap:14px;padding:14px 0;border-bottom:1px solid var(--bd)}.as_:last-child{border-bottom:none}
 .sn{width:26px;height:26px;border-radius:50%;background:var(--acc);color:#000;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;flex-shrink:0;margin-top:2px}
-.tabs{display:flex;gap:4px;background:var(--bg3);border:1px solid var(--bd);border-radius:var(--r);padding:3px;margin-bottom:16px}
+.tabs{display:flex;gap:4px;background:var(--bg3);border:1px solid var(--bd);border-radius:var(--r);padding:3px}
 .tab{padding:7px 14px;border-radius:7px;border:none;cursor:pointer;font-size:12px;font-weight:500;font-family:var(--fb);transition:.15s;background:none;color:var(--txt2)}
 .tab.ac{background:var(--bg2);color:var(--acc);border:1px solid var(--bd2)}
-.tg{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:16px}
+.stab{padding:6px 12px;border-radius:7px;border:none;cursor:pointer;font-size:11px;font-weight:600;font-family:var(--fn);transition:.15s;background:var(--bg4);color:var(--txt2)}
+.stab.ac{background:var(--acc);color:#000}
+.tg{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:12px}
 .tgb{background:var(--bg3);border:1px solid var(--bd);border-radius:var(--r);padding:10px 8px;text-align:center;cursor:pointer;transition:.15s;font-size:11px;font-weight:500;color:var(--txt2);font-family:var(--fb)}
 .tgb:hover{border-color:var(--bd2);color:var(--acc)}.tgb.ac{background:var(--acc3);border-color:var(--bd2);color:var(--acc)}
+.tg3{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:12px}
 .tn{font-weight:700;font-size:12px;display:block;margin-bottom:2px}.td{font-size:9.5px;opacity:.7;display:block}
-.mb{display:flex;align-items:center;justify-content:space-between;background:var(--bg3);border:1px solid var(--bd);border-radius:var(--r);padding:10px 14px;margin-bottom:16px}
+.mb{display:flex;align-items:center;justify-content:space-between;background:var(--bg3);border:1px solid var(--bd);border-radius:var(--r);padding:10px 14px;margin-bottom:12px}
 .mb.py{background:rgba(245,166,35,.05);border-color:rgba(245,166,35,.2)}
 .cg{display:grid;grid-template-columns:repeat(7,1fr);gap:8px}
 .cd{background:var(--bg3);border:1px solid var(--bd);border-radius:var(--r);padding:10px;min-height:80px;cursor:pointer;transition:.15s}
@@ -98,7 +104,7 @@ textarea{resize:vertical;min-height:80px}
 .cdt{font-size:11px;color:var(--acc);font-weight:500;line-height:1.4;margin-top:6px}
 .hd{display:flex;align-items:center;gap:8px;padding:8px 0;border-bottom:1px solid var(--bd)}.hd:last-child{border-bottom:none}
 .hdd{width:6px;height:6px;border-radius:50%;background:var(--acc);flex-shrink:0}
-.hdt{font-size:12px;color:var(--txt2);flex:1}.hdd2{font-size:10px;color:var(--txt3)}
+.hdt{font-size:12px;color:var(--txt2);flex:1}.hddt{font-size:10px;color:var(--txt3)}
 .li{background:var(--bg2);border:1px solid var(--bd);border-radius:var(--r2);padding:16px}
 .ch{padding:3px 9px;border-radius:20px;font-size:11px;background:var(--bg4);color:var(--txt2);border:1px solid var(--bd)}
 .mc{background:var(--bg2);border:1px solid var(--bd);border-radius:var(--r2);padding:18px}
@@ -120,8 +126,15 @@ textarea{resize:vertical;min-height:80px}
 .bw{display:flex;align-items:flex-end;gap:6px;height:110px;padding-top:8px}
 .bc{display:flex;flex-direction:column;align-items:center;flex:1;gap:3px;height:100%}
 .bi2{width:100%;border-radius:4px 4px 0 0;min-height:3px;transition:.5s}
-.bl{font-size:9px;color:var(--txt3);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%;text-align:center}
+.bl_{font-size:9px;color:var(--txt3);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%;text-align:center}
 .bv{font-size:10px;color:var(--txt2);font-family:var(--fn)}
+.score{display:flex;align-items:center;gap:8px}
+.score-bar{flex:1;height:6px;background:var(--bg4);border-radius:3px}
+.score-fill{height:100%;border-radius:3px;transition:.5s}
+.score-num{font-family:var(--fn);font-size:13px;font-weight:700;width:24px;text-align:right}
+.perf-input{background:var(--bg3);border:1px solid var(--bd);border-radius:var(--r);padding:6px 10px;color:var(--txt);font-family:var(--fb);font-size:12px;width:100%;outline:none}
+.perf-input:focus{border-color:var(--bd2)}
+
 </style>
 </head>
 <body>
@@ -129,6 +142,7 @@ textarea{resize:vertical;min-height:80px}
 <script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.production.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js"></script>
 <script>
+
 var R=React,RD=ReactDOM;
 var useState=R.useState,useEffect=R.useEffect;
 var E=R.createElement;
@@ -145,6 +159,33 @@ var TECHS=[
   {id:"START",n:"S.T.A.R.T",d:"Setup-Tension-Action-Result"},
   {id:"HOOK",n:"Hook Viral",d:"Gancho + CTA fulminante"},
 ];
+var OBJS=[
+  {id:"followers",n:"Conseguir seguidores",ic:"👥"},
+  {id:"leads",n:"Generar leads / DM",ic:"📩"},
+  {id:"sell",n:"Vender directamente",ic:"💰"},
+  {id:"viral",n:"Viralizar / Interaccion",ic:"🔥"},
+  {id:"authority",n:"Posicionar autoridad",ic:"🏆"},
+];
+var HOOKS=[
+  {id:"question",n:"Pregunta que duele",d:"Por que sigues haciendo X..."},
+  {id:"stat",n:"Dato que rompe creencias",d:"El 94% de [audiencia] comete este error"},
+  {id:"bold",n:"Declaracion provocadora",d:"Lo que te ensenaron sobre X esta mal"},
+  {id:"story",n:"Historia en presente",d:"Hace 6 meses estaba donde estas tu"},
+  {id:"contra",n:"Contradiccion",d:"Hacer mas contenido NO te hace crecer"},
+];
+var STYLES=[
+  {id:"authority",n:"Autoritario y directo",d:"Seguro, sin rodeos"},
+  {id:"close",n:"Cercano y conversacional",d:"Como hablarle a un amigo"},
+  {id:"provocative",n:"Provocador e irreverente",d:"Sacude, incomoda, genera reaccion"},
+  {id:"educational",n:"Educativo con datos",d:"Basado en hechos y evidencia"},
+  {id:"emotional",n:"Storytelling emocional",d:"Conecta desde las emociones"},
+];
+var CTAS=[
+  {id:"follow",n:"Seguir la cuenta",ex:"Sigueme para mas sobre [tema]"},
+  {id:"dm",n:"Escribir al DM",ex:"Escribeme [PALABRA] al DM y te envio [RECURSO]"},
+  {id:"bio",n:"Click en bio",ex:"El link esta en mi bio — [beneficio en 5 palabras]"},
+  {id:"comment",n:"Comentar / Interaccion",ex:"Comenta [PALABRA] si esto te paso"},
+];
 var DAYS=["Lun","Mar","Mie","Jue","Vie","Sab","Dom"];
 var DTOP=["Macro & Mercados","Herramientas practicas","Dia de marca","Mentalidad & errores","Analisis tecnico","Dia de marca 2","Finanzas personales"];
 var NAV=[{id:"inicio",ic:"⚡",lb:"Inicio"},{id:"engine",ic:"✍️",lb:"Script Engine"},{id:"calendar",ic:"📅",lb:"Calendario"},{id:"client",ic:"👥",lb:"Client Mode"},{id:"library",ic:"📚",lb:"Biblioteca"},{id:"metrics",ic:"📊",lb:"Metricas"}];
@@ -152,9 +193,25 @@ var NAV=[{id:"inicio",ic:"⚡",lb:"Inicio"},{id:"engine",ic:"✍️",lb:"Script 
 function ls(k,d){try{var v=localStorage.getItem(k);return v?JSON.parse(v):d}catch(e){return d}}
 function lss(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}
 
-async function claude(key,sys,msg,search){
-  var body={model:"claude-sonnet-4-6",max_tokens:3000,system:sys,messages:[{role:"user",content:msg}]};
-  if(search)body.tools=[{type:"web_search_20250305",name:"web_search"}];
+function getDate(){
+  var now=new Date();
+  var u5=new Date(now.getTime()-5*60*60*1000);
+  var dias=["domingo","lunes","martes","miercoles","jueves","viernes","sabado"];
+  var meses=["enero","febrero","marzo","abril","mayo","junio","julio","agosto","septiembre","octubre","noviembre","diciembre"];
+  return{
+    full:dias[u5.getUTCDay()]+" "+u5.getUTCDate()+" de "+meses[u5.getUTCMonth()]+" de "+u5.getUTCFullYear(),
+    short:u5.getUTCDate()+"/"+(u5.getUTCMonth()+1)+"/"+u5.getUTCFullYear(),
+    year:u5.getUTCFullYear(),month:meses[u5.getUTCMonth()],
+    hour:u5.getUTCHours()+":"+String(u5.getUTCMinutes()).padStart(2,"0"),
+    iso:u5.getUTCFullYear()+"-"+String(u5.getUTCMonth()+1).padStart(2,"0")+"-"+String(u5.getUTCDate()).padStart(2,"0")
+  };
+}
+
+async function apiCall(key,sys,msg,model,maxT,useSearch){
+  var m=model||"claude-sonnet-4-6";
+  var mt=maxT||2000;
+  var body={model:m,max_tokens:mt,system:sys,messages:[{role:"user",content:msg}]};
+  if(useSearch)body.tools=[{type:"web_search_20250305",name:"web_search"}];
   var r=await fetch("https://api.anthropic.com/v1/messages",{
     method:"POST",
     headers:{"Content-Type":"application/json","x-api-key":key,"anthropic-version":"2023-06-01","anthropic-dangerous-direct-browser-access":"true"},
@@ -162,85 +219,41 @@ async function claude(key,sys,msg,search){
   });
   if(!r.ok){var e=await r.json();throw new Error(e.error&&e.error.message||"Error de API")}
   var d=await r.json();
-  return d.content.filter(function(b){return b.type==="text"}).map(function(b){return b.text}).join("\n");
-}
-
-
-function getDateUTC5(){
-  var now=new Date();
-  var utc5=new Date(now.getTime()-5*60*60*1000);
-  var dias=["domingo","lunes","martes","miercoles","jueves","viernes","sabado"];
-  var meses=["enero","febrero","marzo","abril","mayo","junio","julio","agosto","septiembre","octubre","noviembre","diciembre"];
-  return {
-    full: dias[utc5.getUTCDay()]+" "+utc5.getUTCDate()+" de "+meses[utc5.getUTCMonth()]+" de "+utc5.getUTCFullYear(),
-    short: utc5.getUTCDate()+"/"+(utc5.getUTCMonth()+1)+"/"+utc5.getUTCFullYear(),
-    year: utc5.getUTCFullYear(),
-    month: meses[utc5.getUTCMonth()],
-    day: utc5.getUTCDate(),
-    hour: utc5.getUTCHours()+":"+String(utc5.getUTCMinutes()).padStart(2,"0"),
-    iso: utc5.getUTCFullYear()+"-"+String(utc5.getUTCMonth()+1).padStart(2,"0")+"-"+String(utc5.getUTCDate()).padStart(2,"0")
-  };
+  return d.content.filter(function(b){return b.type==="text"}).map(function(b){return b.text}).join("");
 }
 
 function parseS(txt){
   function get(tag){var m=txt.match(new RegExp("\\["+tag+"\\]([\\s\\S]*?)\\[/"+tag+"\\]"));return m?m[1].trim():""}
-  return{script:get("SCRIPT")||txt,ig:get("SEO_IG"),tt:get("SEO_TT")};
+  return{script:get("SCRIPT")||txt,ig:get("SEO_IG"),tt:get("SEO_TT"),hookB:get("HOOK_B")};
 }
 
-function BarChart(props){
-  var data=props.data,key=props.dk,color=props.color,lk=props.lk;
-  if(!data||data.length===0)return E("p",{className:"mu",style:{fontSize:12,padding:"16px 0"}},"Sin datos aun");
-  var max=Math.max.apply(null,data.map(function(d){return d[key]||0}))||1;
-  return E("div",{className:"bw"},data.map(function(d,i){
-    var pct=((d[key]||0)/max*100);
-    return E("div",{key:i,className:"bc"},
-      E("span",{className:"bv"},d[key]?d[key].toLocaleString():"0"),
-      E("div",{style:{flex:1,display:"flex",alignItems:"flex-end",width:"100%"}},
-        E("div",{className:"bi2",style:{height:Math.max(pct,3)+"%",background:color,opacity:.85}})
-      ),
-      E("span",{className:"bl"},d[lk]||"")
-    );
-  }));
+function buildPrompt(profile,tech,obj,hookType,style,cta,topic,extra,mode,hist){
+  var dt=getDate();
+  var recent=(hist||[]).slice(0,15).map(function(h){return h.topic}).join(", ");
+  var objMap={followers:"Conseguir SEGUIDORES — el contenido debe hacer que quien lo vea quiera ver mas de tu cuenta",leads:"Generar LEADS — el contenido debe llevar al DM o al link, no vender directamente",sell:"VENDER directamente — el contenido debe generar deseo y urgencia de compra inmediata",viral:"VIRALIZAR e interaccion — el contenido debe generar comentarios, compartidos y guardados masivos",authority:"POSICIONAR AUTORIDAD — el contenido debe hacer que el espectador vea a "+profile.name+" como el experto indiscutible del tema"};
+  var hookMap={question:"PREGUNTA QUE DUELE: comienza con una pregunta que golpea directamente el dolor mas profundo de "+profile.audience+". Ejemplo: 'Por que sigues [haciendo X] si sabes que no funciona?'",stat:"DATO QUE ROMPE CREENCIAS: comienza con una estadistica o hecho sorprendente que contradice lo que el espectador cree. Ejemplo: 'El 94% de [audiencia] comete este error sin saberlo'",bold:"DECLARACION PROVOCADORA: una afirmacion directa y controversial que obliga a seguir escuchando. Ejemplo: 'Todo lo que te enseñaron sobre [tema] esta completamente mal'",story:"HISTORIA EN PRESENTE: empieza en medio de una situacion real que "+profile.audience+" reconoce. Ejemplo: 'Hace [tiempo] estaba exactamente donde estas tu ahora mismo'",contra:"CONTRADICCION: afirma lo opuesto a lo que el espectador espera. Ejemplo: 'Hacer mas contenido NO te hace crecer — esto si lo hace'"};
+  var styleMap={authority:"Tono AUTORITARIO Y DIRECTO: habla con total seguridad, sin rodeos, como quien sabe mas que nadie del tema. Sin suavizantes ni disculpas.",close:"Tono CERCANO Y CONVERSACIONAL: habla como si le explicaras a un amigo. Natural, con lenguaje cotidiano, sin tecnicismos innecesarios.",provocative:"Tono PROVOCADOR E IRREVERENTE: sacude, incomoda, genera reaccion. No temes decir lo que nadie dice. Usa humor negro si aplica.",educational:"Tono EDUCATIVO CON DATOS: cada afirmacion respaldada con datos, ejemplos o evidencia. Estructurado, claro, credible.",emotional:"Tono STORYTELLING EMOCIONAL: conecta desde las emociones primero, los datos despues. El espectador debe sentir antes de pensar."};
+  var ctaMap={follow:"CTA: al final, invitar a SEGUIR la cuenta porque hay mas contenido sobre [tema especifico]. Natural, no agresivo.",dm:"CTA: invitar a escribir una PALABRA CLAVE al DM para recibir [recurso especifico relacionado al tema].",bio:"CTA: dirigir al LINK EN BIO con un beneficio concreto en 5 palabras maximas.",comment:"CTA: pedir que COMENTEN una palabra o que respondan una pregunta especifica para disparar el algoritmo."};
+  var modeBlock=mode==="pauta"?"MODO PAUTA — OBLIGATORIO: PROHIBIDO garantias, % de retorno especificos, 'ganaras dinero', superlativos no verificables, urgencia falsa. CTAs permitidos: 'Conoce mas','Aprende como','Solicita informacion'. Estructura: Hook 0-3s - Valor 3-12s - CTA 12-15s. Marca al final: APTO PARA PAUTA":"MODO ORGANICO — sin restricciones de politicas publicitarias.";
+
+  return "FECHA ACTUAL: "+dt.full+" ("+dt.iso+"), "+dt.hour+" UTC-5. ANO: "+dt.year+". Toda referencia temporal usa "+dt.year+", NO 2025.\n"+
+"IDENTIDAD DE MARCA:\nCreador: "+profile.name+" | Industria: "+profile.industry+" | Producto/Servicio: "+profile.product+"\nAudiencia exacta: "+profile.audience+" | Plataforma: "+profile.platform+"\n\n"+
+"OBJETIVO DEL CONTENIDO: "+objMap[obj]+"\n\n"+
+"TIPO DE HOOK: "+hookMap[hookType]+"\nEl hook NO puede durar mas de 3 segundos hablados. NO uses preguntas genericas ni frases de motivacion vacia.\n\n"+
+"ESTILO COMUNICACIONAL: "+styleMap[style]+"\n\n"+
+"CTA: "+ctaMap[cta]+"\n\n"+
+"TECNICA DE COPY: "+tech+"\n\n"+
+modeBlock+"\n\n"+
+"ANTI-REDUNDANCIA: NO repitas angulo de estos temas ya usados: ["+(recent||"ninguno")+"].\n\n"+
+"REGLAS ANTI-GENERICO (CRITICAS):\n- Cada frase especifica para "+profile.audience+". Si la puede decir cualquier creador, reescribela.\n- Prohibido: frases motivacionales vacias, consejos obvios, palabras como 'increible','sin duda','asombroso'.\n- Menciona situaciones concretas que vive exactamente "+profile.audience+".\n- El oyente DEBE pensar 'esto lo escribieron para mi'.\n\n"+
+"FORMATO DE RESPUESTA OBLIGATORIO:\n[SCRIPT]\n🎬 HOOK (primeras palabras exactas, max 15 palabras):\n[hook]\n\n📝 GUION COMPLETO ("+tech+"):\n[guion con pausas marcadas como [PAUSA], max 60 segundos hablados, especifico para "+profile.audience+"]\n\n⏱ Duracion estimada: [X segundos]\n📣 CTA final: [cta exacto]\n"+(mode==="pauta"?"\nAPTO PARA PAUTA":"")+"\n[/SCRIPT]\n[HOOK_B]\n[variante B completamente distinta del hook, mismo tema, diferente angulo]\n[/HOOK_B]\n[SEO_IG]\n[descripcion SEO Instagram: 150-200 palabras, emojis estrategicos, CTA, 20 hashtags segmentados al final]\n[/SEO_IG]\n[SEO_TT]\n[descripcion SEO TikTok: 80-100 palabras directas, 15 hashtags trending]\n[/SEO_TT]";
 }
 
-function LineChart(props){
-  var data=props.data,key=props.dk,color=props.color,lk=props.lk;
-  if(!data||data.length<2)return E("p",{className:"mu",style:{fontSize:12,padding:"16px 0"}},"Necesitas al menos 2 semanas de datos.");
-  var vals=data.map(function(d){return d[key]||0});
-  var max=Math.max.apply(null,vals)||1,min=Math.min.apply(null,vals);
-  var W=400,H=100,pad=8;
-  var pts=vals.map(function(v,i){
-    return[pad+(i/(vals.length-1))*(W-pad*2),H-pad-((v-min)/(max-min||1))*(H-pad*2)];
-  });
-  var path="M"+pts.map(function(p){return p.join(",")}).join(" L");
-  var area=path+" L"+pts[pts.length-1][0]+","+(H-pad)+" L"+pts[0][0]+","+(H-pad)+" Z";
-  return E("svg",{viewBox:"0 0 "+W+" "+H,style:{width:"100%",height:120}},
-    E("defs",null,E("linearGradient",{id:"g"+key,x1:"0",y1:"0",x2:"0",y2:"1"},
-      E("stop",{offset:"0%",stopColor:color,stopOpacity:.3}),
-      E("stop",{offset:"100%",stopColor:color,stopOpacity:0})
-    )),
-    E("path",{d:area,fill:"url(#g"+key+")"}),
-    E("path",{d:path,fill:"none",stroke:color,strokeWidth:2,strokeLinejoin:"round"}),
-    pts.map(function(pt,i){
-      return E(R.Fragment,{key:i},
-        E("circle",{cx:pt[0],cy:pt[1],r:3,fill:color}),
-        E("text",{x:pt[0],y:H-1,textAnchor:"middle",fill:"#4a5568",fontSize:8},data[i][lk]?data[i][lk].toString().slice(0,6):"")
-      );
-    })
-  );
-}
-
-// APP
+// ── APP ─────────────────────────────────────────────────────────────────────
 function App(){
-  var _k=useState(function(){return ls("clipo_key","")});
-  var apiKey=_k[0],setApiKey=_k[1];
-  var _p=useState(function(){return ls("clipo_profile",null)});
-  var profile=_p[0],setProfile=_p[1];
-  var _st=useState(function(){
-    if(ls("clipo_key","")&&ls("clipo_profile",null))return 2;
-    if(ls("clipo_key",""))return 1;
-    return 0;
-  });
+  var _k=useState(function(){return ls("clipo_key","")});var apiKey=_k[0],setApiKey=_k[1];
+  var _p=useState(function(){return ls("clipo_profile",null)});var profile=_p[0],setProfile=_p[1];
+  var _st=useState(function(){if(ls("clipo_key","")&&ls("clipo_profile",null))return 2;if(ls("clipo_key",""))return 1;return 0;});
   var step=_st[0],setStep=_st[1];
   var _n=useState("inicio");var nav=_n[0],setNav=_n[1];
   var _lb=useState(function(){return ls("clipo_lib",[])});var lib=_lb[0],setLib=_lb[1];
@@ -249,19 +262,15 @@ function App(){
   var _m=useState(function(){return ls("clipo_met",{ig:[],tt:[]})});var met=_m[0],setMet=_m[1];
   var _cl=useState(function(){return ls("clipo_cli",[])});var clients=_cl[0],setClients=_cl[1];
   var _nt=useState(null);var notif=_nt[0],setNotif=_nt[1];
-
   useEffect(function(){lss("clipo_lib",lib)},[lib]);
   useEffect(function(){lss("clipo_hist",hist)},[hist]);
   useEffect(function(){lss("clipo_cal",cal)},[cal]);
   useEffect(function(){lss("clipo_met",met)},[met]);
   useEffect(function(){lss("clipo_cli",clients)},[clients]);
-
   function toast(msg){setNotif(msg);setTimeout(function(){setNotif(null)},3000)}
-  function saveLib(item){setLib(function(p){return [{...item,id:Date.now(),savedAt:new Date().toLocaleDateString()}].concat(p)});toast("Guardado en biblioteca")}
+  function saveLib(item){setLib(function(p){return [{...item,id:Date.now(),savedAt:new Date().toLocaleDateString(),perf:{views:"",saves:"",shares:"",leads:"",sales:""}}].concat(p)});toast("Guardado en biblioteca")}
   function addHist(topic){setHist(function(p){return [{topic:topic,date:new Date().toLocaleDateString()}].concat(p.filter(function(t){return t.topic!==topic})).slice(0,30)})}
-
   if(step<2)return E(Onboard,{apiKey:apiKey,setApiKey:setApiKey,step:step,setStep:setStep,setProfile:setProfile});
-
   return E("div",{className:"app"},
     E("aside",{className:"sidebar"},
       E("div",{className:"logo"},
@@ -269,28 +278,13 @@ function App(){
         E("span",{className:"ln"},"Cli",E("span",null,"po"))
       ),
       E("span",{className:"ns"},"Principal"),
-      NAV.slice(0,3).map(function(n){
-        return E("button",{key:n.id,className:"ni"+(nav===n.id?" a":""),onClick:function(){setNav(n.id)}},
-          E("span",{style:{fontSize:15}},n.ic),n.lb,
-          n.id==="library"&&lib.length>0?E("span",{className:"nb"},lib.length):null
-        );
-      }),
+      NAV.slice(0,3).map(function(n){return E("button",{key:n.id,className:"ni"+(nav===n.id?" a":""),onClick:function(){setNav(n.id)}},E("span",{style:{fontSize:15}},n.ic),n.lb,n.id==="library"&&lib.length>0?E("span",{className:"nb"},lib.length):null)}),
       E("span",{className:"ns"},"Herramientas"),
-      NAV.slice(3).map(function(n){
-        return E("button",{key:n.id,className:"ni"+(nav===n.id?" a":""),onClick:function(){setNav(n.id)}},
-          E("span",{style:{fontSize:15}},n.ic),n.lb,
-          n.id==="library"&&lib.length>0?E("span",{className:"nb"},lib.length):null
-        );
-      }),
-      E("div",{className:"sf"},
-        E("div",{style:{display:"flex",alignItems:"center",gap:8}},
-          E("div",{className:"av"},profile&&profile.name?profile.name[0].toUpperCase():"U"),
-          E("div",null,
-            E("div",{style:{fontSize:12,fontWeight:500,color:"var(--txt)"}},profile&&profile.name||"Mi perfil"),
-            E("div",{style:{fontSize:10,color:"var(--txt3)"}},profile&&profile.industry||"Creador")
-          )
-        )
-      )
+      NAV.slice(3).map(function(n){return E("button",{key:n.id,className:"ni"+(nav===n.id?" a":""),onClick:function(){setNav(n.id)}},E("span",{style:{fontSize:15}},n.ic),n.lb,n.id==="library"&&lib.length>0?E("span",{className:"nb"},lib.length):null)}),
+      E("div",{className:"sf"},E("div",{style:{display:"flex",alignItems:"center",gap:8}},
+        E("div",{className:"av"},profile&&profile.name?profile.name[0].toUpperCase():"U"),
+        E("div",null,E("div",{style:{fontSize:12,fontWeight:500,color:"var(--txt)"}},profile&&profile.name||"Mi perfil"),E("div",{style:{fontSize:10,color:"var(--txt3)"}},profile&&profile.industry||"Creador"))
+      ))
     ),
     E("main",{className:"main"},
       nav==="inicio"?E(PInicio,{profile:profile,apiKey:apiKey,cal:cal,hist:hist,addHist:addHist,saveLib:saveLib,toast:toast}):null,
@@ -298,13 +292,13 @@ function App(){
       nav==="calendar"?E(PCal,{cal:cal,setCal:setCal}):null,
       nav==="client"?E(PClient,{clients:clients,setClients:setClients,apiKey:apiKey,saveLib:saveLib,toast:toast}):null,
       nav==="library"?E(PLib,{lib:lib,setLib:setLib,toast:toast}):null,
-      nav==="metrics"?E(PMet,{met:met,setMet:setMet,profile:profile,apiKey:apiKey,toast:toast}):null
+      nav==="metrics"?E(PMet,{met:met,setMet:setMet,profile:profile,apiKey:apiKey,lib:lib,toast:toast}):null
     ),
     notif?E("div",{className:"nt"},notif):null
   );
 }
 
-// ONBOARD
+// ── ONBOARD ─────────────────────────────────────────────────────────────────
 function Onboard(props){
   var apiKey=props.apiKey,setApiKey=props.setApiKey,step=props.step,setStep=props.setStep,setProfile=props.setProfile;
   var _k=useState(apiKey||"");var key=_k[0],setKey=_k[1];
@@ -312,68 +306,62 @@ function Onboard(props){
   var _e=useState("");var err=_e[0],setErr=_e[1];
   var _pr=useState({name:"",industry:"Trading & Finanzas",product:"",audience:"",platform:"Ambas"});
   var prof=_pr[0],setProf=_pr[1];
-
   async function testKey(){
     if(!key.trim()){setErr("Ingresa tu API key");return}
     setTesting(true);setErr("");
     try{
-      await claude(key,"You are helpful.","Say OK");
+      var r=await fetch("https://api.anthropic.com/v1/messages",{method:"POST",headers:{"Content-Type":"application/json","x-api-key":key,"anthropic-version":"2023-06-01","anthropic-dangerous-direct-browser-access":"true"},body:JSON.stringify({model:"claude-haiku-4-5-20251001",max_tokens:5,messages:[{role:"user",content:"ok"}]})});
+      if(!r.ok){var e=await r.json();throw new Error(e.error&&e.error.message||"Invalida")}
       lss("clipo_key",key);setApiKey(key);setStep(1);
-    }catch(e){setErr("API key invalida. Verifica en console.anthropic.com")}
+    }catch(e){setErr("API key invalida: "+e.message)}
     setTesting(false);
   }
   function saveP(){
     if(!prof.name.trim()||!prof.product.trim()||!prof.audience.trim()){setErr("Completa todos los campos");return}
     lss("clipo_profile",prof);setProfile(prof);setStep(2);
   }
-
-  return E("div",{className:"ow"},
-    E("div",{className:"oc"},
-      E("div",{style:{display:"flex",alignItems:"center",gap:10,marginBottom:28}},
-        E("div",{className:"lm",style:{width:38,height:38}},E("svg",{viewBox:"0 0 24 24",fill:"#000",width:20,height:20},E("path",{d:"M13 2L3 14h9l-1 8 10-12h-9l1-8z"}))),
-        E("span",{className:"ln",style:{fontSize:24}},"Cli",E("span",null,"po")),
-        E("span",{style:{fontSize:11,background:"var(--acc3)",color:"var(--acc)",padding:"3px 9px",borderRadius:20,border:"1px solid var(--bd2)"}},"AI Content OS")
+  return E("div",{className:"ow"},E("div",{className:"oc"},
+    E("div",{style:{display:"flex",alignItems:"center",gap:10,marginBottom:28}},
+      E("div",{className:"lm",style:{width:38,height:38}},E("svg",{viewBox:"0 0 24 24",fill:"#000",width:20,height:20},E("path",{d:"M13 2L3 14h9l-1 8 10-12h-9l1-8z"}))),
+      E("span",{className:"ln",style:{fontSize:24}},"Cli",E("span",null,"po")),
+      E("span",{style:{fontSize:11,background:"var(--acc3)",color:"var(--acc)",padding:"3px 9px",borderRadius:20,border:"1px solid var(--bd2)"}},"AI Content OS")
+    ),
+    E("div",{style:{display:"flex",gap:8,marginBottom:28}},[0,1].map(function(i){return E("div",{key:i,style:{height:3,flex:step>=i?2:1,borderRadius:2,background:step>i?"var(--acc2)":step===i?"var(--acc)":"var(--bg4)",transition:".3s"}})})),
+    step===0?E(R.Fragment,null,
+      E("h2",{style:{marginBottom:4}},"Conecta tu API de Claude"),
+      E("p",{className:"mu",style:{marginBottom:24,lineHeight:1.6}},"Clipo usa tu propia cuenta de Anthropic. Tu pagas tu consumo directamente."),
+      E("div",{style:{marginBottom:20}},[
+        {t:"Crea tu cuenta",d:E("span",null,E("a",{href:"https://console.anthropic.com",target:"_blank",style:{color:"var(--acc)"}},"console.anthropic.com")," — Sign up — Verifica tu email")},
+        {t:"Agrega credito minimo",d:"Billing — Add credits — minimo $5 USD"},
+        {t:"Copia tu API key",d:"API Keys — Create key — copia y pega abajo"}
+      ].map(function(s,i){return E("div",{key:i,className:"as_"},E("div",{className:"sn"},i+1),E("div",null,E("h3",{style:{marginBottom:3}},s.t),E("p",{className:"mu",style:{fontSize:12}},s.d)))})),
+      E("div",{className:"fg"},E("label",{className:"fl"},"Tu API Key de Anthropic"),E("input",{type:"password",placeholder:"sk-ant-api...",value:key,onChange:function(e){setKey(e.target.value)}})),
+      err?E("p",{style:{color:"var(--danger)",fontSize:12,marginBottom:10}},err):null,
+      E("button",{className:"btn ba",style:{width:"100%",justifyContent:"center",padding:12},onClick:testKey,disabled:testing},testing?"Verificando...":"Verificar y continuar"),
+      E("div",{className:"dv"}),
+      E("p",{style:{fontSize:12,fontWeight:600,color:"var(--warn)",marginBottom:10}},"Costo estimado por tu uso"),
+      E("table",{className:"ct"},
+        E("thead",null,E("tr",null,E("th",null,"Accion"),E("th",null,"Modelo"),E("th",{style:{textAlign:"right"}},"Costo aprox."))),
+        E("tbody",null,[["Generar guion completo","Sonnet","~$0.08"],["Analizar guion","Haiku","~$0.02"],["8 ideas de contenido","Haiku","~$0.01"],["Briefing + busqueda web","Sonnet","~$0.05"],["Hook Lab 10 variantes","Haiku","~$0.02"]].map(function(r){
+          return E("tr",{key:r[0]},E("td",null,r[0]),E("td",{style:{color:"var(--txt2)"}},r[1]),E("td",{style:{color:"var(--acc)",textAlign:"right"}},r[2]));
+        }))
       ),
-      E("div",{style:{display:"flex",gap:8,marginBottom:28}},
-        [0,1].map(function(i){return E("div",{key:i,style:{height:3,flex:step>=i?2:1,borderRadius:2,background:step>i?"var(--acc2)":step===i?"var(--acc)":"var(--bg4)",transition:".3s"}})})
-      ),
-      step===0?E(R.Fragment,null,
-        E("h2",{style:{marginBottom:4}},"Conecta tu API de Claude"),
-        E("p",{className:"mu",style:{marginBottom:24,lineHeight:1.6}},"Clipo usa tu propia cuenta de Anthropic. Tu pagas tu consumo directamente."),
-        E("div",{style:{marginBottom:20}},
-          [{t:"Crea tu cuenta",d:E("span",null,E("a",{href:"https://console.anthropic.com",target:"_blank",style:{color:"var(--acc)"}},"console.anthropic.com")," - Sign up - Verifica tu email")},
-           {t:"Agrega credito minimo",d:"Billing - Add credits - minimo $5 USD (te dura meses)"},
-           {t:"Copia tu API key",d:"API Keys - Create key - copia y pega abajo"}
-          ].map(function(s,i){return E("div",{key:i,className:"as"},E("div",{className:"sn"},i+1),E("div",null,E("h3",{style:{marginBottom:3}},s.t),E("p",{className:"mu",style:{fontSize:12}},s.d)))})
-        ),
-        E("div",{className:"fg"},E("label",{className:"fl"},"Tu API Key de Anthropic"),E("input",{type:"password",placeholder:"sk-ant-api...",value:key,onChange:function(e){setKey(e.target.value)}})),
-        err?E("p",{style:{color:"var(--danger)",fontSize:12,marginBottom:10}},err):null,
-        E("button",{className:"btn ba",style:{width:"100%",justifyContent:"center",padding:12},onClick:testKey,disabled:testing},testing?"Verificando...":"Verificar y continuar"),
-        E("div",{className:"dv"}),
-        E("p",{style:{fontSize:12,fontWeight:600,color:"var(--warn)",marginBottom:10}},"Costo estimado por tu uso"),
-        E("table",{className:"ct"},
-          E("thead",null,E("tr",null,E("th",null,"Guiones / mes"),E("th",null,"Tipo"),E("th",{style:{textAlign:"right"}},"Costo API aprox."))),
-          E("tbody",null,[["30 guiones","Uso ligero","~$0.60"],["60 guiones","Uso normal","~$1.20"],["100 guiones","Uso intenso","~$2.00"],["200+ guiones","Agencia","~$4.00"]].map(function(r){
-            return E("tr",{key:r[0]},E("td",null,r[0]),E("td",{style:{color:"var(--txt2)"}},r[1]),E("td",{style:{color:"var(--acc)",textAlign:"right"}},r[2]));
-          }))
-        ),
-        E("div",{className:"di"},E("strong",{style:{color:"var(--danger)"}},"Disclaimer: "),"El costo de la API de Anthropic es responsabilidad exclusiva del usuario. Clipo no tiene acceso a tu cuenta de Anthropic ni a los cargos que generes. Consulta precios en anthropic.com/pricing.")
-      ):E(R.Fragment,null,
-        E("h2",{style:{marginBottom:4}},"Crea tu perfil de marca"),
-        E("p",{className:"mu",style:{marginBottom:24,lineHeight:1.6}},"Esto personaliza TODO el contenido. Sin perfil = contenido generico para cualquier persona."),
-        E("div",{className:"fg"},E("label",{className:"fl"},"Tu nombre o marca"),E("input",{placeholder:"Ej: Kevin / Fyntrum",value:prof.name,onChange:function(e){setProf({...prof,name:e.target.value})}})),
-        E("div",{className:"fg"},E("label",{className:"fl"},"A que te dedicas?"),E("select",{value:prof.industry,onChange:function(e){setProf({...prof,industry:e.target.value})}},INDS.map(function(i){return E("option",{key:i,value:i},i)}))),
-        E("div",{className:"fg"},E("label",{className:"fl"},"Que vendes o ofreces?"),E("input",{placeholder:"Ej: Membresias de trading, indicador FT01",value:prof.product,onChange:function(e){setProf({...prof,product:e.target.value})}})),
-        E("div",{className:"fg"},E("label",{className:"fl"},"A quien le hablas? (audiencia)"),E("input",{placeholder:"Ej: Traders latinos 25-40 que quieren independencia",value:prof.audience,onChange:function(e){setProf({...prof,audience:e.target.value})}})),
-        E("div",{className:"fg"},E("label",{className:"fl"},"Plataforma principal"),E("select",{value:prof.platform,onChange:function(e){setProf({...prof,platform:e.target.value})}},PLATS.map(function(p){return E("option",{key:p,value:p},p)}))),
-        err?E("p",{style:{color:"var(--danger)",fontSize:12,marginBottom:10}},err):null,
-        E("button",{className:"btn ba",style:{width:"100%",justifyContent:"center",padding:12},onClick:saveP},"Entrar a Clipo")
-      )
+      E("div",{className:"di"},E("strong",{style:{color:"var(--danger)"}},"Disclaimer: "),"El costo de la API de Anthropic es responsabilidad exclusiva del usuario. Clipo no tiene acceso ni control sobre tu cuenta de Anthropic ni sobre los cargos que generes. Valores estimados — consulta anthropic.com/pricing.")
+    ):E(R.Fragment,null,
+      E("h2",{style:{marginBottom:4}},"Crea tu perfil de marca"),
+      E("p",{className:"mu",style:{marginBottom:24,lineHeight:1.6}},"Esto personaliza TODO el contenido para tu negocio. Sin esto = contenido generico."),
+      E("div",{className:"fg"},E("label",{className:"fl"},"Tu nombre o marca"),E("input",{placeholder:"Ej: Kevin / Fyntrum",value:prof.name,onChange:function(e){setProf({...prof,name:e.target.value})}})),
+      E("div",{className:"fg"},E("label",{className:"fl"},"A que te dedicas?"),E("select",{value:prof.industry,onChange:function(e){setProf({...prof,industry:e.target.value})}},INDS.map(function(i){return E("option",{key:i,value:i},i)}))),
+      E("div",{className:"fg"},E("label",{className:"fl"},"Que vendes o ofreces?"),E("input",{placeholder:"Ej: Membresias de trading, indicador FT01",value:prof.product,onChange:function(e){setProf({...prof,product:e.target.value})}})),
+      E("div",{className:"fg"},E("label",{className:"fl"},"A quien le hablas?"),E("input",{placeholder:"Ej: Traders latinos 25-40 que quieren independencia financiera",value:prof.audience,onChange:function(e){setProf({...prof,audience:e.target.value})}})),
+      E("div",{className:"fg"},E("label",{className:"fl"},"Plataforma principal"),E("select",{value:prof.platform,onChange:function(e){setProf({...prof,platform:e.target.value})}},PLATS.map(function(p){return E("option",{key:p,value:p},p)}))),
+      err?E("p",{style:{color:"var(--danger)",fontSize:12,marginBottom:10}},err):null,
+      E("button",{className:"btn ba",style:{width:"100%",justifyContent:"center",padding:12},onClick:saveP},"Entrar a Clipo")
     )
-  );
+  ));
 }
 
-// PAGE INICIO
+// ── PAGE INICIO ─────────────────────────────────────────────────────────────
 function PInicio(props){
   var profile=props.profile,apiKey=props.apiKey,cal=props.cal,hist=props.hist,addHist=props.addHist,saveLib=props.saveLib,toast=props.toast;
   var ti=new Date().getDay()===0?6:new Date().getDay()-1;
@@ -381,16 +369,21 @@ function PInicio(props){
   var _ov=useState("");var ov=_ov[0],setOv=_ov[1];
   var _bf=useState("");var bf=_bf[0],setBf=_bf[1];
   var _bl=useState(false);var bl=_bl[0],setBl=_bl[1];
-  var _sc=useState("");var sc=_sc[0],setSc=_sc[1];
+  var _sc=useState(function(){return ls("inicio_sc","")});var sc=_sc[0],setSc=_sc[1];
   var _sl=useState(false);var sl=_sl[0],setSl=_sl[1];
+  var _ideas=useState(function(){return ls("inicio_ideas",null)});var ideas=_ideas[0],setIdeas=_ideas[1];
+  var _il=useState(false);var il=_il[0],setIl=_il[1];
+  var _sel=useState("");var selIdea=_sel[0],setSelIdea=_sel[1];
+  useEffect(function(){if(sc)lss("inicio_sc",sc)},[sc]);
+  useEffect(function(){if(ideas)lss("inicio_ideas",ideas)},[ideas]);
   var act=ov.trim()||todayTopic;
 
   async function getBrief(){
     setBl(true);setBf("");
+    var dt=getDate();
     try{
-      var dt=getDateUTC5();
-      var sys="FECHA Y HORA ACTUAL: "+dt.full+", "+dt.hour+" (UTC-5, Ecuador). Ano actual: "+dt.year+".\nEres el radar de tendencias de Clipo para "+profile.industry+". Marca: "+profile.name+". Producto: "+profile.product+". Audiencia: "+profile.audience+".\nBusca tendencias EXCLUSIVAMENTE del dia de hoy "+dt.full+". NO uses informacion de 2025 ni de fechas anteriores. Solo tendencias ocurridas en las ultimas horas del "+dt.short+".\nGenera briefing del dia. Formato:\nTENDENCIA 1: [tendencia viral HOY "+dt.short+"]\nTENDENCIA 2: [segunda tendencia de HOY]\nTENDENCIA 3: [tercera de HOY]\nANGULO HOY: [angulo mas poderoso para "+profile.name+" el "+dt.full+"]\nOPORTUNIDAD: [por que publicar ahora el "+dt.short+"]\nEVITAR: [que evitar hoy]";
-      var txt=await claude(apiKey,sys,"Briefing de tendencias para "+profile.industry+" HOY "+dt.full+". Hora actual: "+dt.hour+" UTC-5. Tema del dia: "+act,true);
+      var sys="FECHA ACTUAL: "+dt.full+", "+dt.hour+" UTC-5. ANO: "+dt.year+".\nEres el radar de tendencias de Clipo para "+profile.industry+". Marca: "+profile.name+". Producto: "+profile.product+". Audiencia: "+profile.audience+".\nBusca tendencias EXCLUSIVAMENTE de hoy "+dt.full+". NO uses informacion de 2025. Solo lo ocurrido hoy "+dt.short+".\nFormato:\nTENDENCIA 1: [tendencia viral HOY]\nTENDENCIA 2: [segunda tendencia de HOY]\nTENDENCIA 3: [tercera]\nANGULO HOY: [angulo mas poderoso para "+profile.name+"]\nOPORTUNIDAD: [por que publicar ahora]\nEVITAR: [que evitar hoy]";
+      var txt=await apiCall(apiKey,sys,"Briefing para "+profile.industry+" HOY "+dt.full+". Tema del dia: "+act,null,800,true);
       setBf(txt);
     }catch(e){setBf("Error: "+e.message)}
     setBl(false);
@@ -398,169 +391,302 @@ function PInicio(props){
 
   async function quickGen(){
     setSl(true);setSc("");
-    var recent=hist.slice(0,10).map(function(h){return h.topic}).join(", ");
+    var dt=getDate();
+    var sys=buildPrompt(profile,"PAS","followers","question","authority","follow",act,"",false,hist);
     try{
-      var dt=getDateUTC5();
-      var sys="FECHA ACTUAL: "+dt.full+" ("+dt.iso+"), "+dt.hour+" UTC-5. ANO ACTUAL: "+dt.year+". Cualquier referencia a fechas, eventos o noticias debe ser de "+dt.year+", NO de 2025.\nEres el generador de Clipo.\nMARCA: "+profile.name+" | "+profile.industry+" | Producto: "+profile.product+" | Audiencia: "+profile.audience+" | "+profile.platform+"\nANTI-REDUNDANCIA: NO repitas estos temas: ["+(recent||"ninguno")+"].\nANTI-GENERICO: Cada frase ultra-especifica para "+profile.audience+". Sin motivacion vacia.\nUsa tecnica PAS. Responde:\n[SCRIPT]\nHOOK (0-3 seg): [hook]\nGUION PAS: [guion max 60 seg]\n[/SCRIPT]\n[SEO_IG][150-200 palabras, emojis, CTA, 20 hashtags][/SEO_IG]\n[SEO_TT][80-100 palabras, 15 hashtags][/SEO_TT]";
-      var txt=await claude(apiKey,sys,"Fecha actual: "+dt.full+". Tema: "+act);
+      var txt=await apiCall(apiKey,sys,"Fecha actual: "+dt.full+". Genera guion para tema: "+act,null,1800);
       setSc(txt);addHist(act);
     }catch(e){setSc("Error: "+e.message)}
     setSl(false);
   }
 
+  async function genIdeas(){
+    setIl(true);setIdeas(null);setSelIdea("");
+    var dt=getDate();
+    var recent=(hist||[]).slice(0,20).map(function(h){return h.topic}).join(", ");
+    try{
+      var sys="Eres el generador de ideas de Clipo. FECHA: "+dt.full+". ANO: "+dt.year+".\nMARCA: "+profile.name+" | "+profile.industry+" | Producto: "+profile.product+" | Audiencia: "+profile.audience+" | Plataforma: "+profile.platform+"\nTEMA MACRO: '"+act+"' — expande en 8 angulos DISTINTOS y ESPECIFICOS.\nANTI-REDUNDANCIA: NO repitas ni parafrasees estos temas ya usados: ["+(recent||"ninguno")+"]\nREGLAS:\n- Titulos concretos. MAL: 'Consejos de trading'. BIEN: 'Por que el 80% de traders pierde en los primeros 3 meses'\n- Cada idea = angulo UNICO\n- Especifico para "+profile.audience+"\nFORMATO OBLIGATORIO para cada idea:\nIDEA_START\nTITULO: [titulo especifico del video]\nHOOK: [primeras palabras, max 12 palabras]\nCONTEXTO: [2 lineas: que puntos tocar, emocion objetivo, por que le importa a "+profile.audience+"]\nIDEA_END\nRepite 8 veces.";
+      var txt=await apiCall(apiKey,sys,"Tema macro: '"+act+"'. Genera 8 ideas distintas para "+profile.name+".","claude-haiku-4-5-20251001",1400);
+      var blocks=txt.split("IDEA_START").slice(1);
+      var parsed=blocks.map(function(block){
+        var c=block.split("IDEA_END")[0]||block;
+        var tM=c.match(/TITULO:\s*(.+)/);var hM=c.match(/HOOK:\s*(.+)/);var cM=c.match(/CONTEXTO:\s*([\s\S]+?)(?=IDEA_END|$)/);
+        return{title:tM?tM[1].trim():"",hook:hM?hM[1].trim():"",context:cM?cM[1].trim().slice(0,220):""};
+      }).filter(function(i){return i.title.length>5});
+      if(parsed.length===0){parsed=txt.split("\n").filter(function(l){return l.trim().length>20}).slice(0,8).map(function(l){return{title:l.replace(/^\d+[.)]\s*/,"").trim(),hook:"",context:""}});}
+      setIdeas(parsed);
+    }catch(e){toast("Error: "+e.message)}
+    setIl(false);
+  }
+
   var p=parseS(sc);
   return E("div",null,
     E("div",{className:"ph"},
-      E("div",null,E("h1",null,"Buenos dias"),E("p",{className:"mu"},"Tema: ",E("span",{className:"at"},act))),
+      E("div",null,E("h1",null,"Buenos dias"),E("p",{className:"mu"},"Hoy es "+new Date().toLocaleDateString("es-ES",{weekday:"long",day:"numeric",month:"long"})+" — Tema: ",E("span",{className:"at"},act))),
       E("div",{style:{display:"flex",gap:8}},
-        E("button",{className:"btn bg sm",onClick:getBrief,disabled:bl},bl?"Cargando...":"Briefing del dia"),
-        E("button",{className:"btn ba sm",onClick:quickGen,disabled:sl},sl?"Generando...":"Guion rapido")
+        E("button",{className:"btn bg_ sm",onClick:getBrief,disabled:bl},bl?"Buscando...":"🔍 Briefing del dia"),
+        E("button",{className:"btn ba sm",onClick:quickGen,disabled:sl},sl?"Generando...":"⚡ Guion rapido")
       )
     ),
-    E("div",{className:"ca",style:{marginBottom:20}},
-      E("h3",{style:{marginBottom:8,color:"var(--acc)"}},"Override urgente - Cambia el tema de hoy"),
-      E("p",{className:"mu",style:{fontSize:12,marginBottom:10}},"Paso algo importante hoy? Reemplaza el tema asignado:"),
+    E("div",{className:"ca",style:{marginBottom:16}},
+      E("h3",{style:{marginBottom:8,color:"var(--acc)"}},"🔥 Override urgente"),
+      E("p",{className:"mu",style:{fontSize:12,marginBottom:8}},"Paso algo importante hoy? Reemplaza el tema:"),
       E("div",{style:{display:"flex",gap:8}},
         E("input",{placeholder:"Ej: El oro rompio maximo historico...",value:ov,onChange:function(e){setOv(e.target.value)},style:{flex:1}}),
-        ov?E("button",{className:"btn bg sm",onClick:function(){setOv("")}},"X"):null
+        ov?E("button",{className:"btn bg_ sm",onClick:function(){setOv("")}},"X"):null
       )
     ),
-    E("div",{className:"g2",style:{marginBottom:20}},
+    E("div",{className:"card",style:{marginBottom:16,borderColor:"rgba(0,229,160,.15)"}},
+      E("div",{style:{display:"flex",alignItems:"center",justifyContent:"space-between",marginBottom:ideas||il?14:0}},
+        E("div",null,E("h3",{style:{color:"var(--acc)"}},"💡 Generador de ideas — "+act),E("p",{className:"mu",style:{fontSize:12,marginTop:2}},"Convierte el tema macro en 8 angulos concretos listos para guion")),
+        E("button",{className:"btn ba sm",onClick:genIdeas,disabled:il},il?"Generando...":"Generar 8 ideas")
+      ),
+      il?E("div",null,E("div",{className:"lb"}),E("p",{className:"mu",style:{fontSize:12}},"Expandiendo el tema para "+profile.name+"...")):null,
+      ideas&&ideas.length>0?E("div",null,
+        E("div",{style:{display:"grid",gridTemplateColumns:"1fr 1fr",gap:8}},
+          ideas.map(function(idea,i){
+            var isSel=selIdea===idea.title;
+            return E("div",{key:i,style:{background:isSel?"rgba(0,229,160,.1)":"var(--bg3)",border:"1px solid "+(isSel?"var(--acc)":"var(--bd)"),borderRadius:"var(--r)",padding:"12px",cursor:"pointer",transition:".15s"},onClick:function(){setSelIdea(isSel?"":idea.title)}},
+              E("div",{style:{display:"flex",gap:8}},
+                E("span",{style:{fontFamily:"var(--fn)",fontSize:11,fontWeight:700,color:"var(--acc)",flexShrink:0}},i+1),
+                E("div",null,
+                  E("p",{style:{fontSize:12,fontWeight:600,color:"var(--txt)",lineHeight:1.5,marginBottom:3}},idea.title),
+                  idea.hook?E("p",{style:{fontSize:11,color:"var(--acc)",fontStyle:"italic",marginBottom:3}},'"'+idea.hook+'"'):null,
+                  idea.context?E("p",{style:{fontSize:11,color:"var(--txt2)",lineHeight:1.5}},idea.context):null
+                )
+              ),
+              isSel?E("div",{style:{display:"flex",gap:6,marginTop:8}},
+                E("button",{className:"btn bg_ sm",style:{flex:1,justifyContent:"center",fontSize:11},onClick:function(e){e.stopPropagation();var full="TITULO: "+idea.title+(idea.hook?"\nHOOK: "+idea.hook:"")+(idea.context?"\nCONTEXTO PARA EL GUION: "+idea.context:"");navigator.clipboard.writeText(full).then(function(){toast("Copiado — pega en Script Engine")})}},"Copiar todo"),
+                E("button",{className:"btn ba sm",style:{flex:1,justifyContent:"center",fontSize:11},onClick:function(e){e.stopPropagation();addHist(idea.title);saveLib({content:"TITULO: "+idea.title+(idea.hook?"\nHOOK: "+idea.hook:"")+(idea.context?"\nCONTEXTO: "+idea.context:""),technique:"IDEA",mode:"organic",topic:idea.title});}},"Guardar")
+              ):null
+            );
+          })
+        ),
+        selIdea?E("div",{style:{marginTop:10,padding:"10px 14px",background:"rgba(0,229,160,.06)",borderRadius:"var(--r)",border:"1px solid rgba(0,229,160,.15)"}},
+          E("p",{style:{fontSize:12,color:"var(--acc)",fontWeight:600,marginBottom:3}},"Como usar esta idea:"),
+          E("p",{style:{fontSize:12,color:"var(--txt2)",lineHeight:1.6}},"Copia todo — pega el titulo en 'Tema' del Script Engine y el contexto en 'Contexto adicional'. Elige tu tecnica y genera.")
+        ):null
+      ):null
+    ),
+    E("div",{className:"g2",style:{marginBottom:16}},
       E("div",{className:"card"},
-        E("h3",{style:{marginBottom:12}},"Tendencias del dia"),
+        E("h3",{style:{marginBottom:12}},"📊 Tendencias del dia"),
         bl?E("div",null,E("div",{className:"lb"}),E("p",{className:"mu",style:{fontSize:12}},"Buscando en tiempo real...")):null,
-        !bl&&!bf?E("p",{className:"mu",style:{fontSize:12,lineHeight:1.7}},"Haz clic en Briefing del dia para ver tendencias actuales de "+profile.industry+"."):null,
+        !bl&&!bf?E("p",{className:"mu",style:{fontSize:12,lineHeight:1.7}},"Clic en 'Briefing del dia' para ver tendencias actuales de "+profile.industry+"."):null,
         bf?E("div",{style:{fontSize:12.5,lineHeight:1.9,color:"var(--txt2)",whiteSpace:"pre-wrap"}},bf):null
       ),
       E("div",{className:"card"},
-        E("h3",{style:{marginBottom:12}},"Anti-redundancia - Temas recientes"),
-        hist.length===0?E("p",{className:"mu",style:{fontSize:12,lineHeight:1.7}},"El sistema recuerda tus ultimos 30 temas para que nunca repitas contenido."):null,
-        hist.slice(0,8).map(function(h,i){return E("div",{key:i,className:"hd"},E("div",{className:"hdd"}),E("span",{className:"hdt"},h.topic),E("span",{className:"hdd2"},h.date))})
+        E("h3",{style:{marginBottom:12}},"🧠 Temas recientes"),
+        hist.length===0?E("p",{className:"mu",style:{fontSize:12,lineHeight:1.7}},"El sistema recuerda tus ultimos 30 temas para no repetir contenido."):null,
+        hist.slice(0,8).map(function(h,i){return E("div",{key:i,className:"hd"},E("div",{className:"hdd"}),E("span",{className:"hdt"},h.topic),E("span",{className:"hddt"},h.date))})
       )
     ),
     sc?E("div",{className:"card"},
       E("div",{style:{display:"flex",justifyContent:"space-between",alignItems:"center",marginBottom:14}},
-        E("h3",null,"Guion rapido - "+act),
+        E("h3",null,"⚡ Guion rapido — "+act),
         E("div",{style:{display:"flex",gap:8}},
-          E("button",{className:"btn bg sm",onClick:function(){navigator.clipboard.writeText(p.script).then(function(){toast("Copiado")})}},"Copiar"),
+          E("button",{className:"btn bg_ sm",onClick:function(){navigator.clipboard.writeText(p.script||sc).then(function(){toast("Copiado")})}},"Copiar"),
           E("button",{className:"btn ba sm",onClick:function(){saveLib({content:sc,technique:"PAS",mode:"organic",topic:act})}},"Guardar")
         )
       ),
       sl?E("div",{className:"lb"}):null,
       E("div",{className:"sb"},p.script||sc),
-      p.ig?E(R.Fragment,null,E("div",{style:{margin:"12px 0 6px"}},E("span",{className:"bdg b4"},"SEO Instagram")),E("div",{className:"se"},p.ig)):null,
-      p.tt?E(R.Fragment,null,E("div",{style:{margin:"10px 0 6px"}},E("span",{className:"bdg b3"},"SEO TikTok")),E("div",{className:"se"},p.tt)):null
+      p.hookB?E("div",{style:{marginTop:10}},E("p",{className:"lbl",style:{marginBottom:6}},"Variante B del hook"),E("div",{className:"se"},p.hookB)):null,
+      p.ig?E(R.Fragment,null,E("div",{style:{margin:"10px 0 5px"}},E("span",{className:"bdg b4"},"SEO Instagram")),E("div",{className:"se"},p.ig)):null,
+      p.tt?E(R.Fragment,null,E("div",{style:{margin:"8px 0 5px"}},E("span",{className:"bdg b3"},"SEO TikTok")),E("div",{className:"se"},p.tt)):null
     ):null
   );
 }
 
-// PAGE ENGINE
+// ── PAGE ENGINE ─────────────────────────────────────────────────────────────
 function PEngine(props){
   var profile=props.profile,apiKey=props.apiKey,hist=props.hist,addHist=props.addHist,saveLib=props.saveLib,toast=props.toast;
-  var _m=useState("organic");var mode=_m[0],setMode=_m[1];
-  var _t=useState("PAS");var tech=_t[0],setTech=_t[1];
-  var _tp=useState("");var topic=_tp[0],setTopic=_tp[1];
-  var _ex=useState("");var extra=_ex[0],setExtra=_ex[1];
-  var _r=useState(null);var result=_r[0],setResult=_r[1];
-  var _l=useState(false);var loading=_l[0],setLoading=_l[1];
-  var _tb=useState("script");var tab=_tb[0],setTab=_tb[1];
-  var _hk=useState(null);var hooks=_hk[0],setHooks=_hk[1];
+  var _m=useState(function(){return ls("eng_mode","organic")});var mode=_m[0],setMode=_m[1];
+  var _t=useState(function(){return ls("eng_tech","PAS")});var tech=_t[0],setTech=_t[1];
+  var _obj=useState(function(){return ls("eng_obj","followers")});var obj=_obj[0],setObj=_obj[1];
+  var _hk=useState(function(){return ls("eng_hook","question")});var hookType=_hk[0],setHookType=_hk[1];
+  var _sty=useState(function(){return ls("eng_style","authority")});var style=_sty[0],setStyle=_sty[1];
+  var _cta=useState(function(){return ls("eng_cta","follow")});var cta=_cta[0],setCta=_cta[1];
+  var _tp=useState(function(){return ls("eng_topic","")});var topic=_tp[0],setTopic=_tp[1];
+  var _ex=useState(function(){return ls("eng_extra","")});var extra=_ex[0],setExtra=_ex[1];
+  var _sess=useState(function(){return ls("eng_sess",[])});var sess=_sess[0],setSess=_sess[1];
+  var _si=useState(0);var si=_si[0],setSi=_si[1];
+  var _tab=useState("script");var tab=_tab[0],setTab=_tab[1];
+  var _hooks=useState(null);var hooks=_hooks[0],setHooks=_hooks[1];
   var _hl=useState(false);var hload=_hl[0],setHload=_hl[1];
+  var _loading=useState(false);var loading=_loading[0],setLoading=_loading[1];
+  var _anl=useState(null);var anl=_anl[0],setAnl=_anl[1];
+  var _al=useState(false);var aload=_al[0],setAload=_al[1];
+  useEffect(function(){lss("eng_mode",mode)},[mode]);
+  useEffect(function(){lss("eng_tech",tech)},[tech]);
+  useEffect(function(){lss("eng_obj",obj)},[obj]);
+  useEffect(function(){lss("eng_hook",hookType)},[hookType]);
+  useEffect(function(){lss("eng_style",style)},[style]);
+  useEffect(function(){lss("eng_cta",cta)},[cta]);
+  useEffect(function(){lss("eng_topic",topic)},[topic]);
+  useEffect(function(){lss("eng_extra",extra)},[extra]);
+  useEffect(function(){lss("eng_sess",sess)},[sess]);
 
-  var TP={
-    PAS:"PAS: Problema (dolor exacto de "+profile.audience+") -> Agitacion (consecuencias de no resolver) -> Solucion ("+profile.product+" como salida especifica)",
-    AIDA:"AIDA: Atencion (hook 2 seg) -> Interes (dato o historia) -> Deseo (transformacion que quieren) -> Accion (CTA claro)",
-    BAB:"Before/After/Bridge: Antes (realidad dolorosa actual) -> Despues (vida transformada especifica) -> Puente (como llegar con "+profile.product+")",
-    "4U":"4U: Urgente (por que AHORA) -> Unico (solo "+profile.name+" lo ofrece) -> Util (beneficio tangible) -> Ultra-especifico (datos concretos, no vaguedades)",
-    STORY:"Story Selling estilo Hormozi: Historia personal -> Momento de quiebre -> Leccion -> Oferta como consecuencia natural",
-    OBJ:"Objecion directa: Nombra la objecion mas grande -> Validala con empatia -> Destruyela con evidencia -> Redirige a "+profile.product,
-    START:"S.T.A.R.T: Setup -> Tension -> Action -> Result (con datos) -> Transformation (cambio de vida)",
-    HOOK:"Hook Viral: Gancho devastador 3-5 seg + 15 seg de valor + CTA fulminante. El hook ES el contenido."
-  };
-  var MP=mode==="pauta"?"MODO PAUTA - POLITICAS META ADS & TIKTOK ADS:\nPROHIBIDO: garantias, % retorno, 'ganarás dinero', superlativos no verificables, urgencia falsa.\nCTAs PERMITIDOS: Conoce mas, Aprende como, Descubrelo, Solicita informacion.\nESTRUCTURA: Hook 0-3s - Valor 3-12s - CTA 12-15s. Marca con: APTO PARA PAUTA":"MODO ORGANICO.";
+  var curScript=sess[si]||null;
 
   async function gen(){
     if(!topic.trim()){toast("Escribe un tema");return}
-    setLoading(true);setResult(null);setHooks(null);setTab("script");
-    var recent=hist.slice(0,15).map(function(h){return h.topic}).join(", ");
-    var dt=getDateUTC5();
-    var sys="FECHA ACTUAL: "+dt.full+" ("+dt.iso+"), "+dt.hour+" UTC-5. ANO: "+dt.year+". Si mencionas fechas, eventos o contexto de mercado, usa referencias de "+dt.year+" unicamente. NO uses datos de 2025.\nEres el generador de guiones de Clipo.\nPERFIL: "+profile.name+" | "+profile.industry+" | "+profile.product+" | Audiencia: "+profile.audience+" | "+profile.platform+"\nANTI-REDUNDANCIA: NO repitas angulo de: ["+(recent||"ninguno")+"].\nANTI-GENERICO: Cada frase ultra-especifica para "+profile.audience+". Prohibido motivacion vacia.\nTECNICA: "+TP[tech]+"\n"+MP+"\nFORMATO OBLIGATORIO:\n[SCRIPT]\nHOOK (0-3 seg): [hook]\nGUION ("+tech+"): [guion max 60 seg]"+(mode==="pauta"?"\nAPTO PARA PAUTA":"")+"\n[/SCRIPT]\n[SEO_IG][150-200 palabras, emojis, CTA, 20 hashtags][/SEO_IG]\n[SEO_TT][80-100 palabras directas, 15 hashtags][/SEO_TT]";
+    setLoading(true);setHooks(null);setAnl(null);setTab("script");
+    var dt=getDate();
+    var techFull=TECHS.find(function(t){return t.id===tech});
+    var techDesc=techFull?techFull.n+" ("+techFull.d+")":tech;
+    var sys=buildPrompt(profile,techDesc,obj,hookType,style,cta,topic,extra,mode,hist);
     try{
-      var txt=await claude(apiKey,sys,"Fecha actual: "+dt.full+". Tema: "+topic+(extra?"\nContexto: "+extra:""));
-      setResult(txt);addHist(topic);
-    }catch(e){setResult("Error: "+e.message)}
+      var txt=await apiCall(apiKey,sys,"Fecha actual: "+dt.full+". Tema: "+topic+(extra?"\nContexto adicional: "+extra:""),null,2200);
+      var newSess=[{topic:topic,tech:tech,mode:mode,obj:obj,style:style,content:txt}].concat(sess).slice(0,5);
+      setSess(newSess);setSi(0);addHist(topic);
+    }catch(e){toast("Error: "+e.message)}
     setLoading(false);
   }
 
   async function genHooks(){
-    if(!result)return;
+    if(!curScript)return;
     setHload(true);setHooks(null);
+    var dt=getDate();
+    var p=parseS(curScript.content);
     try{
-      var p=parseS(result);
-      var txt=await claude(apiKey,"Eres el Hook Lab de Clipo. Genera 10 hooks completamente distintos (estructura, emocion, angulo diferente). Audiencia: "+profile.audience+". "+(mode==="pauta"?"MODO PAUTA: cumple politicas Meta y TikTok Ads.":"")+" Numera del 1 al 10.","Guion:\n"+p.script+"\nTema: "+topic);
-      setHooks(txt.split("\n").filter(function(l){return /^\d+[.)]\s/.test(l)}).map(function(l){return l.replace(/^\d+[.)]\s*/,"")}));
-    }catch(e){toast("Error en Hook Lab")}
+      var sys="Hook Lab de Clipo. Fecha: "+dt.full+". Genera 10 hooks COMPLETAMENTE distintos (estructura, emocion, angulo diferente cada uno). Audiencia: "+profile.audience+". Plataforma: "+profile.platform+". "+(curScript.mode==="pauta"?"MODO PAUTA: cumple politicas Meta/TikTok Ads.":"")+" Numera del 1 al 10, un hook por linea, sin explicaciones.";
+      var txt=await apiCall(apiKey,sys,"Tema: "+curScript.topic+"\nGuion:\n"+(p.script||curScript.content).slice(0,500),"claude-haiku-4-5-20251001",900);
+      var hks=txt.split("\n").filter(function(l){return /^\d+[.)]\s/.test(l.trim())}).map(function(l){return l.replace(/^\d+[.)]\s*/,"").trim()}).filter(function(l){return l.length>10});
+      if(hks.length===0)hks=txt.split("\n").filter(function(l){return l.trim().length>15}).slice(0,10);
+      setHooks(hks);
+    }catch(e){toast("Error Hook Lab: "+e.message)}
     setHload(false);
   }
 
-  var p=result?parseS(result):{script:"",ig:"",tt:""};
+  async function analyze(){
+    if(!curScript)return;
+    setAload(true);setAnl(null);
+    var p=parseS(curScript.content);
+    var script=p.script||curScript.content;
+    try{
+      var sys="Eres el Analizador de Guiones de Clipo. Analiza este guion con criterio de experto en copy y contenido viral.\nPERFIL: "+profile.name+" | "+profile.industry+" | Audiencia: "+profile.audience+" | Plataforma: "+profile.platform+"\nTECNICA USADA: "+curScript.tech+" | OBJETIVO: "+curScript.obj+" | ESTILO: "+curScript.style+"\n\nResponde con formato EXACTO:\n[HOOK_SCORE]\nPuntuacion: [numero del 1 al 10]\nAnalisis: [por que funciona o no, que le falta, maximo 2 lineas]\n[/HOOK_SCORE]\n[TECNICA_SCORE]\nPuntuacion: [numero del 1 al 10]\nAnalisis: [que tan bien esta aplicada la tecnica "+curScript.tech+", maximo 2 lineas]\n[/TECNICA_SCORE]\n[CTA_SCORE]\nPuntuacion: [numero del 1 al 10]\nAnalisis: [si el CTA es claro, tiene urgencia, esta bien ubicado, maximo 2 lineas]\n[/CTA_SCORE]\n[ESPECIFICIDAD]\nPuntuacion: [numero del 1 al 10]\nAnalisis: [que tan especifico es para "+profile.audience+" vs generico, maximo 2 lineas]\n[/ESPECIFICIDAD]\n[AJUSTES]\n[2-3 cambios CONCRETOS con el texto reescrito exacto de cada cambio]\n[/AJUSTES]\n[VEREDICTO]\n[LISTO PARA GRABAR / NECESITA AJUSTES / REHACER — con 1 linea explicando por que]\n[/VEREDICTO]";
+      var txt=await apiCall(apiKey,sys,"Analiza este guion:\n"+script.slice(0,1500),"claude-haiku-4-5-20251001",1000);
+      setAnl(txt);
+    }catch(e){toast("Error al analizar: "+e.message)}
+    setAload(false);
+  }
+
+  function parseAnl(txt){
+    if(!txt)return{};
+    function get(tag){var m=txt.match(new RegExp("\\["+tag+"\\]([\\s\\S]*?)\\[/"+tag+"\\]"));return m?m[1].trim():""}
+    function score(block){var m=block.match(/Puntuacion:\s*(\d+)/);return m?parseInt(m[1]):0}
+    function antext(block){var m=block.match(/Analisis:\s*([\s\S]+)/);return m?m[1].trim():""}
+    var hs=get("HOOK_SCORE"),ts=get("TECNICA_SCORE"),cs=get("CTA_SCORE"),es=get("ESPECIFICIDAD");
+    return{hook:{s:score(hs),t:antext(hs)},tecnica:{s:score(ts),t:antext(ts)},cta:{s:score(cs),t:antext(cs)},esp:{s:score(es),t:antext(es)},ajustes:get("AJUSTES"),veredicto:get("VEREDICTO")};
+  }
+
+  function scoreColor(s){return s>=8?"var(--acc)":s>=5?"var(--warn)":"var(--danger)"}
+  function ScoreRow(label,s,t){
+    return E("div",{style:{marginBottom:12}},
+      E("div",{style:{display:"flex",justifyContent:"space-between",marginBottom:4}},
+        E("span",{style:{fontSize:12,color:"var(--txt2)"}},"label" in arguments?arguments[0]:label),
+        E("span",{style:{fontSize:12,fontWeight:700,color:scoreColor(s)}},s+"/10")
+      ),
+      E("div",{className:"score-bar"},E("div",{className:"score-fill",style:{width:(s*10)+"%",background:scoreColor(s)}})),
+      t?E("p",{style:{fontSize:11,color:"var(--txt2)",marginTop:4,lineHeight:1.5}},t):null
+    );
+  }
+
+  var pa=parseAnl(anl);
+  var p=curScript?parseS(curScript.content):{script:"",ig:"",tt:"",hookB:""};
+
   return E("div",null,
-    E("div",{className:"ph"},E("div",null,E("h1",null,"Script Engine"),E("p",{className:"mu"},"Guiones con tecnicas de copy que convierten"))),
+    E("div",{className:"ph"},E("div",null,E("h1",null,"Script Engine"),E("p",{className:"mu"},"Guiones con estructura profesional de 7 capas — nunca genericos, nunca repetidos"))),
     E("div",{className:"mb"+(mode==="pauta"?" py":"")},
-      E("div",null,
-        E("span",{style:{fontSize:13,fontWeight:600,color:mode==="pauta"?"var(--warn)":"var(--acc)"}},mode==="organic"?"Modo Organico":"Modo Pauta"),
-        E("p",{style:{fontSize:11,color:"var(--txt2)",marginTop:2}},mode==="organic"?"Contenido libre para publicacion organica":"Compatible con politicas Meta Ads y TikTok Ads")
+      E("div",null,E("span",{style:{fontSize:13,fontWeight:600,color:mode==="pauta"?"var(--warn)":"var(--acc)"}},mode==="organic"?"Modo Organico":"Modo Pauta"),E("p",{style:{fontSize:11,color:"var(--txt2)",marginTop:2}},mode==="organic"?"Contenido libre para publicacion organica":"Compatible con politicas Meta Ads y TikTok Ads")),
+      E("div",{className:"tw"},E("button",{className:"tb"+(mode==="organic"?" to":""),onClick:function(){setMode("organic")}},"Organico"),E("button",{className:"tb"+(mode==="pauta"?" tp":""),onClick:function(){setMode("pauta")}},"Pauta"))
+    ),
+    E("div",{className:"card",style:{marginBottom:12}},
+      E("div",{style:{marginBottom:12}},
+        E("p",{className:"lbl",style:{marginBottom:8}},"1. Objetivo del contenido"),
+        E("div",{className:"tg3"},OBJS.map(function(o){return E("button",{key:o.id,className:"tgb"+(obj===o.id?" ac":""),onClick:function(){setObj(o.id)}},E("span",{className:"tn"},o.ic+" "+o.n))}))
       ),
-      E("div",{className:"tw"},
-        E("button",{className:"tb"+(mode==="organic"?" to":""),onClick:function(){setMode("organic")}},"Organico"),
-        E("button",{className:"tb"+(mode==="pauta"?" tp":""),onClick:function(){setMode("pauta")}},"Pauta")
-      )
+      E("div",{style:{marginBottom:12}},
+        E("p",{className:"lbl",style:{marginBottom:8}},"2. Tipo de hook — primeros 3 segundos"),
+        E("div",{className:"tg3"},HOOKS.map(function(h){return E("button",{key:h.id,className:"tgb"+(hookType===h.id?" ac":""),onClick:function(){setHookType(h.id)}},E("span",{className:"tn"},h.n),E("span",{className:"td"},h.d))}))
+      ),
+      E("div",{style:{marginBottom:12}},
+        E("p",{className:"lbl",style:{marginBottom:8}},"3. Estilo comunicacional"),
+        E("div",{className:"tg3"},STYLES.map(function(s){return E("button",{key:s.id,className:"tgb"+(style===s.id?" ac":""),onClick:function(){setStyle(s.id)}},E("span",{className:"tn"},s.n),E("span",{className:"td"},s.d))}))
+      ),
+      E("div",{style:{marginBottom:12}},
+        E("p",{className:"lbl",style:{marginBottom:8}},"4. CTA — llamado a la accion"),
+        E("div",{className:"tg"},CTAS.map(function(c){return E("button",{key:c.id,className:"tgb"+(cta===c.id?" ac":""),onClick:function(){setCta(c.id)}},E("span",{className:"tn"},c.n),E("span",{className:"td"},c.ex.slice(0,30)+"..."))}))
+      ),
+      E("div",{style:{marginBottom:12}},
+        E("p",{className:"lbl",style:{marginBottom:8}},"5. Tecnica de copy"),
+        E("div",{className:"tg"},TECHS.map(function(t){return E("button",{key:t.id,className:"tgb"+(tech===t.id?" ac":""),onClick:function(){setTech(t.id)}},E("span",{className:"tn"},t.n),E("span",{className:"td"},t.d))}))
+      ),
+      E("div",{className:"fg"},E("label",{className:"fl"},"6. Tema del contenido"),E("input",{placeholder:"Ej: Por que el 90% de "+profile.audience.split(" ").slice(0,3).join(" ")+" nunca logra resultados",value:topic,onChange:function(e){setTopic(e.target.value)}})),
+      E("div",{className:"fg",style:{marginBottom:0}},E("label",{className:"fl"},"7. Contexto adicional (opcional)"),E("textarea",{placeholder:"Ej: Quiero mencionar el FT01, la FED habla hoy, hay un webinar el domingo...",value:extra,onChange:function(e){setExtra(e.target.value)},style:{minHeight:55}}))
     ),
-    E("div",{style:{marginBottom:16}},
-      E("p",{className:"lbl",style:{marginBottom:10}},"Tecnica de copy"),
-      E("div",{className:"tg"},TECHS.map(function(t){
-        return E("button",{key:t.id,className:"tgb"+(tech===t.id?" ac":""),onClick:function(){setTech(t.id)}},
-          E("span",{className:"tn"},t.n),E("span",{className:"td"},t.d)
-        );
-      }))
-    ),
-    E("div",{className:"card",style:{marginBottom:16}},
-      E("div",{className:"fg"},E("label",{className:"fl"},"Tema del contenido"),E("input",{placeholder:"Ej: Por que el 90% de "+profile.audience.split(" ").slice(0,3).join(" ")+" nunca logra resultados",value:topic,onChange:function(e){setTopic(e.target.value)}})),
-      E("div",{className:"fg",style:{marginBottom:0}},E("label",{className:"fl"},"Contexto adicional (opcional)"),E("textarea",{placeholder:"Ej: Quiero mencionar el FT01, que hubo noticias de la FED hoy...",value:extra,onChange:function(e){setExtra(e.target.value)},style:{minHeight:60}}))
-    ),
-    E("button",{className:"btn ba",style:{width:"100%",justifyContent:"center",padding:12,marginBottom:24},onClick:gen,disabled:loading},loading?"Generando con "+tech+"...":"Generar guion con "+tech),
-    result?E("div",{className:"card"},
-      E("div",{style:{display:"flex",justifyContent:"space-between",alignItems:"center",marginBottom:14}},
-        E("div",{className:"tabs",style:{margin:0}},
-          [{id:"script",l:"Guion"},{id:"ig",l:"SEO Instagram"},{id:"tt",l:"SEO TikTok"}].map(function(t){
-            return E("button",{key:t.id,className:"tab"+(tab===t.id?" ac":""),onClick:function(){setTab(t.id)}},t.l);
-          })
+    E("button",{className:"btn ba",style:{width:"100%",justifyContent:"center",padding:12,marginBottom:16},onClick:gen,disabled:loading},loading?"Generando guion con "+tech+"...":"Generar guion"),
+
+    sess.length>0?E("div",null,
+      E("div",{style:{display:"flex",alignItems:"center",gap:8,marginBottom:12}},
+        E("span",{className:"lbl"},"Guiones de esta sesion:"),
+        E("div",{style:{display:"flex",gap:4}},
+          sess.map(function(s,i){return E("button",{key:i,className:"stab"+(si===i?" ac":""),onClick:function(){setSi(i);setHooks(null);setAnl(null);setTab("script")}},
+            "G"+(i+1)+(s.topic?": "+s.topic.slice(0,15)+"...":"")
+          )})
+        )
+      ),
+      E("div",{className:"card"},
+        E("div",{style:{display:"flex",justifyContent:"space-between",alignItems:"center",marginBottom:14}},
+          E("div",{className:"tabs",style:{margin:0}},
+            [{id:"script",l:"📝 Guion"},{id:"ig",l:"📸 SEO IG"},{id:"tt",l:"🎵 SEO TT"},{id:"hookB",l:"🔀 Hook B"}].map(function(t){
+              return E("button",{key:t.id,className:"tab"+(tab===t.id?" ac":""),onClick:function(){setTab(t.id)}},t.l);
+            })
+          ),
+          E("div",{style:{display:"flex",gap:6,flexWrap:"wrap"}},
+            E("button",{className:"btn bwn sm",onClick:analyze,disabled:aload},aload?"Analizando...":"🎯 Analizar guion"),
+            E("button",{className:"btn bg_ sm",onClick:genHooks,disabled:hload},hload?"...":"⚡ Hook Lab"),
+            E("button",{className:"btn bg_ sm",onClick:function(){navigator.clipboard.writeText(tab==="script"?p.script:tab==="ig"?p.ig:tab==="tt"?p.tt:p.hookB).then(function(){toast("Copiado")})}},"Copiar"),
+            E("button",{className:"btn ba sm",onClick:function(){if(curScript)saveLib({content:curScript.content,technique:curScript.tech,mode:curScript.mode,topic:curScript.topic,obj:curScript.obj,style:curScript.style})}},"Guardar")
+          )
         ),
-        E("div",{style:{display:"flex",gap:8}},
-          E("button",{className:"btn bg sm",onClick:genHooks,disabled:hload},hload?"...":"Hook Lab (10)"),
-          E("button",{className:"btn bg sm",onClick:function(){navigator.clipboard.writeText(tab==="script"?p.script:tab==="ig"?p.ig:p.tt).then(function(){toast("Copiado")})}},"Copiar"),
-          E("button",{className:"btn ba sm",onClick:function(){saveLib({content:result,technique:tech,mode:mode,topic:topic})}},"Guardar")
-        )
-      ),
-      loading?E("div",{className:"lb"}):null,
-      tab==="script"?E("div",{className:"sb"},p.script||result):null,
-      tab==="ig"?E("div",{className:"se"},p.ig||"Generando SEO..."):null,
-      tab==="tt"?E("div",{className:"se"},p.tt||"Generando SEO..."):null,
-      hooks&&hooks.length>0?E("div",{style:{marginTop:20}},
-        E("h3",{style:{marginBottom:10}},"Hook Lab - 10 variaciones (clic para copiar)"),
-        E("div",{style:{display:"flex",flexDirection:"column",gap:8}},
-          hooks.map(function(h,i){
-            return E("div",{key:i,className:"hi",onClick:function(){navigator.clipboard.writeText(h).then(function(){toast("Hook "+(i+1)+" copiado")})}},
-              E("span",{className:"hn"},i+1),E("span",{style:{fontSize:13,color:"var(--txt)"}},h)
-            );
-          })
-        )
-      ):null
+        loading?E("div",{className:"lb"}):null,
+        tab==="script"?E("div",{className:"sb"},p.script||curScript.content):null,
+        tab==="ig"?E("div",{className:"se"},p.ig||"Incluido en el guion generado."):null,
+        tab==="tt"?E("div",{className:"se"},p.tt||"Incluido en el guion generado."):null,
+        tab==="hookB"?E("div",{className:"se"},p.hookB||"Incluido en el guion generado."):null,
+
+        anl?E("div",{style:{marginTop:20,borderTop:"1px solid var(--bd)",paddingTop:16}},
+          E("div",{style:{display:"flex",alignItems:"center",justifyContent:"space-between",marginBottom:14}},
+            E("h3",{style:{color:"var(--warn)"}},"🎯 Analisis del guion"),
+            pa.veredicto?E("span",{className:"bdg "+(pa.veredicto.includes("LISTO")?"b1":pa.veredicto.includes("NECESITA")?"b2":"b4")},pa.veredicto.split("—")[0].trim()):null
+          ),
+          E("div",{className:"g2",style:{marginBottom:12}},
+            E("div",null,
+              ScoreRow("Hook (primeros 3 seg)",pa.hook&&pa.hook.s||0,pa.hook&&pa.hook.t),
+              ScoreRow("Tecnica "+tech,pa.tecnica&&pa.tecnica.s||0,pa.tecnica&&pa.tecnica.t)
+            ),
+            E("div",null,
+              ScoreRow("Claridad del CTA",pa.cta&&pa.cta.s||0,pa.cta&&pa.cta.t),
+              ScoreRow("Especificidad audiencia",pa.esp&&pa.esp.s||0,pa.esp&&pa.esp.t)
+            )
+          ),
+          pa.ajustes?E("div",{className:"adv ai2"},E("div",{className:"at2"},"AJUSTES CONCRETOS RECOMENDADOS"),E("div",{className:"ab"},pa.ajustes)):null
+        ):null,
+
+        hooks&&hooks.length>0?E("div",{style:{marginTop:16,borderTop:"1px solid var(--bd)",paddingTop:16}},
+          E("h3",{style:{marginBottom:10}},"⚡ Hook Lab — 10 variaciones (clic para copiar)"),
+          E("div",{style:{display:"flex",flexDirection:"column",gap:6}},
+            hooks.map(function(h,i){return E("div",{key:i,className:"hi",onClick:function(){navigator.clipboard.writeText(h).then(function(){toast("Hook "+(i+1)+" copiado")})}},E("span",{className:"hn"},i+1),E("span",{style:{fontSize:13,color:"var(--txt)"}},h))})
+          )
+        ):null
+      )
     ):null
   );
 }
 
-// PAGE CALENDAR
+// ── PAGE CALENDAR ─────────────────────────────────────────────────────────
 function PCal(props){
   var cal=props.cal,setCal=props.setCal;
   var ti=new Date().getDay()===0?6:new Date().getDay()-1;
@@ -583,24 +709,23 @@ function PCal(props){
       E("div",{style:{display:"flex",gap:8}},
         E("input",{value:ev,onChange:function(e){setEv(e.target.value)},placeholder:"Nuevo tema..."}),
         E("button",{className:"btn ba",onClick:save},"Guardar"),
-        E("button",{className:"btn bg",onClick:function(){setEi(null)}},"Cancelar")
+        E("button",{className:"btn bg_",onClick:function(){setEi(null)}},"Cancelar")
       )
     ):null,
-    E("div",{className:"card"},
-      E("h3",{style:{marginBottom:14}},"Vista completa de la semana"),
+    E("div",{className:"card"},E("h3",{style:{marginBottom:14}},"Vista completa de la semana"),
       DAYS.map(function(d,i){
         return E("div",{key:d,style:{display:"flex",alignItems:"center",justifyContent:"space-between",padding:"10px 0",borderBottom:i<6?"1px solid var(--bd)":"none"}},
           E("span",{style:{fontSize:13,color:"var(--txt3)",width:36,flexShrink:0}},d),
           E("span",{style:{fontSize:13,flex:1,color:i===ti?"var(--acc)":"var(--txt)"}},cal[i]||"Sin tema"),
           i===ti?E("span",{className:"bdg b1",style:{marginRight:8}},"Hoy"):null,
-          E("button",{className:"btn bg sm",onClick:function(){setEi(i);setEv(cal[i]||"")}},"Editar")
+          E("button",{className:"btn bg_ sm",onClick:function(){setEi(i);setEv(cal[i]||"")}},"Editar")
         );
       })
     )
   );
 }
 
-// PAGE CLIENT
+// ── PAGE CLIENT ───────────────────────────────────────────────────────────
 function PClient(props){
   var clients=props.clients,setClients=props.setClients,apiKey=props.apiKey,saveLib=props.saveLib,toast=props.toast;
   var _v=useState("list");var view=_v[0],setView=_v[1];
@@ -609,10 +734,10 @@ function PClient(props){
   var form=_f[0],setForm=_f[1];
   var _tp=useState("");var topic=_tp[0],setTopic=_tp[1];
   var _tc=useState("PAS");var tech=_tc[0],setTech=_tc[1];
+  var _obj=useState("followers");var obj=_obj[0],setObj=_obj[1];
   var _md=useState("organic");var mode=_md[0],setMode=_md[1];
   var _r=useState(null);var result=_r[0],setResult=_r[1];
   var _l=useState(false);var loading=_l[0],setLoading=_l[1];
-
   function add(){
     if(!form.name.trim()){toast("Ingresa el nombre");return}
     setClients(function(p){return p.concat([{...form,id:Date.now()}])});
@@ -622,9 +747,11 @@ function PClient(props){
   async function gen(){
     if(!sel||!topic.trim()){toast("Selecciona cliente y escribe un tema");return}
     setLoading(true);setResult(null);
-    var dt=getDateUTC5();
-    var sys="FECHA ACTUAL: "+dt.full+" ("+dt.iso+"), "+dt.hour+" UTC-5. ANO: "+dt.year+". Usa referencias temporales de "+dt.year+" unicamente.\nGenerador Clipo MODO CLIENTE.\nCLIENTE: "+sel.name+" | "+sel.industry+" | "+sel.product+" | Audiencia: "+sel.audience+" | Tono: "+sel.tone+"\nTECNICA: "+tech+". "+(mode==="pauta"?"MODO PAUTA: cumple politicas Meta y TikTok Ads.":"MODO ORGANICO.")+"\nEl contenido debe sonar como la voz exacta de "+sel.name+". Genera: Hook + Guion + SEO Instagram + SEO TikTok";
-    try{var txt=await claude(apiKey,sys,"Fecha actual: "+dt.full+". Tema: "+topic);setResult(txt)}
+    var dt=getDate();
+    var cliProfile={name:sel.name,industry:sel.industry,product:sel.product,audience:sel.audience,platform:"Instagram"};
+    var sys=buildPrompt(cliProfile,tech,obj,"question",sel.tone==="Cercano"?"close":"authority","follow",topic,"",mode,[]);
+    sys="MODO CLIENTE — genera en la voz exacta de "+sel.name+". Tono especifico: "+sel.tone+".\n"+sys;
+    try{var txt=await apiCall(apiKey,sys,"Fecha actual: "+dt.full+". Tema: "+topic,null,2000);setResult(txt)}
     catch(e){setResult("Error: "+e.message)}
     setLoading(false);
   }
@@ -632,7 +759,7 @@ function PClient(props){
     E("div",{className:"ph"},
       E("div",null,E("h1",null,"Client Mode"),E("p",{className:"mu"},"Contenido personalizado para cada cliente que manejes")),
       E("div",{style:{display:"flex",gap:8}},
-        E("button",{className:"btn bg sm",onClick:function(){setView("list")}},"Mis clientes"),
+        E("button",{className:"btn bg_ sm",onClick:function(){setView("list")}},"Mis clientes"),
         E("button",{className:"btn ba sm",onClick:function(){setView("new")}},"+ Nuevo cliente")
       )
     ),
@@ -644,29 +771,28 @@ function PClient(props){
       ),
       E("div",{className:"fg"},E("label",{className:"fl"},"Producto o servicio"),E("input",{placeholder:"Que vende?",value:form.product,onChange:function(e){setForm({...form,product:e.target.value})}})),
       E("div",{className:"fg"},E("label",{className:"fl"},"Audiencia objetivo"),E("input",{placeholder:"A quien le habla?",value:form.audience,onChange:function(e){setForm({...form,audience:e.target.value})}})),
-      E("div",{className:"fg"},E("label",{className:"fl"},"Tono de marca"),E("input",{placeholder:"Ej: Cercano y empatico / Autoritario",value:form.tone,onChange:function(e){setForm({...form,tone:e.target.value})}})),
-      E("div",{style:{display:"flex",gap:8}},E("button",{className:"btn ba",onClick:add},"Guardar"),E("button",{className:"btn bg",onClick:function(){setView("list")}},"Cancelar"))
+      E("div",{className:"fg"},E("label",{className:"fl"},"Tono de marca"),E("input",{placeholder:"Ej: Cercano y empatico / Autoritario / Provocador",value:form.tone,onChange:function(e){setForm({...form,tone:e.target.value})}})),
+      E("div",{style:{display:"flex",gap:8}},E("button",{className:"btn ba",onClick:add},"Guardar"),E("button",{className:"btn bg_",onClick:function(){setView("list")}},"Cancelar"))
     ):null,
-    E("div",{className:"g2",style:{marginBottom:16}},
+    clients.length===0&&view==="list"?E("div",{className:"card",style:{textAlign:"center",padding:40}},E("p",{style:{fontSize:28,marginBottom:8}},"👥"),E("p",{className:"mu"},"Agrega clientes para generar contenido en su voz exacta.")):null,
+    E("div",{className:"g2",style:{marginBottom:12}},
       clients.map(function(c){
         return E("div",{key:c.id,className:"card",style:{cursor:"pointer",borderColor:sel&&sel.id===c.id?"var(--acc)":"var(--bd)"},onClick:function(){setSel(sel&&sel.id===c.id?null:c)}},
           E("div",{style:{display:"flex",justifyContent:"space-between",alignItems:"flex-start"}},
             E("h3",null,c.name),
-            E("button",{className:"btn bdn sm",onClick:function(e){e.stopPropagation();setClients(function(p){return p.filter(function(x){return x.id!==c.id})});if(sel&&sel.id===c.id)setSel(null)}},"X")
+            E("button",{className:"btn bdn sm",onClick:function(ev){ev.stopPropagation();setClients(function(p){return p.filter(function(x){return x.id!==c.id})});if(sel&&sel.id===c.id)setSel(null)}},"X")
           ),
           E("p",{className:"mu",style:{fontSize:12,marginTop:4}},c.industry),
-          E("div",{style:{display:"flex",gap:6,marginTop:8,flexWrap:"wrap"}},
-            E("span",{className:"ch"},c.product.slice(0,25)),E("span",{className:"ch"},c.tone.slice(0,20))
-          )
+          E("div",{style:{display:"flex",gap:6,marginTop:8,flexWrap:"wrap"}},E("span",{className:"ch"},c.product.slice(0,25)),E("span",{className:"ch"},c.tone.slice(0,20)))
         );
       })
     ),
-    clients.length===0&&view==="list"?E("div",{className:"card",style:{textAlign:"center",padding:40}},E("p",{style:{fontSize:28,marginBottom:8}},"👥"),E("p",{className:"mu"},"Agrega clientes para generar contenido personalizado.")):null,
-    sel?E("div",{className:"ca",style:{marginBottom:16}},
+    sel?E("div",{className:"ca",style:{marginBottom:12}},
       E("h3",{style:{marginBottom:12,color:"var(--acc)"}},"Generando para: "+sel.name),
-      E("div",{style:{display:"flex",gap:8,marginBottom:12,flexWrap:"wrap"}},
+      E("div",{style:{display:"flex",gap:8,marginBottom:10,flexWrap:"wrap"}},
         E("div",{className:"tw"},E("button",{className:"tb"+(mode==="organic"?" to":""),onClick:function(){setMode("organic")}},"Organico"),E("button",{className:"tb"+(mode==="pauta"?" tp":""),onClick:function(){setMode("pauta")}},"Pauta")),
-        E("select",{value:tech,onChange:function(e){setTech(e.target.value)},style:{flex:1,minWidth:140}},TECHS.map(function(t){return E("option",{key:t.id,value:t.id},t.n+" - "+t.d)}))
+        E("select",{value:tech,onChange:function(e){setTech(e.target.value)},style:{flex:1,minWidth:140}},TECHS.map(function(t){return E("option",{key:t.id,value:t.id},t.n+" — "+t.d)})),
+        E("select",{value:obj,onChange:function(e){setObj(e.target.value)},style:{flex:1,minWidth:140}},OBJS.map(function(o){return E("option",{key:o.id,value:o.id},o.ic+" "+o.n)}))
       ),
       E("div",{style:{display:"flex",gap:8}},
         E("input",{placeholder:"Tema del contenido...",value:topic,onChange:function(e){setTopic(e.target.value)},style:{flex:1}}),
@@ -677,7 +803,7 @@ function PClient(props){
       E("div",{style:{display:"flex",justifyContent:"space-between",alignItems:"center",marginBottom:12}},
         E("h3",null,"Contenido para "+(sel&&sel.name)),
         E("div",{style:{display:"flex",gap:8}},
-          E("button",{className:"btn bg sm",onClick:function(){navigator.clipboard.writeText(result).then(function(){toast("Copiado")})}},"Copiar"),
+          E("button",{className:"btn bg_ sm",onClick:function(){navigator.clipboard.writeText(result).then(function(){toast("Copiado")})}},"Copiar"),
           E("button",{className:"btn ba sm",onClick:function(){saveLib({content:result,technique:tech,mode:mode,topic:topic,client:sel&&sel.name})}},"Guardar")
         )
       ),
@@ -687,70 +813,116 @@ function PClient(props){
   );
 }
 
-// PAGE LIBRARY
+// ── PAGE LIBRARY ──────────────────────────────────────────────────────────
 function PLib(props){
   var lib=props.lib,setLib=props.setLib,toast=props.toast;
   var _tf=useState("all");var tf=_tf[0],setTf=_tf[1];
   var _mf=useState("all");var mf=_mf[0],setMf=_mf[1];
   var _q=useState("");var q=_q[0],setQ=_q[1];
+  var _exp=useState(null);var exp=_exp[0],setExp=_exp[1];
   var filtered=lib.filter(function(i){
     if(tf!=="all"&&i.technique!==tf)return false;
     if(mf!=="all"&&i.mode!==mf)return false;
     if(q&&!((i.topic||"").toLowerCase().includes(q.toLowerCase()))&&!((i.content||"").toLowerCase().includes(q.toLowerCase())))return false;
     return true;
   });
+  function updatePerf(id,field,val){setLib(function(p){return p.map(function(i){if(i.id!==id)return i;var perf={...i.perf};perf[field]=val;return{...i,perf:perf}})})}
   return E("div",null,
-    E("div",{className:"ph"},E("div",null,E("h1",null,"Biblioteca"),E("p",{className:"mu"},lib.length+" guiones guardados"))),
+    E("div",{className:"ph"},E("div",null,E("h1",null,"Biblioteca"),E("p",{className:"mu"},lib.length+" guiones guardados — registra el rendimiento para que el AI Advisor aprenda"))),
     E("div",{style:{display:"flex",gap:8,marginBottom:16,flexWrap:"wrap"}},
       E("input",{placeholder:"Buscar...",value:q,onChange:function(e){setQ(e.target.value)},style:{flex:1,minWidth:140}}),
       E("select",{value:tf,onChange:function(e){setTf(e.target.value)},style:{width:"auto"}},E("option",{value:"all"},"Todas las tecnicas"),TECHS.map(function(t){return E("option",{key:t.id,value:t.id},t.n)})),
       E("select",{value:mf,onChange:function(e){setMf(e.target.value)},style:{width:"auto"}},E("option",{value:"all"},"Todos los modos"),E("option",{value:"organic"},"Organico"),E("option",{value:"pauta"},"Pauta"))
     ),
-    lib.length===0?E("div",{className:"card",style:{textAlign:"center",padding:40}},E("p",{style:{fontSize:28,marginBottom:8}},"📚"),E("p",{className:"mu"},"Genera guiones y guardalos aqui.")):null,
+    lib.length===0?E("div",{className:"card",style:{textAlign:"center",padding:40}},E("p",{style:{fontSize:28,marginBottom:8}},"📚"),E("p",{className:"mu"},"Genera guiones y guardalos aqui. Registra el rendimiento real para analisis."),):null,
     E("div",{style:{display:"flex",flexDirection:"column",gap:12}},
       filtered.map(function(item){
+        var isExp=exp===item.id;
+        var perf=item.perf||{views:"",saves:"",shares:"",leads:"",sales:""};
+        var hasPerf=perf.views||perf.saves||perf.shares;
         return E("div",{key:item.id,className:"li"},
           E("div",{style:{display:"flex",justifyContent:"space-between",alignItems:"flex-start",gap:12}},
-            E("div",{style:{flex:1}},
+            E("div",{style:{flex:1},onClick:function(){setExp(isExp?null:item.id)},style:{cursor:"pointer",flex:1}},
               E("h3",{style:{marginBottom:4}},item.topic||"Sin titulo"),
-              E("p",{style:{fontSize:12,color:"var(--txt2)",lineHeight:1.6}},(item.content||"").replace(/\[.*?\]/g,"").trim().slice(0,130)+"...")
+              E("p",{style:{fontSize:12,color:"var(--txt2)",lineHeight:1.6}},(item.content||"").replace(/\[[\s\S]*?\]/g,"").trim().slice(0,130)+"...")
             ),
             E("div",{style:{display:"flex",gap:6,flexShrink:0}},
-              E("button",{className:"btn bg sm",style:{color:item.viral?"var(--warn)":""},onClick:function(){setLib(function(p){return p.map(function(i){return i.id===item.id?{...i,viral:!i.viral}:i})})}},(item.viral?"⭐":"☆")),
-              E("button",{className:"btn bg sm",onClick:function(){navigator.clipboard.writeText(item.content).then(function(){toast("Copiado")})}},"Copiar"),
+              E("button",{className:"btn bg_ sm",style:{color:item.viral?"var(--warn)":""},onClick:function(){setLib(function(p){return p.map(function(i){return i.id===item.id?{...i,viral:!i.viral}:i})})}},(item.viral?"⭐":"☆")),
+              E("button",{className:"btn bg_ sm",onClick:function(){navigator.clipboard.writeText(item.content).then(function(){toast("Copiado")})}},"Copiar"),
               E("button",{className:"btn bdn sm",onClick:function(){setLib(function(p){return p.filter(function(i){return i.id!==item.id})})}},"X")
             )
           ),
-          E("div",{style:{display:"flex",flexWrap:"wrap",gap:6,marginTop:10}},
-            item.technique?E("span",{className:"bdg b1"},item.technique):null,
+          E("div",{style:{display:"flex",flexWrap:"wrap",gap:6,marginTop:8}},
+            item.technique&&item.technique!=="—"?E("span",{className:"bdg b1"},item.technique):null,
             item.mode==="pauta"?E("span",{className:"bdg b2"},"Pauta"):null,
             item.client?E("span",{className:"bdg b3"},item.client):null,
             item.viral?E("span",{className:"bdg b2"},"Viral"):null,
+            hasPerf?E("span",{className:"bdg b3"},(perf.views||"0")+" vistas"):null,
+            hasPerf?E("span",{className:"bdg b1"},(perf.saves||"0")+" saves"):null,
             item.savedAt?E("span",{className:"bdg b5"},item.savedAt):null
-          )
+          ),
+          isExp?E("div",{style:{marginTop:12,borderTop:"1px solid var(--bd)",paddingTop:12}},
+            E("p",{className:"lbl",style:{marginBottom:8}},"Rendimiento real — ingresa los datos de este contenido"),
+            E("div",{className:"g3"},
+              ["views","saves","shares","leads","sales"].map(function(field){
+                var labels={views:"Vistas",saves:"Saves",shares:"Compartidos",leads:"Leads generados",sales:"Ventas atribuidas"};
+                return E("div",{key:field,className:"fg",style:{marginBottom:8}},
+                  E("label",{className:"fl"},labels[field]),
+                  E("input",{className:"perf-input",type:"number",placeholder:"0",value:perf[field]||"",onChange:function(ev){updatePerf(item.id,field,ev.target.value)}})
+                );
+              })
+            ),
+            E("div",{className:"sb",style:{maxHeight:200,marginTop:8,fontSize:12}},item.content)
+          ):null
         );
       })
     )
   );
 }
 
-// PAGE METRICS + AI ADVISOR
+// ── SIMPLE CHARTS ─────────────────────────────────────────────────────────
+function BarChart(props){
+  var data=props.data,key=props.dk,color=props.color,lk=props.lk;
+  if(!data||data.length===0)return E("p",{className:"mu",style:{fontSize:12,padding:"16px 0"}},"Sin datos aun");
+  var max=Math.max.apply(null,data.map(function(d){return d[key]||0}))||1;
+  return E("div",{className:"bw"},data.map(function(d,i){
+    var pct=((d[key]||0)/max*100);
+    return E("div",{key:i,className:"bc"},
+      E("span",{className:"bv"},d[key]?d[key].toLocaleString():"0"),
+      E("div",{style:{flex:1,display:"flex",alignItems:"flex-end",width:"100%"}},E("div",{className:"bi2",style:{height:Math.max(pct,3)+"%",background:color,opacity:.85}})),
+      E("span",{className:"bl_"},d[lk]||"")
+    );
+  }));
+}
+function LineChart(props){
+  var data=props.data,key=props.dk,color=props.color,lk=props.lk;
+  if(!data||data.length<2)return E("p",{className:"mu",style:{fontSize:12,padding:"16px 0"}},"Necesitas al menos 2 semanas de datos.");
+  var vals=data.map(function(d){return d[key]||0});
+  var max=Math.max.apply(null,vals)||1,min=Math.min.apply(null,vals);
+  var W=400,H=100,pad=8;
+  var pts=vals.map(function(v,i){return[pad+(i/(vals.length-1))*(W-pad*2),H-pad-((v-min)/(max-min||1))*(H-pad*2)]});
+  var path="M"+pts.map(function(p){return p.join(",")}).join(" L");
+  var area=path+" L"+pts[pts.length-1][0]+","+(H-pad)+" L"+pts[0][0]+","+(H-pad)+" Z";
+  return E("svg",{viewBox:"0 0 "+W+" "+H,style:{width:"100%",height:120}},
+    E("defs",null,E("linearGradient",{id:"g"+key,x1:"0",y1:"0",x2:"0",y2:"1"},E("stop",{offset:"0%",stopColor:color,stopOpacity:.3}),E("stop",{offset:"100%",stopColor:color,stopOpacity:0}))),
+    E("path",{d:area,fill:"url(#g"+key+")"}),
+    E("path",{d:path,fill:"none",stroke:color,strokeWidth:2,strokeLinejoin:"round"}),
+    pts.map(function(pt,i){return E(R.Fragment,{key:i},E("circle",{cx:pt[0],cy:pt[1],r:3,fill:color}),E("text",{x:pt[0],y:H-1,textAnchor:"middle",fill:"#4a5568",fontSize:8},data[i][lk]?data[i][lk].toString().slice(0,6):""))})
+  );
+}
+
+// ── PAGE METRICS ──────────────────────────────────────────────────────────
 function PMet(props){
-  var met=props.met,setMet=props.setMet,profile=props.profile,apiKey=props.apiKey,toast=props.toast;
+  var met=props.met,setMet=props.setMet,profile=props.profile,apiKey=props.apiKey,lib=props.lib,toast=props.toast;
   var _a=useState(false);var adding=_a[0],setAdding=_a[1];
   var _f=useState({week:"",igF:"",igR:"",igS:"",igE:"",ttF:"",ttV:"",ttE:""});
   var form=_f[0],setForm=_f[1];
   var _adv=useState(null);var adv=_adv[0],setAdv=_adv[1];
   var _al=useState(false);var aload=_al[0],setAload=_al[1];
-
   function fu(k){return function(e){setForm(function(p){var n={...p};n[k]=e.target.value;return n})}}
-
   function addWeek(){
     if(!form.week){toast("Ingresa el periodo");return}
-    setMet(function(p){return{
-      ig:p.ig.concat([{week:form.week,followers:+form.igF||0,reach:+form.igR||0,saves:+form.igS||0,er:+form.igE||0}]),
-      tt:p.tt.concat([{week:form.week,followers:+form.ttF||0,views:+form.ttV||0,er:+form.ttE||0}])
-    }});
+    setMet(function(p){return{ig:p.ig.concat([{week:form.week,followers:+form.igF||0,reach:+form.igR||0,saves:+form.igS||0,er:+form.igE||0}]),tt:p.tt.concat([{week:form.week,followers:+form.ttF||0,views:+form.ttV||0,er:+form.ttE||0}])}});
     setForm({week:"",igF:"",igR:"",igS:"",igE:"",ttF:"",ttV:"",ttE:""});
     setAdding(false);toast("Semana registrada");
   }
@@ -758,115 +930,89 @@ function PMet(props){
   async function getAdv(){
     if(met.ig.length<2){toast("Necesitas al menos 2 semanas de datos");return}
     setAload(true);setAdv(null);
-    var dt=getDateUTC5();
-    var igStr=met.ig.map(function(w){return "Semana "+w.week+": "+w.followers+" seguidores, "+w.reach+" alcance, "+w.saves+" saves, "+w.er+"% ER"}).join("\n");
-    var ttStr=met.tt.map(function(w){return "Semana "+w.week+": "+w.followers+" seguidores, "+w.views+" vistas, "+w.er+"% ER"}).join("\n");
-    var sys="FECHA ACTUAL: "+dt.full+" ("+dt.iso+"). Todas las recomendaciones deben ser relevantes para "+dt.month+" "+dt.year+".\nEres el AI Growth Advisor de Clipo, analista experto en crecimiento de redes sociales.\nCREADOR: "+profile.name+" | "+profile.industry+" | Producto: "+profile.product+" | Audiencia: "+profile.audience+"\nAnaliza los datos con criterio de experto. Identifica tendencias, correlaciones y puntos de inflexion.\nFormato EXACTO (sin asteriscos ni markdown):\n[WORKS]\nQUE ESTA FUNCIONANDO:\n[3-4 puntos especificos con datos que lo respaldan]\n[/WORKS]\n[IMPROVE]\nQUE MEJORAR - ACCIONES CONCRETAS:\n[3-4 puntos con recomendacion accionable]\n[/IMPROVE]\n[STOP]\nQUE DEJAR DE HACER:\n[2-3 puntos basados en los datos]\n[/STOP]\n[KEY]\nRECOMENDACION CLAVE ESTA SEMANA:\n[UNA accion concreta y especifica basada en los datos]\n[/KEY]";
-    try{
-      var txt=await claude(apiKey,sys,"DATOS INSTAGRAM:\n"+igStr+"\n\nDATOS TIKTOK:\n"+ttStr);
-      setAdv(txt);
-    }catch(e){setAdv("[WORKS]Error al analizar[/WORKS][IMPROVE]"+e.message+"[/IMPROVE][STOP]Intenta de nuevo[/STOP][KEY]Verifica tu API key[/KEY]")}
+    var dt=getDate();
+    var igStr=met.ig.map(function(w){return "Sem "+w.week+": "+w.followers+" seg, "+w.reach+" alcance, "+w.saves+" saves, "+w.er+"% ER"}).join("\n");
+    var ttStr=met.tt.map(function(w){return "Sem "+w.week+": "+w.followers+" seg, "+w.views+" vistas, "+w.er+"% ER"}).join("\n");
+    var libPerf=lib.filter(function(i){return i.perf&&(i.perf.views||i.perf.saves)}).map(function(i){return "Tecnica: "+(i.technique||"?")+" | Tema: "+(i.topic||"?")+" | Vistas: "+(i.perf.views||0)+" | Saves: "+(i.perf.saves||0)+" | Shares: "+(i.perf.shares||0)+" | Leads: "+(i.perf.leads||0)}).join("\n");
+    var sys="Eres el AI Growth Advisor de Clipo. Analista experto en crecimiento de redes sociales y copy.\nFECHA ACTUAL: "+dt.full+". ANO: "+dt.year+".\nCREADOR: "+profile.name+" | "+profile.industry+" | Producto: "+profile.product+" | Audiencia: "+profile.audience+"\nAnaliza TODOS los datos disponibles: metricas semanales + rendimiento real de guiones por tecnica.\nIdentifica correlaciones entre tecnica de copy usada y rendimiento (saves, vistas, leads).\nResponde formato EXACTO:\n[WORKS]\nQUE ESTA FUNCIONANDO:\n[3-4 puntos con datos especificos]\n[/WORKS]\n[IMPROVE]\nQUE MEJORAR:\n[3-4 puntos con accion concreta]\n[/IMPROVE]\n[STOP]\nQUE DEJAR DE HACER:\n[2-3 puntos basados en datos]\n[/STOP]\n[TECNICA]\nANALISIS POR TECNICA DE COPY:\n[que tecnica ha funcionado mejor segun el rendimiento registrado, y cual usar esta semana]\n[/TECNICA]\n[KEY]\nRECOMENDACION CLAVE ESTA SEMANA:\n[UNA accion concreta y especifica]\n[/KEY]";
+    var msg="DATOS INSTAGRAM:\n"+igStr+"\n\nDATOS TIKTOK:\n"+ttStr+(libPerf?"\n\nRENDIMIENTO REAL POR GUION/TECNICA:\n"+libPerf:"");
+    try{var txt=await apiCall(apiKey,sys,msg,null,1200);setAdv(txt)}
+    catch(e){toast("Error AI Advisor: "+e.message)}
     setAload(false);
   }
 
   function parseAdv(txt){
     if(!txt)return{};
     function get(tag){var m=txt.match(new RegExp("\\["+tag+"\\]([\\s\\S]*?)\\[/"+tag+"\\]"));return m?m[1].trim():""}
-    return{works:get("WORKS"),improve:get("IMPROVE"),stop:get("STOP"),key:get("KEY")};
+    return{works:get("WORKS"),improve:get("IMPROVE"),stop:get("STOP"),tecnica:get("TECNICA"),key:get("KEY")};
   }
 
   var ig=met.ig.slice(-8),tt=met.tt.slice(-8);
-  var li=ig[ig.length-1],pi=ig[ig.length-2],lt=tt[tt.length-1],pt=tt[tt.length-2];
+  var li2=ig[ig.length-1],pi=ig[ig.length-2],lt=tt[tt.length-1],pt=tt[tt.length-2];
   function chg(c,p){return p&&c?((c-p)/p*100).toFixed(1):null}
   var pa=parseAdv(adv);
 
   return E("div",null,
     E("div",{className:"ph"},
-      E("div",null,E("h1",null,"Metricas & AI Advisor"),E("p",{className:"mu"},"Registra datos semanales - la IA analiza y te dice que hacer")),
+      E("div",null,E("h1",null,"Metricas & AI Advisor"),E("p",{className:"mu"},"Registra datos semanales + rendimiento de guiones — la IA cruza todo")),
       E("div",{style:{display:"flex",gap:8}},
-        met.ig.length>=2?E("button",{className:"btn bp sm",onClick:getAdv,disabled:aload},aload?"Analizando...":"Analizar con IA"):null,
+        met.ig.length>=2?E("button",{className:"btn bp sm",onClick:getAdv,disabled:aload},aload?"Analizando...":"🤖 Analizar con IA"):null,
         E("button",{className:"btn ba sm",onClick:function(){setAdding(function(p){return !p})}},"+ Registrar semana")
       )
     ),
-
     adding?E("div",{className:"card",style:{marginBottom:20}},
       E("h3",{style:{marginBottom:16}},"Nueva semana"),
       E("div",{className:"fg"},E("label",{className:"fl"},"Periodo (ej: 19-25 May)"),E("input",{value:form.week,onChange:fu("week"),placeholder:"Ej: 19-25 Mayo"})),
       E("div",{className:"g2"},
-        E("div",null,
-          E("p",{style:{fontSize:12,fontWeight:600,color:"#E1306C",marginBottom:10}},"Instagram"),
+        E("div",null,E("p",{style:{fontSize:12,fontWeight:600,color:"#E1306C",marginBottom:10}},"Instagram"),
           E("div",{className:"fg"},E("label",{className:"fl"},"Seguidores totales"),E("input",{type:"number",value:form.igF,onChange:fu("igF")})),
           E("div",{className:"fg"},E("label",{className:"fl"},"Alcance semanal"),E("input",{type:"number",value:form.igR,onChange:fu("igR")})),
-          E("div",{className:"fg"},E("label",{className:"fl"},"Saves de la semana"),E("input",{type:"number",value:form.igS,onChange:fu("igS")})),
+          E("div",{className:"fg"},E("label",{className:"fl"},"Saves"),E("input",{type:"number",value:form.igS,onChange:fu("igS")})),
           E("div",{className:"fg"},E("label",{className:"fl"},"Engagement Rate (%)"),E("input",{type:"number",step:"0.1",value:form.igE,onChange:fu("igE")}))
         ),
-        E("div",null,
-          E("p",{style:{fontSize:12,fontWeight:600,color:"var(--info)",marginBottom:10}},"TikTok"),
+        E("div",null,E("p",{style:{fontSize:12,fontWeight:600,color:"var(--info)",marginBottom:10}},"TikTok"),
           E("div",{className:"fg"},E("label",{className:"fl"},"Seguidores totales"),E("input",{type:"number",value:form.ttF,onChange:fu("ttF")})),
           E("div",{className:"fg"},E("label",{className:"fl"},"Vistas semanales"),E("input",{type:"number",value:form.ttV,onChange:fu("ttV")})),
           E("div",{className:"fg"},E("label",{className:"fl"},"Engagement Rate (%)"),E("input",{type:"number",step:"0.1",value:form.ttE,onChange:fu("ttE")}))
         )
       ),
-      E("div",{style:{display:"flex",gap:8}},E("button",{className:"btn ba",onClick:addWeek},"Guardar semana"),E("button",{className:"btn bg",onClick:function(){setAdding(false)}},"Cancelar"))
+      E("div",{style:{display:"flex",gap:8}},E("button",{className:"btn ba",onClick:addWeek},"Guardar semana"),E("button",{className:"btn bg_",onClick:function(){setAdding(false)}},"Cancelar"))
     ):null,
-
-    met.ig.length===0&&!adding?E("div",{className:"card",style:{textAlign:"center",padding:40}},
-      E("p",{style:{fontSize:28,marginBottom:8}},"📊"),
-      E("p",{className:"mu"},"Registra tu primera semana para empezar."),
-      E("p",{className:"mu",style:{fontSize:12,marginTop:8}},"Con 2+ semanas activas el AI Advisor para recibir recomendaciones.")
-    ):null,
-
+    met.ig.length===0&&!adding?E("div",{className:"card",style:{textAlign:"center",padding:40}},E("p",{style:{fontSize:28,marginBottom:8}},"📊"),E("p",{className:"mu"},"Registra tu primera semana para empezar."),E("p",{className:"mu",style:{fontSize:12,marginTop:6}},"Tip: registra el rendimiento de tus guiones en Biblioteca para que el AI Advisor cruce datos de tecnicas de copy.")):null,
     (aload||adv)?E("div",{className:"cp",style:{marginBottom:20}},
-      E("div",{style:{display:"flex",alignItems:"center",justifyContent:"space-between",marginBottom:16}},
-        E("div",null,
-          E("h3",{style:{color:"var(--pur)",marginBottom:2}},"AI Growth Advisor"),
-          E("p",{className:"mu",style:{fontSize:12}},"Analisis basado en "+met.ig.length+" semanas de datos de "+profile.name)
-        ),
+      E("div",{style:{display:"flex",alignItems:"center",justifyContent:"space-between",marginBottom:14}},
+        E("div",null,E("h3",{style:{color:"var(--pur)",marginBottom:2}},"🤖 AI Growth Advisor"),E("p",{className:"mu",style:{fontSize:12}},"Analisis de "+met.ig.length+" semanas + rendimiento de guiones por tecnica")),
         adv?E("button",{className:"btn bp sm",onClick:getAdv},"Actualizar"):null
       ),
-      aload?E(R.Fragment,null,E("div",{className:"lp"}),E("p",{className:"mu",style:{fontSize:12}},"Analizando tus metricas con IA...")):null,
+      aload?E(R.Fragment,null,E("div",{className:"lp"}),E("p",{className:"mu",style:{fontSize:12}},"Analizando metricas y rendimiento de tus tecnicas de copy...")):null,
       adv?E("div",{style:{display:"flex",flexDirection:"column",gap:10}},
-        pa.works?E("div",{className:"adv aw"},E("div",{className:"at2"},"QUE ESTA FUNCIONANDO - SIGUE HACIENDOLO"),E("div",{className:"ab"},pa.works)):null,
-        pa.improve?E("div",{className:"adv ai2"},E("div",{className:"at2"},"QUE MEJORAR - ACCIONES CONCRETAS"),E("div",{className:"ab"},pa.improve)):null,
+        pa.works?E("div",{className:"adv aw"},E("div",{className:"at2"},"QUE ESTA FUNCIONANDO"),E("div",{className:"ab"},pa.works)):null,
+        pa.improve?E("div",{className:"adv ai2"},E("div",{className:"at2"},"QUE MEJORAR"),E("div",{className:"ab"},pa.improve)):null,
         pa.stop?E("div",{className:"adv ast"},E("div",{className:"at2"},"QUE DEJAR DE HACER"),E("div",{className:"ab"},pa.stop)):null,
-        pa.key?E("div",{className:"adv ak"},E("div",{className:"at2"},"TU RECOMENDACION CLAVE ESTA SEMANA"),E("div",{className:"ab",style:{fontSize:13.5,fontWeight:500}},pa.key)):null
+        pa.tecnica?E("div",{className:"adv b6",style:{borderRadius:"var(--r)",padding:"14px 16px",background:"rgba(167,139,250,.06)",border:"1px solid rgba(167,139,250,.2)"}},E("div",{className:"at2",style:{color:"var(--pur)",marginBottom:6}},"ANALISIS POR TECNICA DE COPY"),E("div",{className:"ab",style:{color:"rgba(167,139,250,.9)"}},pa.tecnica)):null,
+        pa.key?E("div",{className:"adv ak"},E("div",{className:"at2"},"RECOMENDACION CLAVE ESTA SEMANA"),E("div",{className:"ab",style:{fontSize:13.5,fontWeight:500}},pa.key)):null
       ):null
     ):null,
-
     met.ig.length>0?E(R.Fragment,null,
       E("div",{className:"g4",style:{marginBottom:20}},
-        [{l:"Seguidores IG",v:li&&li.followers?li.followers.toLocaleString():"0",c:chg(li&&li.followers,pi&&pi.followers)},
+        [{l:"Seguidores IG",v:li2&&li2.followers?li2.followers.toLocaleString():"0",c:chg(li2&&li2.followers,pi&&pi.followers)},
          {l:"Seguidores TT",v:lt&&lt.followers?lt.followers.toLocaleString():"0",c:chg(lt&&lt.followers,pt&&pt.followers)},
-         {l:"ER Instagram",v:(li&&li.er||0)+"%",c:chg(li&&li.er,pi&&pi.er)},
-         {l:"Alcance IG",v:li&&li.reach?li.reach.toLocaleString():"0",c:chg(li&&li.reach,pi&&pi.reach)}
-        ].map(function(m,i){
-          return E("div",{key:i,className:"mc"},
-            E("p",{className:"lbl"},m.l),
-            E("div",{className:"mv"},m.v),
-            m.c?E("p",{className:+m.c>=0?"up":"dn"},(+m.c>=0?"+":"")+m.c+"% vs anterior"):null
-          );
-        })
+         {l:"ER Instagram",v:(li2&&li2.er||0)+"%",c:chg(li2&&li2.er,pi&&pi.er)},
+         {l:"Alcance IG",v:li2&&li2.reach?li2.reach.toLocaleString():"0",c:chg(li2&&li2.reach,pi&&pi.reach)}
+        ].map(function(m,i){return E("div",{key:i,className:"mc"},E("p",{className:"lbl"},m.l),E("div",{className:"mv"},m.v),m.c?E("p",{className:+m.c>=0?"up":"dn"},(+m.c>=0?"+":"")+m.c+"% vs anterior"):null)})
       ),
       E("div",{className:"g2"},
-        E("div",{className:"card"},E("h3",{style:{marginBottom:14}},"Instagram - Seguidores"),E(LineChart,{data:ig,dk:"followers",color:"#E1306C",lk:"week"})),
-        E("div",{className:"card"},E("h3",{style:{marginBottom:14}},"TikTok - Seguidores"),E(LineChart,{data:tt,dk:"followers",color:"#4fc3f7",lk:"week"})),
-        E("div",{className:"card"},E("h3",{style:{marginBottom:14}},"Instagram - Alcance semanal"),E(BarChart,{data:ig,dk:"reach",color:"#E1306C",lk:"week"})),
-        E("div",{className:"card"},E("h3",{style:{marginBottom:14}},"TikTok - Vistas semanales"),E(BarChart,{data:tt,dk:"views",color:"#4fc3f7",lk:"week"})),
-        E("div",{className:"card"},E("h3",{style:{marginBottom:14}},"Instagram - Saves por semana"),E(BarChart,{data:ig,dk:"saves",color:"#00e5a0",lk:"week"})),
-        E("div",{className:"card"},
-          E("h3",{style:{marginBottom:14}},"Engagement Rate - Ultimas 4 semanas"),
+        E("div",{className:"card"},E("h3",{style:{marginBottom:14}},"Instagram — Seguidores"),E(LineChart,{data:ig,dk:"followers",color:"#E1306C",lk:"week"})),
+        E("div",{className:"card"},E("h3",{style:{marginBottom:14}},"TikTok — Seguidores"),E(LineChart,{data:tt,dk:"followers",color:"#4fc3f7",lk:"week"})),
+        E("div",{className:"card"},E("h3",{style:{marginBottom:14}},"Instagram — Alcance semanal"),E(BarChart,{data:ig,dk:"reach",color:"#E1306C",lk:"week"})),
+        E("div",{className:"card"},E("h3",{style:{marginBottom:14}},"TikTok — Vistas semanales"),E(BarChart,{data:tt,dk:"views",color:"#4fc3f7",lk:"week"})),
+        E("div",{className:"card"},E("h3",{style:{marginBottom:14}},"Saves por semana"),E(BarChart,{data:ig,dk:"saves",color:"#00e5a0",lk:"week"})),
+        E("div",{className:"card"},E("h3",{style:{marginBottom:14}},"Engagement Rate — ultimas 4 semanas"),
           E("div",{style:{display:"flex",flexDirection:"column",gap:10,marginTop:8}},
-            ig.slice(-4).map(function(w,i){
-              return E("div",{key:i},
-                E("div",{style:{display:"flex",justifyContent:"space-between",marginBottom:4}},
-                  E("span",{style:{fontSize:12,color:"var(--txt2)"}},w.week),
-                  E("span",{style:{fontSize:12,color:"var(--acc)",fontFamily:"var(--fn)",fontWeight:600}},w.er+"%")
-                ),
-                E("div",{style:{height:6,background:"var(--bg4)",borderRadius:3}},
-                  E("div",{style:{height:"100%",width:Math.min(w.er*10,100)+"%",background:"var(--acc)",borderRadius:3,opacity:.8}})
-                )
-              );
-            })
+            ig.slice(-4).map(function(w,i){return E("div",{key:i},
+              E("div",{style:{display:"flex",justifyContent:"space-between",marginBottom:4}},E("span",{style:{fontSize:12,color:"var(--txt2)"}},w.week),E("span",{style:{fontSize:12,color:"var(--acc)",fontFamily:"var(--fn)",fontWeight:600}},w.er+"%")),
+              E("div",{style:{height:6,background:"var(--bg4)",borderRadius:3}},E("div",{style:{height:"100%",width:Math.min(w.er*10,100)+"%",background:"var(--acc)",borderRadius:3,opacity:.8}}))
+            )})
           )
         )
       )
@@ -875,6 +1021,7 @@ function PMet(props){
 }
 
 RD.render(R.createElement(App,null),document.getElementById("root"));
+
 </script>
 </body>
 </html>
