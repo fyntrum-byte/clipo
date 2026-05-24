@@ -230,25 +230,57 @@ function parseS(txt){
 function buildPrompt(profile,tech,obj,hookType,style,cta,topic,extra,mode,hist){
   var dt=getDate();
   var recent=(hist||[]).slice(0,15).map(function(h){return h.topic}).join(", ");
-  var objMap={followers:"Conseguir SEGUIDORES — el contenido debe hacer que quien lo vea quiera ver mas de tu cuenta",leads:"Generar LEADS — el contenido debe llevar al DM o al link, no vender directamente",sell:"VENDER directamente — el contenido debe generar deseo y urgencia de compra inmediata",viral:"VIRALIZAR e interaccion — el contenido debe generar comentarios, compartidos y guardados masivos",authority:"POSICIONAR AUTORIDAD — el contenido debe hacer que el espectador vea a "+profile.name+" como el experto indiscutible del tema"};
-  var hookMap={question:"PREGUNTA QUE DUELE: comienza con una pregunta que golpea directamente el dolor mas profundo de "+profile.audience+". Ejemplo: 'Por que sigues [haciendo X] si sabes que no funciona?'",stat:"DATO QUE ROMPE CREENCIAS: comienza con una estadistica o hecho sorprendente que contradice lo que el espectador cree. Ejemplo: 'El 94% de [audiencia] comete este error sin saberlo'",bold:"DECLARACION PROVOCADORA: una afirmacion directa y controversial que obliga a seguir escuchando. Ejemplo: 'Todo lo que te enseñaron sobre [tema] esta completamente mal'",story:"HISTORIA EN PRESENTE: empieza en medio de una situacion real que "+profile.audience+" reconoce. Ejemplo: 'Hace [tiempo] estaba exactamente donde estas tu ahora mismo'",contra:"CONTRADICCION: afirma lo opuesto a lo que el espectador espera. Ejemplo: 'Hacer mas contenido NO te hace crecer — esto si lo hace'"};
-  var styleMap={authority:"Tono AUTORITARIO Y DIRECTO: habla con total seguridad, sin rodeos, como quien sabe mas que nadie del tema. Sin suavizantes ni disculpas.",close:"Tono CERCANO Y CONVERSACIONAL: habla como si le explicaras a un amigo. Natural, con lenguaje cotidiano, sin tecnicismos innecesarios.",provocative:"Tono PROVOCADOR E IRREVERENTE: sacude, incomoda, genera reaccion. No temes decir lo que nadie dice. Usa humor negro si aplica.",educational:"Tono EDUCATIVO CON DATOS: cada afirmacion respaldada con datos, ejemplos o evidencia. Estructurado, claro, credible.",emotional:"Tono STORYTELLING EMOCIONAL: conecta desde las emociones primero, los datos despues. El espectador debe sentir antes de pensar."};
-  var ctaMap={follow:"CTA: al final, invitar a SEGUIR la cuenta porque hay mas contenido sobre [tema especifico]. Natural, no agresivo.",dm:"CTA: invitar a escribir una PALABRA CLAVE al DM para recibir [recurso especifico relacionado al tema].",bio:"CTA: dirigir al LINK EN BIO con un beneficio concreto en 5 palabras maximas.",comment:"CTA: pedir que COMENTEN una palabra o que respondan una pregunta especifica para disparar el algoritmo."};
-  var modeBlock=mode==="pauta"?"MODO PAUTA — OBLIGATORIO: PROHIBIDO garantias, % de retorno especificos, 'ganaras dinero', superlativos no verificables, urgencia falsa. CTAs permitidos: 'Conoce mas','Aprende como','Solicita informacion'. Estructura: Hook 0-3s - Valor 3-12s - CTA 12-15s. Marca al final: APTO PARA PAUTA":"MODO ORGANICO — sin restricciones de politicas publicitarias.";
-
-  return "FECHA ACTUAL: "+dt.full+" ("+dt.iso+"), "+dt.hour+" UTC-5. ANO: "+dt.year+". Toda referencia temporal usa "+dt.year+", NO 2025.\n"+
-"IDENTIDAD DE MARCA:\nCreador: "+profile.name+" | Industria: "+profile.industry+" | Producto/Servicio: "+profile.product+"\nAudiencia exacta: "+profile.audience+" | Plataforma: "+profile.platform+"\n\n"+
-"OBJETIVO DEL CONTENIDO: "+objMap[obj]+"\n\n"+
-"TIPO DE HOOK: "+hookMap[hookType]+"\nEl hook NO puede durar mas de 3 segundos hablados. NO uses preguntas genericas ni frases de motivacion vacia.\n\n"+
-"ESTILO COMUNICACIONAL: "+styleMap[style]+"\n\n"+
-"CTA: "+ctaMap[cta]+"\n\n"+
-"TECNICA DE COPY: "+tech+"\n\n"+
-modeBlock+"\n\n"+
-"ANTI-REDUNDANCIA: NO repitas angulo de estos temas ya usados: ["+(recent||"ninguno")+"].\n\n"+
-"REGLAS ANTI-GENERICO (CRITICAS):\n- Cada frase especifica para "+profile.audience+". Si la puede decir cualquier creador, reescribela.\n- Prohibido: frases motivacionales vacias, consejos obvios, palabras como 'increible','sin duda','asombroso'.\n- Menciona situaciones concretas que vive exactamente "+profile.audience+".\n- El oyente DEBE pensar 'esto lo escribieron para mi'.\n\n"+
-"FORMATO DE RESPUESTA OBLIGATORIO:\n[SCRIPT]\n🎬 HOOK (primeras palabras exactas, max 15 palabras):\n[hook]\n\n📝 GUION COMPLETO ("+tech+"):\n[guion con pausas marcadas como [PAUSA], max 60 segundos hablados, especifico para "+profile.audience+"]\n\n⏱ Duracion estimada: [X segundos]\n📣 CTA final: [cta exacto]\n"+(mode==="pauta"?"\nAPTO PARA PAUTA":"")+"\n[/SCRIPT]\n[HOOK_B]\n[variante B completamente distinta del hook, mismo tema, diferente angulo]\n[/HOOK_B]\n[SEO_IG]\n[descripcion SEO Instagram: 150-200 palabras, emojis estrategicos, CTA, 20 hashtags segmentados al final]\n[/SEO_IG]\n[SEO_TT]\n[descripcion SEO TikTok: 80-100 palabras directas, 15 hashtags trending]\n[/SEO_TT]";
+  var objMap={
+    followers:"Conseguir SEGUIDORES — el contenido debe hacer que quien lo vea quiera ver mas de tu cuenta",
+    leads:"Generar LEADS — el contenido debe llevar al DM o al link, no vender directamente",
+    sell:"VENDER directamente — el contenido debe generar deseo y urgencia de compra inmediata",
+    viral:"VIRALIZAR e interaccion — el contenido debe generar comentarios, compartidos y guardados masivos",
+    authority:"POSICIONAR AUTORIDAD — el contenido debe hacer que el espectador vea a "+profile.name+" como el experto indiscutible"
+  };
+  var hookMap={
+    question:"PREGUNTA QUE DUELE: comienza con una pregunta que golpea directamente el dolor mas profundo de "+profile.audience+". Ej: 'Por que sigues haciendo X si sabes que no funciona?'",
+    stat:"DATO QUE ROMPE CREENCIAS: comienza con una estadistica o hecho sorprendente que contradice lo que el espectador cree. Ej: 'El 94% de personas en "+profile.industry+" comete este error'",
+    bold:"DECLARACION PROVOCADORA: una afirmacion directa y controversial que obliga a seguir escuchando. Ej: 'Todo lo que te ensenaron sobre "+profile.industry+" esta mal'",
+    story:"HISTORIA EN PRESENTE: empieza en medio de una situacion real que "+profile.audience+" reconoce. Ej: 'Hace unos meses estaba exactamente donde estas tu ahora'",
+    contra:"CONTRADICCION: afirma lo opuesto a lo que el espectador espera. Ej: 'Hacer mas contenido NO te hace crecer, esto si lo hace'"
+  };
+  var styleMap={
+    authority:"Tono AUTORITARIO Y DIRECTO: habla con total seguridad, sin rodeos. Sin suavizantes ni disculpas.",
+    close:"Tono CERCANO Y CONVERSACIONAL: habla como si le explicaras a un amigo. Natural, cotidiano.",
+    provocative:"Tono PROVOCADOR E IRREVERENTE: sacude, incomoda, genera reaccion. No temes decir lo que nadie dice.",
+    educational:"Tono EDUCATIVO CON DATOS: cada afirmacion respaldada con datos o evidencia. Estructurado y credible.",
+    emotional:"Tono STORYTELLING EMOCIONAL: conecta desde las emociones primero, los datos despues."
+  };
+  var ctaMap={
+    follow:"CTA: al final, invitar a SEGUIR la cuenta porque hay mas contenido especifico sobre este tema.",
+    dm:"CTA: invitar a escribir una PALABRA CLAVE al DM para recibir un recurso especifico relacionado al tema.",
+    bio:"CTA: dirigir al LINK EN BIO con un beneficio concreto en 5 palabras maximas.",
+    comment:"CTA: pedir que COMENTEN una palabra o respondan una pregunta especifica para disparar el algoritmo."
+  };
+  var modeBlock=mode==="pauta"?"MODO PAUTA OBLIGATORIO: PROHIBIDO garantias, % de retorno especificos, superlativos no verificables, urgencia falsa. CTAs permitidos: Conoce mas, Aprende como, Solicita informacion. Estructura: Hook 0-3s - Valor 3-12s - CTA 12-15s. Marca al final: APTO PARA PAUTA":"MODO ORGANICO sin restricciones de politicas publicitarias.";
+  var parts=[
+    "FECHA ACTUAL: "+dt.full+" ("+dt.iso+"), "+dt.hour+" UTC-5. ANO: "+dt.year+". Toda referencia temporal usa "+dt.year+", NO 2025.",
+    "IDENTIDAD DE MARCA: Creador: "+profile.name+" | Industria: "+profile.industry+" | Producto: "+profile.product+" | Audiencia: "+profile.audience+" | Plataforma: "+profile.platform,
+    "OBJETIVO DEL CONTENIDO: "+(objMap[obj]||obj),
+    "TIPO DE HOOK: "+(hookMap[hookType]||hookType)+". El hook NO puede durar mas de 3 segundos hablados. NO uses preguntas genericas ni motivacion vacia.",
+    "ESTILO COMUNICACIONAL: "+(styleMap[style]||style),
+    "CTA: "+(ctaMap[cta]||cta),
+    "TECNICA DE COPY: "+tech,
+    modeBlock,
+    "ANTI-REDUNDANCIA: NO repitas angulo de estos temas ya usados: ["+(recent||"ninguno")+"].",
+    "REGLAS ANTI-GENERICO CRITICAS: Cada frase especifica para "+profile.audience+". Si la puede decir cualquier creador, reescribela. Prohibido: frases motivacionales vacias, consejos obvios, palabras como increible o sin duda. Menciona situaciones concretas que vive "+profile.audience+". El oyente DEBE pensar esto lo escribieron para mi.",
+    "FORMATO DE RESPUESTA OBLIGATORIO:",
+    "[SCRIPT]",
+    "HOOK (primeras palabras exactas, max 15 palabras): [hook]",
+    "GUION COMPLETO ("+tech+"): [guion con pausas [PAUSA], max 60 segundos hablados]",
+    (mode==="pauta"?"APTO PARA PAUTA":""),
+    "[/SCRIPT]",
+    "[HOOK_B][variante B completamente distinta del hook, mismo tema, diferente angulo][/HOOK_B]",
+    "[SEO_IG][descripcion SEO Instagram: 150-200 palabras, emojis, CTA, 20 hashtags][/SEO_IG]",
+    "[SEO_TT][descripcion SEO TikTok: 80-100 palabras, 15 hashtags trending][/SEO_TT]"
+  ];
+  return parts.join("\n");
 }
-
 // ── APP ─────────────────────────────────────────────────────────────────────
 function App(){
   var _k=useState(function(){return ls("clipo_key","")});var apiKey=_k[0],setApiKey=_k[1];
@@ -404,18 +436,75 @@ function PInicio(props){
     setIl(true);setIdeas(null);setSelIdea("");
     var dt=getDate();
     var recent=(hist||[]).slice(0,20).map(function(h){return h.topic}).join(", ");
+    var recentArch=ls("clipo_recent_arch",[]).slice(0,8).join(", ");
     try{
-      var sys="Eres el generador de ideas de Clipo. FECHA: "+dt.full+". ANO: "+dt.year+".\nMARCA: "+profile.name+" | "+profile.industry+" | Producto: "+profile.product+" | Audiencia: "+profile.audience+" | Plataforma: "+profile.platform+"\nTEMA MACRO: '"+act+"' — expande en 8 angulos DISTINTOS y ESPECIFICOS.\nANTI-REDUNDANCIA: NO repitas ni parafrasees estos temas ya usados: ["+(recent||"ninguno")+"]\nREGLAS:\n- Titulos concretos. MAL: 'Consejos de trading'. BIEN: 'Por que el 80% de traders pierde en los primeros 3 meses'\n- Cada idea = angulo UNICO\n- Especifico para "+profile.audience+"\nFORMATO OBLIGATORIO para cada idea:\nIDEA_START\nTITULO: [titulo especifico del video]\nHOOK: [primeras palabras, max 12 palabras]\nCONTEXTO: [2 lineas: que puntos tocar, emocion objetivo, por que le importa a "+profile.audience+"]\nIDEA_END\nRepite 8 veces.";
-      var txt=await apiCall(apiKey,sys,"Tema macro: '"+act+"'. Genera 8 ideas distintas para "+profile.name+".","claude-haiku-4-5-20251001",1400);
+      var lines=[
+        "Eres el estratega de contenido viral de Clipo.",
+        "FECHA: "+dt.full+". ANO: "+dt.year+".",
+        "MARCA: "+profile.name+" | INDUSTRIA: "+profile.industry+" | PRODUCTO: "+profile.product+" | AUDIENCIA: "+profile.audience+" | PLATAFORMA: "+profile.platform,
+        "TEMA MACRO DEL DIA: '"+act+"'",
+        "",
+        "TU MISION: Genera 8 ideas basadas en ARQUETIPOS VIRALES PROBADOS que han funcionado historicamente. Cada arquetipo funciona por psicologia humana universal y sirve para cualquier negocio o industria.",
+        "",
+        "ARQUETIPOS DISPONIBLES (elige los mas potentes para "+profile.industry+"):",
+        "- CONFESION PERSONAL: vulnerabilidad real que humaniza y genera identificacion masiva",
+        "- MITO VS REALIDAD: contradice una creencia comun, para el scroll por disonancia cognitiva",
+        "- NUMERO ESPECIFICO: concrecion con datos reales, genera credibilidad instantanea",
+        "- ANTES / DESPUES: transformacion aspiracional, genera deseo e identificacion",
+        "- ERROR COMUN: miedo a cometer el mismo error, alto engagement y shares preventivos",
+        "- SECRETO DE INDUSTRIA: informacion privilegiada percibida, genera urgencia de ver",
+        "- RETO O EXPERIMENTO: curiosidad mas seguimiento, retiene audiencia episodicamente",
+        "- DETRAS DE CAMARAS: autenticidad del proceso, genera confianza y conexion profunda",
+        "- HISTORIA DE FRACASO: el fracaso bien contado convierte mas que el exito",
+        "- REACCION O RESPUESTA: aprovecha contenido existente, amplifica alcance organico",
+        "",
+        "ANTI-REDUNDANCIA CRITICA:",
+        "- Temas ya usados NO repetir: ["+(recent||"ninguno")+"]",
+        "- Arquetipos ya usados recientemente NO repetir: ["+(recentArch||"ninguno")+"]",
+        "- Cada idea debe tener un arquetipo DIFERENTE entre si",
+        "",
+        "REGLAS DE CALIDAD:",
+        "- Titulos ultra-especificos para "+profile.audience+". MALO: Consejos de "+profile.industry+". BUENO: titulo con situacion concreta, numero o tension real",
+        "- El titulo debe sonar como si solo "+profile.name+" pudiera decirlo",
+        "- NO incluyas hooks ni CTAs, eso lo hace el Script Engine",
+        "- La estructura describe la logica narrativa, no el guion",
+        "",
+        "FORMATO OBLIGATORIO para cada idea:",
+        "IDEA_START",
+        "ARQUETIPO: [nombre exacto del arquetipo]",
+        "TITULO: [titulo especifico y concreto para "+profile.name+"]",
+        "POR_QUE_VIRALIZA: [2-3 lineas: mecanica psicologica exacta, por que funciona en "+profile.industry+", que emocion dispara en "+profile.audience+"]",
+        "COMO_ESTRUCTURARLA: [2-3 lineas: como abrir, que mostrar en desarrollo, como cerrar sin hook ni CTA]",
+        "IDEA_END",
+        "",
+        "Genera exactamente 8 ideas con arquetipos distintos."
+      ];
+      var sys=lines.join("\n");
+      var txt=await apiCall(apiKey,sys,"Tema macro del dia: '"+act+"'. Crea 8 ideas virales para "+profile.name+" en "+profile.industry+".","claude-haiku-4-5-20251001",1600);
       var blocks=txt.split("IDEA_START").slice(1);
       var parsed=blocks.map(function(block){
         var c=block.split("IDEA_END")[0]||block;
-        var tM=c.match(/TITULO:\s*(.+)/);var hM=c.match(/HOOK:\s*(.+)/);var cM=c.match(/CONTEXTO:\s*([\s\S]+?)(?=IDEA_END|$)/);
-        return{title:tM?tM[1].trim():"",hook:hM?hM[1].trim():"",context:cM?cM[1].trim().slice(0,220):""};
-      }).filter(function(i){return i.title.length>5});
-      if(parsed.length===0){parsed=txt.split("\n").filter(function(l){return l.trim().length>20}).slice(0,8).map(function(l){return{title:l.replace(/^\d+[.)]\s*/,"").trim(),hook:"",context:""}});}
+        var aM=c.match(/ARQUETIPO:\s*([^\n]+)/);
+        var tM=c.match(/TITULO:\s*([^\n]+)/);
+        var vM=c.match(/POR_QUE_VIRALIZA:\s*([\s\S]+?)(?=COMO_ESTRUCTURARLA:|IDEA_END|$)/);
+        var eM=c.match(/COMO_ESTRUCTURARLA:\s*([\s\S]+?)(?=IDEA_END|$)/);
+        return{
+          archetype:aM?aM[1].trim():"",
+          title:tM?tM[1].trim():"",
+          viral:vM?vM[1].trim().slice(0,300):"",
+          structure:eM?eM[1].trim().slice(0,280):""
+        };
+      }).filter(function(i){return i.title&&i.title.length>5});
+      if(parsed.length===0){
+        parsed=txt.split("\n").filter(function(l){return l.trim().length>20}).slice(0,8).map(function(l){
+          return{archetype:"Idea",title:l.replace(/^\d+[.)]\s*/,"").trim(),viral:"",structure:""};
+        });
+      }
+      var usedArch=parsed.map(function(i){return i.archetype}).filter(Boolean);
+      var prevArch=ls("clipo_recent_arch",[]);
+      lss("clipo_recent_arch",usedArch.concat(prevArch).slice(0,16));
       setIdeas(parsed);
-    }catch(e){toast("Error: "+e.message)}
+    }catch(e){toast("Error generando ideas: "+e.message)}
     setIl(false);
   }
 
@@ -448,23 +537,32 @@ function PInicio(props){
             var isSel=selIdea===idea.title;
             return E("div",{key:i,style:{background:isSel?"rgba(0,229,160,.1)":"var(--bg3)",border:"1px solid "+(isSel?"var(--acc)":"var(--bd)"),borderRadius:"var(--r)",padding:"12px",cursor:"pointer",transition:".15s"},onClick:function(){setSelIdea(isSel?"":idea.title)}},
               E("div",{style:{display:"flex",gap:8}},
-                E("span",{style:{fontFamily:"var(--fn)",fontSize:11,fontWeight:700,color:"var(--acc)",flexShrink:0}},i+1),
-                E("div",null,
-                  E("p",{style:{fontSize:12,fontWeight:600,color:"var(--txt)",lineHeight:1.5,marginBottom:3}},idea.title),
-                  idea.hook?E("p",{style:{fontSize:11,color:"var(--acc)",fontStyle:"italic",marginBottom:3}},'"'+idea.hook+'"'):null,
-                  idea.context?E("p",{style:{fontSize:11,color:"var(--txt2)",lineHeight:1.5}},idea.context):null
+                E("span",{style:{fontFamily:"var(--fn)",fontSize:11,fontWeight:700,color:"var(--acc)",flexShrink:0,marginTop:1}},i+1),
+                E("div",{style:{flex:1}},
+                  idea.archetype?E("span",{style:{fontSize:9,fontWeight:700,background:"rgba(0,229,160,.12)",color:"var(--acc)",padding:"2px 7px",borderRadius:20,display:"inline-block",marginBottom:5,textTransform:"uppercase",letterSpacing:".04em"}},idea.archetype):null,
+                  E("p",{style:{fontSize:12,fontWeight:600,color:"var(--txt)",lineHeight:1.5,marginBottom:5}},idea.title),
+                  idea.viral?E("div",{style:{marginBottom:5}},
+                    E("p",{style:{fontSize:10,fontWeight:600,color:"var(--warn)",marginBottom:2}},"Por que viraliza"),
+                    E("p",{style:{fontSize:11,color:"var(--txt2)",lineHeight:1.55}},idea.viral)
+                  ):null,
+                  idea.structure?E("div",null,
+                    E("p",{style:{fontSize:10,fontWeight:600,color:"var(--pur)",marginBottom:2}},"Como estructurarla"),
+                    E("p",{style:{fontSize:11,color:"var(--txt2)",lineHeight:1.55}},idea.structure)
+                  ):null
                 )
               ),
-              isSel?E("div",{style:{display:"flex",gap:6,marginTop:8}},
-                E("button",{className:"btn bg_ sm",style:{flex:1,justifyContent:"center",fontSize:11},onClick:function(e){e.stopPropagation();var full="TITULO: "+idea.title+(idea.hook?"\nHOOK: "+idea.hook:"")+(idea.context?"\nCONTEXTO PARA EL GUION: "+idea.context:"");navigator.clipboard.writeText(full).then(function(){toast("Copiado — pega en Script Engine")})}},"Copiar todo"),
-                E("button",{className:"btn ba sm",style:{flex:1,justifyContent:"center",fontSize:11},onClick:function(e){e.stopPropagation();addHist(idea.title);saveLib({content:"TITULO: "+idea.title+(idea.hook?"\nHOOK: "+idea.hook:"")+(idea.context?"\nCONTEXTO: "+idea.context:""),technique:"IDEA",mode:"organic",topic:idea.title});}},"Guardar")
+              isSel?E("div",{style:{display:"flex",gap:6,marginTop:10}},
+                E("button",{className:"btn bg_ sm",style:{flex:1,justifyContent:"center",fontSize:11},onClick:function(e){
+                  e.stopPropagation();
+                  saveLib({content:"TITULO: "+idea.title+(idea.archetype?"\nARQUETIPO: "+idea.archetype:"")+(idea.viral?"\nPOR QUE VIRALIZA: "+idea.viral:"")+(idea.structure?"\nESTRUCTURA: "+idea.structure:""),technique:"IDEA",mode:"organic",topic:idea.title});
+                }},"Guardar")
               ):null
             );
           })
         ),
         selIdea?E("div",{style:{marginTop:10,padding:"10px 14px",background:"rgba(0,229,160,.06)",borderRadius:"var(--r)",border:"1px solid rgba(0,229,160,.15)"}},
-          E("p",{style:{fontSize:12,color:"var(--acc)",fontWeight:600,marginBottom:3}},"Como usar esta idea:"),
-          E("p",{style:{fontSize:12,color:"var(--txt2)",lineHeight:1.6}},"Copia todo — pega el titulo en 'Tema' del Script Engine y el contexto en 'Contexto adicional'. Elige tu tecnica y genera.")
+          E("p",{style:{fontSize:12,color:"var(--acc)",fontWeight:600,marginBottom:3}},"Como usar esta idea en Script Engine:"),
+          E("p",{style:{fontSize:12,color:"var(--txt2)",lineHeight:1.6}},"1. Copia la idea — pega el titulo en 'Tema'\n2. Usa la estructura narrativa como guia en 'Contexto adicional'\n3. Elige tu tecnica de copy y estilo comunicacional\n4. El Engine genera el hook, CTA y guion completo")
         ):null
       ):null
     ),
